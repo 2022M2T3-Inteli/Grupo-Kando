@@ -1,0 +1,16 @@
+#sidebar {
+    background-color: #0A2D82;
+    height: 100vh;
+    max-width: 60px;
+}
+#page {
+    background-color: rgb(204, 204, 204);
+}
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #173FA0;
+    color: white;
+    height: 60px;
+}
