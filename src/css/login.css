@@ -75,17 +75,39 @@
     color: #fff;
 } */
 
+body {
+    color: F5F5F5 ;
+
+
+}
+
 #login-sidebar {
     
-    background-color: blue;
+    background-color: #173FA0;
     border-radius: 20px 0 0 20px;
     min-height: 100vh;
 
 }
 #login-logo {
-    background-color: white;
+    background-color: #F5F5F5;
     min-height: 100vh;
     
+}
+
+#login-logo-img {
+    padding-left: 90px;
+    
+
+
+
+}
+
+#subtitulo-img-login {
+    text-align: center;
+
+
+
+
 }
 .form-group {
 /* padding-top: 50%; */
@@ -97,7 +119,25 @@
 }
 #login-title {
     color: white;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    
+}
+
+#login-access {
+    
+    margin-top: 40px;
+    width: 40px;
+    
+
+
+}
+
+#login-access:hover {
+
+    transition: ease 500ms;
+    background-color: #F5F5F5;
+    border-radius: 100%;
+
 }
 .input-style {
     margin-bottom: 20px;
@@ -106,3 +146,8 @@
     height: 50px;
     text-align: center;
 }
+
+
+
+
+
