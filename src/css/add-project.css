@@ -1,0 +1,25 @@
+#modal-container-add-project {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+}
+
+#div-add-function {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%
+}
+
+#buttons-section {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  width: 60%;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
