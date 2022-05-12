@@ -6,7 +6,7 @@
     color: white;
     text-align: center;
     height: 100vh;
-    max-width: 60px;
+    max-width: 80px;
 }
 
 
@@ -66,10 +66,19 @@ li{
 
 }
 
+#icon2{
+    background-color: rgb(41, 145, 237);
+}
+
 .icons-group{
     height: 60px;
     width: 80px;
 }
+
+.icons-group:hover {
+    transition: ease 500ms;
+    background-color: rgb(41, 145, 237);
+   }
 
 #search{
     height: 34px;

@@ -2,12 +2,13 @@
     
     background-color: #0A2D82;
     height: 100vh;
-    max-width: 60px;
+    max-width: 80px;
 
 
 
     
 }
+
 
 
 
@@ -83,6 +84,10 @@ li{
 
 }
 
+.icons-group:hover {
+    transition: ease 500ms;
+    background-color: rgb(41, 145, 237);
+}
 
 #Botão{
 

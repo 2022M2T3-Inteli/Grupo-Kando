@@ -32,3 +32,12 @@ body{
 #employee-tag-element {
   display: flex;
 }
+
+.icons-group:hover {
+  transition: ease 500ms;
+  background-color: rgb(41, 145, 237);
+ }
+
+ #icon3 {
+  background-color: rgb(41, 145, 237);
+ }
