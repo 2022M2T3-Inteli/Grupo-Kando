@@ -1,8 +1,12 @@
 #sidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #0A2D82;
+    color: white;
+    text-align: center;
     height: 100vh;
-    max-width: 600px;
-
+    max-width: 60px;
 }
 
 
@@ -62,6 +66,10 @@ li{
 
 }
 
+.icons-group{
+    height: 60px;
+    width: 80px;
+}
 
 #search{
     height: 34px;
