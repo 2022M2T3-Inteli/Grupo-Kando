@@ -41,3 +41,23 @@ body{
  #icon3 {
   background-color: rgb(41, 145, 237);
  }
+
+ #sidebar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0A2D82;
+  color: white;
+  text-align: center;
+  height: 100vh;
+  max-width: 80px;
+}
+
+.icons-group:hover {
+transition: ease 500ms;
+background-color: rgb(41, 145, 237);
+}
+
+#icon2 {
+background-color: rgb(41, 145, 237);
+}
