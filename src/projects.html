@@ -48,19 +48,19 @@
             </a>
 
             <!-- ícone de projetos -->
-            <a href="projects.html"">
+            <a href="projects.html">
               <div>
                 <img
                   src="img/projects-icon.png"
                   alt="projects-menu-icon"
                   class="icons-group"
-                  id= "icon2"
+                  id="icon2"
                 />
               </div>
             </a>
 
             <!-- icone de funcionarios -->
-            <a href="employees.html" >
+            <a href="employees.html">
               <div>
                 <img
                   src="img/employess-icon.png"
@@ -71,8 +71,12 @@
               </div>
             </a>
             <a href="index.html" id="icon-exit">
-              <img src="img/logout-icon.png" alt="logout-icon" class="icons-group">
-          </a>
+              <img
+                src="img/logout-icon.png"
+                alt="logout-icon"
+                class="icons-group"
+              />
+            </a>
           </div>
         </div>
         <div id="page" class="col">
@@ -101,7 +105,7 @@
                     </form>
                   </div>
                   <!-- Button trigger modal -->
-                  <div class="col" id="add-project-button">
+                  <div class="col add-element-button">
                     <button
                       type="button"
                       class="btn-primary"
@@ -127,19 +131,29 @@
                     <tbody>
                       <tr>
                         <th class="row1" scope="row">Projeto 1</th>
-                        <td>5 Pessoas</td>
+                        <td>3 Pessoas</td>
                         <td>80% Concluído</td>
                         <td>75% Concluído</td>
                         <td>48 Horas</td>
                         <td>
-                          <span class="material-symbols-outlined">
-                            visibility
-                          </span>
+                          <!-- button trigger modal view project -->
+                          <div class="col">
+                            <button
+                              type="button"
+                              class="btn-primary"
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-project-modal"
+                            >
+                              <span class="material-symbols-outlined">
+                                visibility
+                              </span>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                       <tr>
                         <th class="row1" scope="row">Projeto 2</th>
-                        <td>3 Pessoas</td>
+                        <td>5 Pessoas</td>
                         <td>25% Concluído</td>
                         <td>33% Concluído</td>
                         <td>12 Horas</td>
@@ -149,6 +163,7 @@
                           </span>
                         </td>
                       </tr>
+
                       <tr>
                         <th class="row1" scope="row">Projeto 3</th>
                         <td>8 Pessoas</td>
@@ -170,7 +185,7 @@
         </div>
       </div>
 
-      <!-- Modal -->
+      <!-- modal add project -->
       <div class="parent-modal">
         <div
           class="modal fade"
@@ -183,7 +198,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="add-project-modal-label">
-                  Adicionar Projeto
+                  <strong>Adicionar Projeto</strong>
                 </h5>
                 <button
                   type="button"
@@ -193,61 +208,166 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="project-name">Nome do Projeto: </label>
+                <div class="row container">
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="project-name">Nome do Projeto: </label>
+                    </div>
+                    <div class="col-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="project-name"
+                        id="project-name"
+                        placeholder="Nome do Projeto"
+                      />
+                    </div>
                   </div>
-                  <div class="col-8">
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="project-name"
-                      id="project-name"
-                      placeholder="Nome do Projeto"
-                    />
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="project-conclusion-date"
+                        >Data de Conclusão:
+                      </label>
+                    </div>
+                    <div class="col">
+                      <input
+                        type="date"
+                        name="project-conclusion-date"
+                        id="conclusion-date"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="project-conclusion-date"
-                      >Data de Conclusão:
-                    </label>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="project-local">Região: </label>
+                    </div>
+                    <div class="col">
+                      <select name="project-local" id="local">
+                        <option value="AM">Manaus</option>
+                        <option value="SP">Guarulhos</option>
+                      </select>
+                    </div>
                   </div>
-                  <div class="col">
-                    <input
-                      type="date"
-                      name="project-conclusion-date"
-                      id="conclusion-date"
-                    />
-                  </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="project-local">Região: </label>
-                  </div>
-                  <div class="col">
-                    <select name="project-local" id="local">
-                      <option value="AM">Manaus</option>
-                      <option value="SP">Guarulhos</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="project-description"
-                      >Descrição do Projeto:
-                    </label>
-                  </div>
-                  <div class="col-8">
-                    <textarea
-                      class="form-control"
-                      name="project-description"
-                      id="project-description"
-                      rows="6"
-                    ></textarea>
-                  </div>
-                  <div class="row" id="div-add-role">
-                    <div>Funções</div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="project-description"
+                        >Descrição do Projeto:
+                      </label>
+                    </div>
+                    <div class="col-8">
+                      <textarea
+                        class="form-control"
+                        name="project-description"
+                        id="project-description"
+                        rows="6"
+                      ></textarea>
+                    </div>
+                    <div class="row" id="div-add-role">
+                      <div class="col-1">
+                        <label for="tags">Funções: </label>
+                      </div>
+                      <div class="col" id="add-employee-role">
+                        <div class="col">
+                          <select class="form-control" id="new-employee-role">
+                            <option id="developer-role-name">
+                              Desenvolvedor
+                            </option>
+                            <option id="analist-role-name">Analista</option>
+                            <option id="support-role-name">Suporte</option>
+                            <option id="tester-role-name">Tester</option>
+                          </select>
+                        </div>
+                        <div class="col">
+                          <button type="button" onclick="newRoleName()">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" id="roles-added">
+                      <div id="accordion">
+                        <div class="card">
+                          <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                              <button
+                                class="btn btn-link"
+                                data-toggle="collapse"
+                                data-target="#collapseOne"
+                                aria-expanded="true"
+                                aria-controls="collapseOne"
+                              >
+                                Desenvolvedores
+                              </button>
+                            </h5>
+                          </div>
+
+                          <div
+                            id="collapseOne"
+                            class="collapse show"
+                            aria-labelledby="headingOne"
+                            data-parent="#accordion"
+                          >
+                            <div class="card-body">
+                              <div class="row">Fernando Araujo</div>
+                              <div class="row">Felipe Saadi</div>
+                              <div class="row">Mateus Almeida</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card">
+                          <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                              <button
+                                class="btn btn-link collapsed"
+                                data-toggle="collapse"
+                                data-target="#collapseTwo"
+                                aria-expanded="false"
+                                aria-controls="collapseTwo"
+                              >
+                                Analistas
+                              </button>
+                            </h5>
+                          </div>
+                          <div
+                            id="collapseTwo"
+                            class="collapse"
+                            aria-labelledby="headingTwo"
+                            data-parent="#accordion"
+                          >
+                            <div class="card-body">
+                              <div class="row">Iago Medeiros</div>
+                              <div class="row">Vinicius Santos</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card">
+                          <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                              <button
+                                class="btn btn-link collapsed"
+                                data-toggle="collapse"
+                                data-target="#collapseThree"
+                                aria-expanded="false"
+                                aria-controls="collapseThree"
+                              >
+                                Suporte
+                              </button>
+                            </h5>
+                          </div>
+                          <div
+                            id="collapseThree"
+                            class="collapse"
+                            aria-labelledby="headingThree"
+                            data-parent="#accordion"
+                          >
+                            <div class="card-body">
+                              <div class="row">Rodrigo Martins</div>
+                              <div class="row">Gabriel Pascoli</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -263,6 +383,197 @@
           </div>
         </div>
       </div>
+
+      <!-- modal view project -->
+      <div class="parent-modal parent-modal-project">
+        <div
+          class="modal fade"
+          id="view-project-modal"
+          tabindex="-1"
+          aria-labelledby="view-project-modal-label"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-container">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#edit-project-modal"
+                  >
+                    Editar
+                  </button>
+                </div>
+                <div class="col">
+                  <h5 class="modal-title" id="view-project-modal-label">
+                    Projeto
+                  </h5>
+                </div>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="row container" id="project-info-section">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Nome:</th>
+                        <td>PROJETO 1</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Região:</th>
+                        <td>MANAUS</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Início:</th>
+                        <td>01/02/2022</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Fim:</th>
+                        <td>08/08/2022</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="row container">
+                  <table
+                    id="project-employees-list"
+                    class="table table-sm project-view-tables"
+                  >
+                    <thead>
+                      <tr class="table-head">
+                        <th scope="col">Funcionário</th>
+                        <th scope="col">Função</th>
+                        <th scope="col">Alocação Mensal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Fernando Paiva</td>
+                        <td>Programador</td>
+                        <td>64H / 180H</td>
+                      </tr>
+                      <tr>
+                        <td>Carlos Alberto Rocha</td>
+                        <td>Analista</td>
+                        <td>58H / 180H</td>
+                      </tr>
+                      <tr>
+                        <td>Larissa Alves</td>
+                        <td>Suporte</td>
+                        <td>100H / 180H</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- modal edit project -->
+      <div class="parent-modal">
+        <div
+          class="modal fade"
+          id="edit-project-modal"
+          tabindex="-1"
+          aria-labelledby="edit-project-modal-label"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-container">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="edit-project-modal-label">
+                  Editar Projeto
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="row container">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="project-name">Nome do Projeto: </label>
+                      </div>
+                      <div class="col-8">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="project-name"
+                          id="project-name"
+                          placeholder="Nome do Projeto"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="project-local">Região: </label>
+                    </div>
+                    <div class="col">
+                      <select name="project-local" id="local">
+                        <option value="AM">Manaus</option>
+                        <option value="SP">Guarulhos</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="project-start-date">Início: </label>
+                      </div>
+                      <div class="col-8">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="project-start-date"
+                          id="project-start-date"
+                          placeholder="Data de Início"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="project-end-date">Fim: </label>
+                      </div>
+                      <div class="col-8">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="project-end-date"
+                          id="project-end-date"
+                          placeholder="Data de Fim"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div id="buttons-container">
+                  <button type="button" class="btn-primary">Salvar</button>
+                  <button type="button" class="btn-primary">Cancelar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Bootstrap -->
     <script
@@ -271,5 +582,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/cadastro_projeto.js"></script>
+    <script src="js/project-add-employee-role.js"></script>
   </body>
 </html>

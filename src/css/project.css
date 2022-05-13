@@ -19,11 +19,7 @@ body{
     align-self: flex-end;
   }
   
-  #add-project-button {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
+
   
   #employee-tag-list {
     display: flex;

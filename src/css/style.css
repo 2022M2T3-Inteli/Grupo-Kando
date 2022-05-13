@@ -42,6 +42,11 @@ body {
     background-color: rgb(41, 145, 237);
    }
 
+.add-element-button {
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+}
 
 
 /* estilo padrão para os modals */

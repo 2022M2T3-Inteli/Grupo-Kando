@@ -99,7 +99,7 @@
                   </div>
 
                   <!-- Button trigger modal add employee -->
-                  <div class="col" id="add-employee-button">
+                  <div class="col add-element-button" id="add-employee-button">
                     <button
                       type="button"
                       class="btn-primary"
@@ -191,10 +191,10 @@
           aria-labelledby="add-employee-modal-label"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-employee">
+          <div class="modal-dialog modal-dialog-container">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="add-project-modal-label">
+                <h5 class="modal-title" id="add-employee-modal-label">
                   Adicionar Funcionário
                 </h5>
                 <button
@@ -205,72 +205,74 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-4">
-                      <label for="employee-name">Nome do Funcionário: </label>
+                <div class="row container">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="employee-name">Nome do Funcionário: </label>
+                      </div>
+                      <div class="col-8">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="employee-name"
+                          id="employee-name"
+                          placeholder="Nome do Funcionário"
+                        />
+                      </div>
                     </div>
-                    <div class="col-8">
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="employee-function">Função: </label>
+                    </div>
+                    <div class="col">
+                      <select name="employee-function" id="employee-function">
+                        <option value="dev">Desenvolvedor</option>
+                        <option value="analist">Analista</option>
+                        <option value="project-manager">
+                          Gerente de Projetos
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="employee-local">Região: </label>
+                    </div>
+                    <div class="col">
+                      <select name="employee-local" id="local">
+                        <option value="AM">Manaus</option>
+                        <option value="SP">Guarulhos</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="employee-worktime"
+                        >Tempo alocado para projetos no mês:
+                      </label>
+                    </div>
+                    <div class="col">
                       <input
-                        type="text"
-                        class="form-control"
-                        name="employee-name"
-                        id="employee-name"
-                        placeholder="Nome do Funcionário"
+                        type="number"
+                        name="employee-worktime"
+                        id="employee-worktime"
                       />
                     </div>
                   </div>
-                </div>
-
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="employee-function">Função: </label>
+                  <div class="row form-group">
+                    <div class="col-4"><label for="">Funcionário Interno (CLT)</label></div>
+                    <div class="col"><input type="checkbox" class="form-check-input" id="employee-type"></div>
                   </div>
-                  <div class="col">
-                    <select name="employee-function" id="employee-function">
-                      <option value="dev">Desenvolvedor</option>
-                      <option value="analist">Analista</option>
-                      <option value="project-manager">
-                        Gerente de Projetos
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="employee-local">Região: </label>
-                  </div>
-                  <div class="col">
-                    <select name="employee-local" id="local">
-                      <option value="AM">Manaus</option>
-                      <option value="SP">Guarulhos</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="employee-worktime"
-                      >Tempo alocado para projetos no mês:
-                    </label>
-                  </div>
-                  <div class="col">
-                    <input
-                      type="number"
-                      name="employee-worktime"
-                      id="employee-worktime"
-                    />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-1"><label for="tags">Tags: </label></div>
-                  <div class="col" id="employee-tag-list">
-                    <div id="employee-tag-element">
-                    </div>
-                    <div id="employee-add-tag">
-                      <button type="button" onclick="newTagName()">+</button>
+                  <div class="row">
+                    <div class="col-1"><label for="tags">Tags: </label></div>
+                    <div class="col" id="employee-tag-list">
+                      <div id="employee-tag-element">
+                      </div>
+                      <div id="employee-add-tag">
+                        <button type="button" onclick="newTagName()">+</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -299,7 +301,7 @@
           aria-labelledby="view-employee-modal-label"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-employee">
+          <div class="modal-dialog modal-dialog-container">
             <div class="modal-content">
               <div class="modal-header">
                 <div class="col">
@@ -323,108 +325,110 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <div class="row" id="employee-info-section">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <th scope="row">Nome:</th>
-                        <td>FERNANDO COUTO DA COSTA</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Função:</th>
-                        <td>DESENVOLVEDOR</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Disponível em:</th>
-                        <td>08/08/2022</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Região:</th>
-                        <td>MANAUS</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Tempo Alocado / Mês:</th>
-                        <td>173H / 180H</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="row container">
+                  <div class="row" id="employee-info-section">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th scope="row">Nome:</th>
+                          <td>FERNANDO COUTO DA COSTA</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Função:</th>
+                          <td>DESENVOLVEDOR</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Disponível em:</th>
+                          <td>08/08/2022</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Região:</th>
+                          <td>MANAUS</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Tempo Alocado / Mês:</th>
+                          <td>173H / 180H</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Tipo:</th>
+                          <td>Interno (CLT) </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="row">
+                    <table id="employee-project-list" class="table table-sm employee-view-tables">
+                      <thead>
+                        <tr class="table-head">
+                          <th scope="col">Projeto</th>
+                          <th scope="col">Andamento</th>
+                          <th scope="col">Horas / Dia</th>
+                            <th scope="col">Horas / Mês</th>
+                            <th scope="col">Início</th>
+                          <th scope="col">Fim</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Projeto 1</td>
+                          <td>80%</td>
+                          <td>6H</td>
+                          <td></td>
+                          <td>01/02/22</td>
+                          <td>08/08/22</td>
+                        </tr>
+                        <tr>
+                          <td>Projeto 4</td>
+                          <td>40%</td>
+                          <td>6H</td>
+                          <td></td>
+                          <td>14/04/22</td>
+                          <td>03/12/22</td>
+                        </tr>
+                        <tr>
+                          <td>Projeto 5</td>
+                          <td>60%</td>
+                          <td>6H</td>
+                          <td></td>
+                          <td>23/05/22</td>
+                          <td>17/11/22</td>
+                        </tr>
+                        <tr>
+                          <td>Projeto 8</td>
+                          <td>60%</td>
+                          <td>6H</td>
+                          <td></td>
+                          <td>23/05/22</td>
+                          <td>17/11/22</td>
+                        </tr>
+                        <tr>
+                          <td>Projeto 4</td>
+                          <td>40%</td>
+                          <td>6H</td>
+                          <td></td>
+                          <td>14/04/22</td>
+                          <td>03/12/22</td>
+                        </tr>
+                        <tr>
+                          <td>Projeto 5</td>
+                          <td>60%</td>
+                          <td>6H</td>
+                          <td></td>
+                          <td>23/05/22</td>
+                          <td>17/11/22</td>
+                        </tr>
+                        <tr>
+                          <td>Projeto 8</td>
+                          <td>60%</td>
+                          <td>6H</td>
+                          <td></td>
+                          <td>23/05/22</td>
+                          <td>17/11/22</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-
-                <div class="row">
-                  <table id="employee-project-list" class="table table-sm employee-view-tables">
-                    <thead>
-                      <tr class="table-head">
-                        <th scope="col">Projeto</th>
-                        <th scope="col">Andamento</th>
-                        <th scope="col">Horas / Dia</th>
-                          <th scope="col">Horas / Mês</th>
-                          <th scope="col">Início</th>
-                        <th scope="col">Fim</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Projeto 1</td>
-                        <td>80%</td>
-                        <td>6H</td>
-                        <td></td>
-                        <td>01/02/22</td>
-                        <td>08/08/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 4</td>
-                        <td>40%</td>
-                        <td>6H</td>
-                        <td></td>
-                        <td>14/04/22</td>
-                        <td>03/12/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 5</td>
-                        <td>60%</td>
-                        <td>6H</td>
-                        <td></td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 8</td>
-                        <td>60%</td>
-                        <td>6H</td>
-                        <td></td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 4</td>
-                        <td>40%</td>
-                        <td>6H</td>
-                        <td></td>
-                        <td>14/04/22</td>
-                        <td>03/12/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 5</td>
-                        <td>60%</td>
-                        <td>6H</td>
-                        <td></td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 8</td>
-                        <td>60%</td>
-                        <td>6H</td>
-                        <td></td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-              <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
             </div>
             </div>
           </div>
@@ -454,72 +458,74 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-4">
-                      <label for="employee-name">Nome do Funcionário: </label>
+                <div class="row container">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="employee-name">Nome do Funcionário: </label>
+                      </div>
+                      <div class="col-8">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="employee-name"
+                          id="employee-name"
+                          placeholder="Nome do Funcionário"
+                        />
+                      </div>
                     </div>
-                    <div class="col-8">
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="employee-function">Função: </label>
+                    </div>
+                    <div class="col">
+                      <select name="employee-function" id="employee-function">
+                        <option value="dev">Desenvolvedor</option>
+                        <option value="analist">Analista</option>
+                        <option value="project-manager">
+                          Gerente de Projetos
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="employee-local">Região: </label>
+                    </div>
+                    <div class="col">
+                      <select name="employee-local" id="local">
+                        <option value="AM">Manaus</option>
+                        <option value="SP">Guarulhos</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-4">
+                      <label for="employee-worktime"
+                        >Tempo alocado para projetos no mês:
+                      </label>
+                    </div>
+                    <div class="col">
                       <input
-                        type="text"
-                        class="form-control"
-                        name="employee-name"
-                        id="employee-name"
-                        placeholder="Nome do Funcionário"
+                        type="number"
+                        name="employee-worktime"
+                        id="employee-worktime"
                       />
                     </div>
                   </div>
-                </div>
-
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="employee-function">Função: </label>
+                  <div class="row form-group">
+                    <div class="col-4"><label for="">Funcionário Interno (CLT)</label></div>
+                    <div class="col"><input type="checkbox" class="form-check-input" id="employee-type"></div>
                   </div>
-                  <div class="col">
-                    <select name="employee-function" id="employee-function">
-                      <option value="dev">Desenvolvedor</option>
-                      <option value="analist">Analista</option>
-                      <option value="project-manager">
-                        Gerente de Projetos
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="employee-local">Região: </label>
-                  </div>
-                  <div class="col">
-                    <select name="employee-local" id="local">
-                      <option value="AM">Manaus</option>
-                      <option value="SP">Guarulhos</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <div class="col-4">
-                    <label for="employee-worktime"
-                      >Tempo alocado para projetos no mês:
-                    </label>
-                  </div>
-                  <div class="col">
-                    <input
-                      type="number"
-                      name="employee-worktime"
-                      id="employee-worktime"
-                    />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-1"><label for="tags">Tags: </label></div>
-                  <div class="col" id="employee-tag-list">
-                    <div id="employee-tag-element">
-                    </div>
-                    <div id="employee-add-tag">
-                      <button type="button" onclick="newTagName()">+</button>
+                  <div class="row">
+                    <div class="col-1"><label for="tags">Tags: </label></div>
+                    <div class="col" id="employee-tag-list">
+                      <div id="employee-tag-element">
+                      </div>
+                      <div id="employee-add-tag">
+                        <button type="button" onclick="newTagName()">+</button>
+                      </div>
                     </div>
                   </div>
                 </div>
