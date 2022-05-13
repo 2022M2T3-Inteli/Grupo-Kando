@@ -285,10 +285,10 @@
                   </div>
                   <div class="row">
                     <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col" id="employee-tag-list">
-                      <div id="employee-tag-element">
+                    <div class="col employee-tag-list">
+                      <div class="employee-tag-element">
                       </div>
-                      <div id="employee-add-tag">
+                      <div class="employee-add-tag">
                         <button type="button" onclick="newTagName()">+</button>
                       </div>
                     </div>
@@ -297,7 +297,9 @@
             </div>
             <div class="modal-footer">
               <div class="buttons-container">
-                <button type="button" class="btn-primary">
+                <button type="button" class="btn-primary"
+                data-bs-dismiss="modal"
+                aria-label="Close">
                   Adicionar Funcionário
                 </button>
               </div>
@@ -535,7 +537,7 @@
                   </div>
                   <div class="row">
                     <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col" id="employee-tag-list">
+                    <div class="col employee-tag-list">
                       <div id="employee-tag-element">
                       </div>
                       <div id="employee-add-tag">
@@ -548,10 +550,11 @@
             </div>
             <div class="modal-footer">
               <div id="buttons-container">
-                <button type="button" class="btn-primary">
+                <button type="button" class="btn-primary"
+                data-bs-dismiss="modal"
+                aria-label="Close">
                   Salvar
                 </button>
-                <button type="button" class="btn-primary">Cancelar</button>
               </div>
               <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
               <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->

@@ -22,11 +22,11 @@ body{
     align-items: flex-end;
   }
   
-  #employee-tag-list {
+  .employee-tag-list {
     display: flex;
   }
   
-  #employee-tag-element {
+.employee-tag-element {
     display: flex;
   }
   
@@ -38,6 +38,9 @@ body{
     justify-content: center;
     color: #2b2b2b;
     padding: 20px;
+}
+.tag, .tag-button {
+    margin-left: 10px;
 }
 .employee-view-button:hover {
     cursor: pointer;

@@ -18,7 +18,11 @@ body{
   #search-project {
     align-self: flex-end;
   }
-  
+
+#project-description {
+  resize: none;
+  max-height: 80px;
+}
 
 .project-view {
     height: 60px;
@@ -39,8 +43,50 @@ body{
   
   #project-tag-element {
     display: flex;
-  }
-  
+  } 
+
+.accordion-item {
+  margin-top: 20px;
+}
+
+#div-add-role {
+  display: flex;
+  margin-top: 10px;
+}
+.employee {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+.employee:not(:last-child) {
+  border-bottom: solid 1px #2b2b2b;
+  margin-bottom: 20px;
+}
+
+.employee-allocation {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.employee-allocation-input {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 50px;
+  background-color: blue;
+  color: #f5f5f5;
+  text-align: center;
+}
+#new-role-add {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+#new-role-add button {
+  width: 30px;
+  height: 30px;
+}
+
   .icons-group:hover {
     transition: ease 500ms;
     background-color: rgb(41, 145, 237);
