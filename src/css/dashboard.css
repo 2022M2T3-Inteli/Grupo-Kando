@@ -1,0 +1,65 @@
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#dashboard-section {
+    background-color: #f5f5f5;
+    border: none;
+    background-color: none;
+    border-bottom: solid 1px black;
+    font-size: 24px;
+    min-width: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-self: flex-start;
+    margin-left: 40px;
+}
+#dashboard-section:focus-visible {
+    outline: none;
+}
+.general-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* border: solid 2px #2b2b2b; */
+    /* padding: 60px; */
+    margin-bottom: 40px;
+}
+.project-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+    border: solid 2px #2b2b2b;
+    margin-bottom: 40px;
+}
+.general-graph {
+    /* padding: 60px; */
+    /* margin: 20px; */
+    background-color: #EEEEEE;
+    border: solid 1px #2b2b2b;
+    border-radius: 9px;
+    height: 400px;
+    padding-bottom: 60px;
+}.general-graph:first-child {
+    margin-right: 30px !important;
+}
+.graph-title {
+    text-align: center;
+    font-weight: 700;
+    padding: 10px;
+    font-size: 20px;
+    color: #2b2b2b;
+}
+#hours-dash {
+    width: 25%;
+    height: 25%;
+}
+#teste-dash {
+    width: 25%;
+    height: 25%;
+}
