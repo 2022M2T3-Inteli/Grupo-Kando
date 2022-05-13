@@ -97,15 +97,13 @@
                           name="search"
                         />
                         <div class="input-group-btn">
-                          <button class="btn-primary" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                          </button>
+                          <img src="img/lupa.png" alt="">
                         </div>
                       </div>
                     </form>
                   </div>
                   <!-- Button trigger modal -->
-                  <div class="col add-element-button">
+                  <div class="col add-element-button main-buttons-container">
                     <button
                       type="button"
                       class="btn-primary"
@@ -116,64 +114,88 @@
                     </button>
                   </div>
                 </div>
-                <div class="row">
-                  <table class="table table-hover">
+                <div class="row table-container">
+                  <table class="table table-hover table-style">
                     <thead class="table-head-custom">
                       <tr>
                         <th scope="col">Projeto</th>
                         <th scope="col">N° de Pessoas</th>
                         <th scope="col">% Estimada</th>
-                        <th scope="col">% Executada</th>
+                        <th scope="col">Data Final</th>
                         <th scope="col">Restam</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th class="row1" scope="row">Projeto 1</th>
+                      <tr class="table-body-row">
+                        <td>Projeto 1</td>
                         <td>3 Pessoas</td>
                         <td>80% Concluído</td>
-                        <td>75% Concluído</td>
+                        <td>22/06/2022</td>
                         <td>48 Horas</td>
                         <td>
                           <!-- button trigger modal view project -->
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn-primary"
+                          <div class="project-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined project-view-button" 
                               data-bs-toggle="modal"
-                              data-bs-target="#view-project-modal"
-                            >
-                              <span class="material-symbols-outlined">
-                                visibility
-                              </span>
-                            </button>
+                              data-bs-target="#view-employee-modal">
+                              visibility
+                            </div>
                           </div>
                         </td>
                       </tr>
-                      <tr>
-                        <th class="row1" scope="row">Projeto 2</th>
+                      <tr class="table-body-row">
+                        <td>Projeto 2</td>
                         <td>5 Pessoas</td>
                         <td>25% Concluído</td>
-                        <td>33% Concluído</td>
-                        <td>12 Horas</td>
+                        <td>31/05/2022</td>
+                        <td>57 Horas</td>
                         <td>
-                          <span class="material-symbols-outlined">
-                            visibility
-                          </span>
+                          <div class="project-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined project-view-button" 
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-employee-modal">
+                              visibility
+                            </div>
+                          </div>
                         </td>
                       </tr>
 
-                      <tr>
-                        <th class="row1" scope="row">Projeto 3</th>
+                      <tr class="table-body-row">
+                        <td>Projeto 3</td>
                         <td>8 Pessoas</td>
                         <td>95% Concluído</td>
-                        <td>96% Concluído</td>
-                        <td>7 Projetos</td>
+                        <td>16/05/2022</td>
+                        <td>12 Horas</td>
                         <td>
-                          <span class="material-symbols-outlined">
-                            visibility
-                          </span>
+                          <div class="project-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined project-view-button" 
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-employee-modal">
+                              visibility
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr class="table-body-row">
+                        <td>Projeto 4</td>
+                        <td>5 Pessoas</td>
+                        <td>35% Concluído</td>
+                        <td>12/09/2022</td>
+                        <td>250 Horas</td>
+                        <td>
+                          <div class="project-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined project-view-button" 
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-employee-modal">
+                              visibility
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     </tbody>

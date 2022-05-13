@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Funcionários</title>
 
-    <link rel="stylesheet" href="css/cadastro_projeto.css" />
-    <link rel="stylesheet" href="css/projects2.css" />
+    <link rel="stylesheet" href="css/employees.css">
     <link rel="stylesheet" href="css/style.css">
     <!-- Bootstrap -->
     <link
@@ -90,16 +89,14 @@
                           name="search"
                         />
                         <div class="input-group-btn">
-                          <button class="btn-primary" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                          </button>
+                            <img src="img/lupa.png" alt="">
                         </div>
                       </div>
                     </form>
                   </div>
 
                   <!-- Button trigger modal add employee -->
-                  <div class="col add-element-button" id="add-employee-button">
+                  <div class="col add-element-button main-buttons-container" id="add-employee-button">
                     <button
                       type="button"
                       class="btn-primary"
@@ -110,8 +107,8 @@
                     </button>
                   </div>
                 </div>
-                <div class="row">
-                  <table class="table table-hover">
+                <div class="row table-container">
+                  <table class="table table-hover table-style">
                     <thead>
                       <tr>
                         <th scope="col">Funcionário</th>
@@ -123,51 +120,72 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th class="row1" scope="row">Fernando Paiva</th>
+                      <tr class="table-body-row">
+                        <td>Fernando Paiva</td>
                         <td>Programador</td>
                         <td>6h</td>
                         <td>100h/180h</td>
                         <td>6 Projetos</td>
                         <td>
-                          
-                          <!-- button trigger view employee -->
-                          <button
-                          type="button"
-                          class="btn-primary"
-                          data-bs-toggle="modal"
-                          data-bs-target="#view-employee-modal"
-                          >
-                            <span class="material-symbols-outlined">
+                          <div class="employee-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined employee-view-button" 
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-employee-modal">
                               visibility
-                            </span>
-                          </button>
+                            </div>
+                          </div>
                         </td>
                       </tr>
-                      <tr>
-                        <th class="row1" scope="row">
-                          Carlos Alberto Alves da Silva Rocha Junior
-                        </th>
+                      <tr class="table-body-row">
+                        <td>Carlos Alberto Alves da Silva Rocha Junior</td>
                         <td>Analista</td>
                         <td>8h</td>
                         <td>110h/180h</td>
                         <td>3 Projetos</td>
                         <td>
-                          <span class="material-symbols-outlined">
-                            visibility
-                          </span>
+                          <div class="employee-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined employee-view-button" 
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-employee-modal">
+                              visibility
+                            </div>
+                          </div>
                         </td>
                       </tr>
-                      <tr>
-                        <th class="row1" scope="row">Larissa Alves</th>
+                      <tr class="table-body-row">
+                        <td>Larissa Alves</td>
                         <td>Desenvolvedor</td>
                         <td>6h</td>
                         <td>120h/180h</td>
                         <td>7 Projetos</td>
                         <td>
-                          <span class="material-symbols-outlined">
-                            visibility
-                          </span>
+                          <div class="employee-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined employee-view-button" 
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-employee-modal">
+                              visibility
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr class="table-body-row">
+                        <td>Renato Moraes</td>
+                        <td>Analista</td>
+                        <td>6h</td>
+                        <td>145h/180h</td>
+                        <td>8 Projetos</td>
+                        <td>
+                          <div class="employee-view">
+                            <!-- button trigger view employee -->
+                            <div class="material-symbols-outlined employee-view-button" 
+                              data-bs-toggle="modal"
+                              data-bs-target="#view-employee-modal">
+                              visibility
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -177,9 +195,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      
       </div>
 
       <!-- Modal Add Employee -->
@@ -206,12 +221,11 @@
               </div>
               <div class="modal-body">
                 <div class="row container">
-                  <div class="form-group">
-                    <div class="row">
+                  <div class="row form-group">
                       <div class="col-4">
                         <label for="employee-name">Nome do Funcionário: </label>
                       </div>
-                      <div class="col-8">
+                      <div class="col">
                         <input
                           type="text"
                           class="form-control"
@@ -220,7 +234,6 @@
                           placeholder="Nome do Funcionário"
                         />
                       </div>
-                    </div>
                   </div>
                   <div class="row form-group">
                     <div class="col-4">
@@ -263,7 +276,12 @@
                   </div>
                   <div class="row form-group">
                     <div class="col-4"><label for="">Funcionário Interno (CLT)</label></div>
-                    <div class="col"><input type="checkbox" class="form-check-input" id="employee-type"></div>
+                    <div class="col">
+                      <select name="employee-type" id="">
+                        <option value="clt">CLT</option>
+                        <option value="third-employee">Terceiro</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-1"><label for="tags">Tags: </label></div>
@@ -275,23 +293,20 @@
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
             </div>
             <div class="modal-footer">
-              <div id="buttons-container">
+              <div class="buttons-container">
                 <button type="button" class="btn-primary">
                   Adicionar Funcionário
                 </button>
-                <button type="button" class="btn-primary">Cancelar</button>
               </div>
               <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
               <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
             </div>
-            </div>
           </div>
         </div>
-
+      </div>
       <!-- Modal View Employee -->
       <div class="parent-modal parent-modal-employee">
         <div
@@ -372,56 +387,56 @@
                         <tr>
                           <td>Projeto 1</td>
                           <td>80%</td>
-                          <td>6H</td>
-                          <td></td>
+                          <td>1H</td>
+                          <td>10h</td>
                           <td>01/02/22</td>
                           <td>08/08/22</td>
                         </tr>
                         <tr>
                           <td>Projeto 4</td>
                           <td>40%</td>
-                          <td>6H</td>
-                          <td></td>
+                          <td>2H</td>
+                          <td>10H</td>
                           <td>14/04/22</td>
                           <td>03/12/22</td>
                         </tr>
                         <tr>
                           <td>Projeto 5</td>
                           <td>60%</td>
-                          <td>6H</td>
-                          <td></td>
+                          <td>3h</td>
+                          <td>15H</td>
                           <td>23/05/22</td>
                           <td>17/11/22</td>
                         </tr>
                         <tr>
                           <td>Projeto 8</td>
                           <td>60%</td>
-                          <td>6H</td>
-                          <td></td>
+                          <td>1H</td>
+                          <td>35H</td>
                           <td>23/05/22</td>
                           <td>17/11/22</td>
                         </tr>
                         <tr>
                           <td>Projeto 4</td>
                           <td>40%</td>
-                          <td>6H</td>
-                          <td></td>
+                          <td>2H</td>
+                          <td>18H</td>
                           <td>14/04/22</td>
                           <td>03/12/22</td>
                         </tr>
                         <tr>
                           <td>Projeto 5</td>
                           <td>60%</td>
-                          <td>6H</td>
-                          <td></td>
+                          <td>2 H</td>
+                          <td>22H</td>
                           <td>23/05/22</td>
                           <td>17/11/22</td>
                         </tr>
                         <tr>
                           <td>Projeto 8</td>
                           <td>60%</td>
-                          <td>6H</td>
-                          <td></td>
+                          <td>1H</td>
+                          <td>59H</td>
                           <td>23/05/22</td>
                           <td>17/11/22</td>
                         </tr>
