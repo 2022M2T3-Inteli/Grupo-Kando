@@ -1,4 +1,4 @@
-#dashboard {
+#general {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +10,7 @@
     border: none;
     background-color: none;
     border-bottom: solid 1px black;
-    font-size: 24px;
+    font-size: 28px;
     min-width: 40px;
     margin-top: 40px;
     margin-bottom: 40px;
@@ -20,7 +20,7 @@
 #dashboard-section:focus-visible {
     outline: none;
 }
-.general-container {
+.chart-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,7 +37,7 @@
     border: solid 2px #2b2b2b;
     margin-bottom: 40px;
 }
-.general-graph {
+.dash-chart {
     /* padding: 60px; */
     /* margin: 20px; */
     background-color: #EEEEEE;
@@ -45,10 +45,10 @@
     border-radius: 9px;
     height: 400px;
     padding-bottom: 60px;
-}.general-graph:first-child {
+}.dash-chart:first-child {
     margin-right: 30px !important;
 }
-.graph-title {
+.chart-title {
     text-align: center;
     font-weight: 700;
     padding: 10px;
@@ -65,4 +65,54 @@
 }
 #icon1 {
     background-color: rgb(41, 145, 237);
+}
+.progress-bar-container {
+    display: flex;
+    align-items: center;
+    height: 80%;
+}
+.project-progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(45, 45, 45, 20%);
+    border: solid 1px #2b2b2b;
+    height: 60px;
+    color: #f5f5f5;
+}
+.project-progress-bar h2 {
+    position: absolute;
+    align-self: center;
+}
+.project-progress-bar-actual {
+    height: 60px;
+    background-color: rgb(54, 162, 235)
+}
+#project1 .project-progress-bar-actual {
+    width: 54%;
+}
+#project2 .project-progress-bar-actual {
+    width: 35%;
+}
+#project3 .project-progress-bar-actual {
+    width: 80%;
+}
+.project-estimate-date {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    font-size: 18px;
+}
+.chart-description-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.role-chart-limit {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(200, 45, 0);
 }

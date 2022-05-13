@@ -12,7 +12,7 @@ const yearMounths = [
     'Novembro',
     'Dezembro',
 ]
-const generalDash1 = {
+const generalChart1 = {
     labels: yearMounths,
     datasets: [
         {
@@ -57,9 +57,9 @@ const generalDash1 = {
         },
     ],
 }
-const generalDash1Config = {
+const generalChart1Config = {
     type: 'line',
-    data: generalDash1,
+    data: generalChart1,
     options: {
         responsive: true,
         maintainAspectRatio: false,    
@@ -69,7 +69,7 @@ const generalDash1Config = {
     }
 }
 
-const generalDash2 = {
+const generalChart2 = {
     labels: yearMounths,
     datasets: [
         {
@@ -105,9 +105,9 @@ const generalDash2 = {
     ],
 }
 
-const generalDash2Config = {
+const generalChart2Config = {
     type: 'line',
-    data: generalDash2,
+    data: generalChart2,
     options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -117,7 +117,7 @@ const generalDash2Config = {
     }
 }
 
-const generalDash3 = {
+const generalChart3 = {
     labels: [
         "Analista", "DBA", "Gestor de Projetos", "Tester", "Suporte", "Desenvolvedor"
     ],
@@ -138,7 +138,7 @@ const generalDash3 = {
 
 const generalDash3Config = {
     type: 'bar',
-    data: generalDash3,
+    data: generalChart3,
     options: {
         responsive: true,
         maintainAspectRatio: false,    
@@ -150,16 +150,13 @@ const generalDash3Config = {
     }
 }
 
-const generalDash4 = {
+const generalChart4 = {
     labels: [
         'Nº de Projetos Atrasados',
         'Nº de Projetos com Data Alterada',
         'Nº de Projetos no Tempo'
     ],
     datasets: [{
-        datalabels: {
-            color: 'yellow'
-          },
         data: [50, 100, 25],
         backgroundColor: 
         [
@@ -170,9 +167,9 @@ const generalDash4 = {
     }]
   };
 
-const generalDash4Config = {
+const generalChart4Config = {
     type: 'pie',
-    data: generalDash4,
+    data: generalChart4,
     options: {
         responsive: true,
         maintainAspectRatio: false,    
@@ -182,25 +179,333 @@ const generalDash4Config = {
     },
   };
 
-const ctx = document.getElementsByClassName('area-chart')
-const generalDashChart1 = new Chart(ctx, generalDash1Config)
+//  Gráficos da tela Geral do Dashboard
+const generalCtx = document.getElementById('general-hours-chart')
+const generalDashChart1 = new Chart(generalCtx, generalChart1Config)
 
-const ctx2 = document.getElementById("employee-dash")
-const generalDashChart2 = new Chart(ctx2, generalDash2Config)
+const generalCtx2 = document.getElementById("general-employee-chart")
+const generalDashChart2 = new Chart(generalCtx2, generalChart2Config)
 
-const ctx3 = document.getElementById("occupation-dash")
-const generalDashChart3 = new Chart(ctx3, generalDash3Config)
+const generalCtx3 = document.getElementById("general-role-chart")
+const generalDashChart3 = new Chart(generalCtx3, generalDash3Config)
 
-const ctx4 = document.getElementById("projects-status-dash")
-const myChart4 = new Chart(ctx4, generalDash4Config)
+const generalCtx4 = document.getElementById("general-projects-status-chart")
+const generalDashChart4 = new Chart(generalCtx4, generalChart4Config)
 
- 
+//  Gráficos da tela de Projeto 1 do Dashboard
+const project1Chart1 = {
+    labels: [
+        'Nº de Funcionários Terceirizado no Projeto',
+        'Nº de Funcionários CLT no Projeto',
+    ],
+    datasets: [{
+        data: [15, 20],
+        backgroundColor: 
+        [
+            'rgb(255, 205, 86)',
+            'rgb(54, 162, 235)',
+            // 'rgb(255, 99, 132)',
+        ],
+    }]
+  };
+
+const project1Chart1Config = {
+    type: 'pie',
+    data: project1Chart1,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,    
+        plugins: {
+            offset: 30
+        }
+    },
+  };
+
+const project1Chart2 = {
+    labels: [
+        "data inicial", "data final"
+    ],
+    datasets: [{
+        data: [{
+            x: 0
+        }, {
+            x: 100
+        }]
+    }],
+}
+
+const project1Chart2Config = {
+    type: 'line',
+    data: project1Chart2,
+    options: {
+    }
+}
+
+const project1Chart3 = {
+    labels: [
+        "Analistas", "Desenvolvedores", "DBAs", "Gestores de Projetos", "Testers"
+    ],
+    datasets: [{
+        type: 'bar',
+        data: [200, 150, 130, 160, 145],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+        ],
+        borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+        ],
+        borderWidth: 1,
+    },
+    {
+        type: "line",
+        data: [180, 180, 180, 180, 180],
+        backgroundColor: "rgb(200, 45, 0)",
+        borderColor: "rgb(200, 45, 0)",
+        pointRadius: 0
+    }
+    ]
+}
+
+const project1Chart3Config = {
+    data: project1Chart3,
+    options: {
+        indexAxis: 'y',  
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+}
+
+const project1Ctx = document.getElementById('project1-employee-chart')
+const project1DashChart1 = new Chart(project1Ctx, project1Chart1Config)
+
+// const project1Ctx2 = document.getElementById("project1-estimate-chart")
+// const project1DashChart2 = new Chart(project1Ctx2, project1Chart2Config)
+
+const project1Ctx3 = document.getElementById("project1-role-chart")
+const project1DashChart3 = new Chart(project1Ctx3, project1Chart3Config)
+
+
+//  Gráficos da tela de Projeto 2 do Dashboard
+const project2Chart1 = {
+    labels: [
+        'Nº de Funcionários Terceirizado no Projeto',
+        'Nº de Funcionários CLT no Projeto',
+    ],
+    datasets: [{
+        data: [5, 10],
+        backgroundColor: 
+        [
+            'rgb(255, 205, 86)',
+            'rgb(54, 162, 235)',
+            // 'rgb(255, 99, 132)',
+        ],
+    }]
+  };
+
+const project2Chart1Config = {
+    type: 'pie',
+    data: project2Chart1,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,    
+        plugins: {
+            offset: 30
+        }
+    },
+  };
+
+const project2Chart2 = {
+    labels: [
+        "data inicial", "data final"
+    ],
+    datasets: [{
+        data: [{
+            x: 0
+        }, {
+            x: 100
+        }]
+    }],
+}
+
+const project2Chart2Config = {
+    type: 'line',
+    data: project2Chart2,
+    options: {
+    }
+}
+
+const project2Chart3 = {
+    labels: [
+        "Analistas", "Desenvolvedores", "DBAs", "Gestores de Projetos", "Testers"
+    ],
+    datasets: [{
+        type: 'bar',
+        data: [130, 120, 110, 195, 130],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+        ],
+        borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+        ],
+        borderWidth: 1,
+    },
+    {
+        type: "line",
+        data: [180, 180, 180, 180, 180],
+        backgroundColor: "rgb(200, 45, 0)",
+        borderColor: "rgb(200, 45, 0)",
+        pointRadius: 0
+    }
+    ]
+}
+
+const project2Chart3Config = {
+    data: project2Chart3,
+    options: {
+        indexAxis: 'y',  
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+}
+
+const project2Ctx = document.getElementById('project2-employee-chart')
+const project2DashChart1 = new Chart(project2Ctx, project2Chart1Config)
+
+// const project2Ctx2 = document.getElementById("project2-estimate-chart")
+// const project2DashChart2 = new Chart(project2Ctx2, project2Chart2Config)
+
+const project2Ctx3 = document.getElementById("project2-role-chart")
+const project2DashChart3 = new Chart(project2Ctx3, project2Chart3Config)
+
+//  Gráficos da tela de Projeto 1 do Dashboard
+const project3Chart1 = {
+    labels: [
+        'Nº de Funcionários Terceirizado no Projeto',
+        'Nº de Funcionários CLT no Projeto',
+    ],
+    datasets: [{
+        data: [15, 5],
+        backgroundColor: 
+        [
+            'rgb(255, 205, 86)',
+            'rgb(54, 162, 235)',
+            // 'rgb(255, 99, 132)',
+        ],
+    }]
+  };
+
+const project3Chart1Config = {
+    type: 'pie',
+    data: project3Chart1,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,    
+        plugins: {
+            offset: 30
+        }
+    },
+  };
+
+const project3Chart2 = {
+    labels: [
+        "data inicial", "data final"
+    ],
+    datasets: [{
+        data: [{
+            x: 0
+        }, {
+            x: 100
+        }]
+    }],
+}
+
+const project3Chart2Config = {
+    type: 'line',
+    data: project3Chart2,
+    options: {
+    }
+}
+
+const project3Chart3 = {
+    labels: [
+        "Analistas", "Desenvolvedores", "DBAs", "Gestores de Projetos", "Testers"
+    ],
+    datasets: [{
+        type: 'bar',
+        data: [120, 140, 190, 170, 145],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+        ],
+        borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+        ],
+        borderWidth: 1,
+    },
+    {
+        type: "line",
+        data: [180, 180, 180, 180, 180],
+        backgroundColor: "rgb(200, 45, 0)",
+        borderColor: "rgb(200, 45, 0)",
+        pointRadius: 0
+    }
+    ]
+}
+
+const project3Chart3Config = {
+    data: project3Chart3,
+    options: {
+        indexAxis: 'y',  
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+}
+
+const project3Ctx = document.getElementById('project3-employee-chart')
+const project3DashChart1 = new Chart(project3Ctx, project3Chart1Config)
+
+// const project2Ctx2 = document.getElementById("project2-estimate-chart")
+// const project2DashChart2 = new Chart(project2Ctx2, project2Chart2Config)
+
+const project3Ctx3 = document.getElementById("project3-role-chart")
+const project3DashChart3 = new Chart(project3Ctx3, project3Chart3Config)
 
 let lastSection
 let changeDashSection = function(dashSection){
     if(lastSection) {
         document.getElementById(lastSection).hidden = true
-        myChart2
     }
     else {
         document.getElementById("general").hidden = true
