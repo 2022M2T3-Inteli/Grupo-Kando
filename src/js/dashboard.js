@@ -23,27 +23,29 @@ const generalChart1 = {
                 target: 'origin',
                 above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
             },
-            data: [2500, 3000, 3500, 4000, 3500, 3000, 3500, 4000, 4500, 3000, 4500, 5000],
+            data: [2500, 2500, 3500, 4000, 3500, 2500, 3500, 4000, 4500, 2500, 4500, 2500],
         },
         {
             label: 'Total de Horas de Funcionários Disponíveis por mês',
             backgroundColor: 'rgb(140, 0, 140)',
             borderColor: 'rgb(140, 0, 140)',
-            fill: {
-                target: 'origin',
-                above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-            },
-            data: [2000, 2500, 3000, 3500, 3000, 2000, 2750, 3500, 3000, 3000, 4000, 3000],
+            // fill: {
+            //     target: 'origin',
+            //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+            // },
+            data: [3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500],
+            pointRadius: 0
         },
         {
             label: 'Total de Horas de CLTs Disponíveis por Mês',
             backgroundColor: 'rgb(220, 220, 0)',
             borderColor: 'rgb(220, 220, 0)',
-            fill: {
-                target: 'origin',
-                above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-            },
-            data: [1500, 2000, 2500, 2500, 2000, 1000, 2000, 3000, 1500, 2000, 2500, 2000],
+            // fill: {
+            //     target: 'origin',
+            //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+            // },
+            data: [2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500],
+            pointRadius: 0
         },
         {
             label: 'Total de Horas de Terceiros Disponíveis por Mês',
@@ -53,7 +55,8 @@ const generalChart1 = {
                 target: 'origin',
                 above: 'rgb(100, 100, 100, 15%)',   // Area will be red above the origin
             },
-            data: [500, 500, 1000, 1000, 1250, 1000, 1750, 2000, 1500, 1000, 1500, 2500],
+            data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+            pointRadius: 0
         },
     ],
 }
@@ -64,7 +67,12 @@ const generalChart1Config = {
         responsive: true,
         maintainAspectRatio: false,    
         plugins: {
-
+        },
+        scales: {
+            y: {
+                min: 0,
+                max: 5000,
+            }
         }
     }
 }
@@ -90,7 +98,7 @@ const generalChart2 = {
                 target: 'origin',
                 above: 'rgb(10, 200, 45, 15%)',   // Area will be red above the origin
             },
-            data: [250, 500, 2500, 750, 2300, 3200, 5000, 4500, 2000, 4220, 3500, 2750],
+            data: [250, 500, 2500, 750, 2300, 3200, 2500, 4500, 1000, 4220, 3500, 2750],
         },
         {
             label: 'Funcionários Terceiros Alocados por Mês',
@@ -100,7 +108,7 @@ const generalChart2 = {
                 target: 'origin',
                 above: 'rgb(255, 120, 0, 15%)',   // Area will be red above the origin
             },
-            data: [750, 100, 3000, 1500, 1750, 1200, 3100, 1000, 520, 520, 370, 760],
+            data: [750, 100, 2500, 1500, 1750, 1200, 3100, 1000, 520, 520, 370, 760],
         },
     ],
 }
