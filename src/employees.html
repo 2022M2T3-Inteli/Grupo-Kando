@@ -27,6 +27,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+	<!-- Bootstrap Table -->
+    <link href="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.css" rel="stylesheet">
   </head>
   <body>
     <div class="container-fluid">
@@ -107,16 +110,15 @@
                     </button>
                   </div>
                 </div>
-                <div class="row table-container">
-                  <table class="table table-hover table-style">
+                <div class="table-container">
+                  <table id="employees-table" class="table table-hover table-style">
                     <thead>
                       <tr>
-                        <th scope="col">Funcionário</th>
-                        <th scope="col">Função</th>
-                        <th scope="col">Horas por dia</th>
-                        <th scope="col">Alocação</th>
-                        <th scope="col">N° de projetos</th>
-                        <th scope="col"></th>
+                        <th data-field="name">Funcionário</th>
+                        <th data-field="job">Função</th>
+                        <th data-field="allocation" class="employee-allocation">Alocação</th>
+                        <th data-field="projectsQty">N° de projetos</th>
+                        <th data-field="employeeTools">Ações</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -193,6 +195,27 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <!-- toast - employee succesfully added -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+          <div
+            id="liveToast"
+            class="toast"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <div class="toast-header">
+              <strong class="me-auto">Mensagem</strong>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="toast-body">Funcionário criado com sucesso.</div>
           </div>
         </div>
       </div>
@@ -297,7 +320,7 @@
             </div>
             <div class="modal-footer">
               <div class="buttons-container">
-                <button type="button" class="btn-primary"
+                <button type="button" class="btn-primary" id="liveToastBtn"
                 data-bs-dismiss="modal"
                 aria-label="Close">
                   Adicionar Funcionário
@@ -565,13 +588,21 @@
       
 
     </div>
+
     <!-- Bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script src="js/cadastro_projeto.js"></script>
-    <script src="js/employee-add-tag.js"></script>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Bootstrap Table -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.js"></script>
+    <!-- Latest compiled and minified Locales -->
+    <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="js/employees.js"></script>
   </body>
 </html>
