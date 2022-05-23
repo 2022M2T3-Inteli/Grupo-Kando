@@ -144,9 +144,11 @@ align-items: flex-end;
   padding-right: 15px !important;
   border: none;
 }
+.table-container thead tr th:first-child{
+    padding-right: 10px !important;
+  }
 .table-container thead tr th:last-child{
     padding-right: 30px !important;
-    border: none;
   }
 .table-container tr {
     width: 100%;
