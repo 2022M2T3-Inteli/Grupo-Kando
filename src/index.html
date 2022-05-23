@@ -29,16 +29,20 @@
           </h2>
         </div>
         <div id="login-sidebar" class="col-5">
-          <div class="form-group">
-            <h1 id="login-title">LOGIN</h1>
-            <input type="text" class="input-style" placeholder="E-mail" />
-            <input type="password" class="input-style" placeholder="Senha" />
-            <a href="dashboard.html"
-              ><img id="login-access" src="img/login-access.png" alt="acessar"
-            /></a>
-          </div>
+			<form id="login-form" class="form-group" action="javascript:void(0)" method="post">
+				<h1 id="login-title">LOGIN</h1>
+				<input type="text" id="email-input" class="input-style" placeholder="E-mail" autocomplete="email" required/>
+				<input type="password" id="password-input" class="input-style" placeholder="Senha" autocomplete="current-password" required/>
+				<button id="login-button" type="submit" onclick="validate()">
+					<img id="login-access" src="img/login-access.png" alt="acessar"
+				/></button>
+			</form>
         </div>
       </div>
     </div>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/login.js"></script>
   </body>
 </html>

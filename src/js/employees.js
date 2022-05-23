@@ -55,19 +55,8 @@ let employeesData = [
 	{
 		allocation: 245,
 		totalHours: 176
-	},
-	{
-		allocation: 160,
-		totalHours: 176
-	},
-	{
-		allocation: 135,
-		totalHours: 120
-	},
-	{
-		allocation: 245,
-		totalHours: 176
 	}
+	
 ]
 let tableData = [
   {
@@ -104,37 +93,14 @@ let tableData = [
     allocation:	employeesData[4].allocation + "H/" + employeesData[4].totalHours + "H",
     projectsQty: '10 Projetos',
     employeeTools: employeeTools
-  },
-  {
-    name: 'Matheus Viana',
-    job: "Analista",
-    allocation:	employeesData[4].allocation + "H/" + employeesData[4].totalHours + "H",
-    projectsQty: '10 Projetos',
-    employeeTools: employeeTools
-  },
-    {
-    name: 'Matheus Viana',
-    job: "Analista",
-    allocation:	employeesData[4].allocation + "H/" + employeesData[4].totalHours + "H",
-    projectsQty: '10 Projetos',
-    employeeTools: employeeTools
-  },
-  {
-    name: 'Matheus Viana',
-    job: "Analista",
-    allocation:	employeesData[4].allocation + "H/" + employeesData[4].totalHours + "H",
-    projectsQty: '10 Projetos',
-    employeeTools: employeeTools
   }
 ]
+
 let employeeTable = "#employees-table"
 $(employeeTable).bootstrapTable({
   data: tableData
 })
-// $(`.table-container`).css({
-// 	"max-height": "65vh",
-// 	"overflow-y": "scroll"
-// })
+
 $(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
 
 $(`${employeeTable} tr`).each(function(index) {

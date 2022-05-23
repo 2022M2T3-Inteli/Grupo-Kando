@@ -76,20 +76,6 @@ body{
   background-color: rgb(41, 145, 237);
   }
   
-  .employee-view-tables {
-      text-align: center;
-  }
-.table-container tbody {
-    display: block;
-    overflow-y: scroll;
-    max-height: 60vh;
-}
-.table-container thead tr th{
-  padding-right: 15px !important;
-  border: none;
-}
-.table-container tr {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
+.employee-view-tables {
+    text-align: center;
 }
