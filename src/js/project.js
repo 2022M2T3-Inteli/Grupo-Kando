@@ -84,20 +84,28 @@ let projectsData = [
   }
 ]
 
-$("#projects-table").bootstrapTable({
+let projectsTable = $("#projects-table")
+$(projectsTable).bootstrapTable({
 	data: projectsData
 })
-$("#projects-table tr:not(:first)").addClass("table-body-row")
+$(`${projects-table} tr:not(:first)`).addClass("table-body-row")
 
-let projectsTable = $("#projects-table")
+
 let projectRows = $(".table-body-row")
 let projectReversedRows = []
 let searchInput = $("#search")
+
 
 projectRows.each(function(index, row) {
 	projectReversedRows.push(row)
 })
 projectReversedRows = projectReversedRows.reverse()
+
+$(projectsTable).on("sort.bs.table", function() {
+	setTimeout(function() {
+		$(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
+	}, 0)
+})
 
 $(searchInput).keyup(function(){
 	let delay = 100

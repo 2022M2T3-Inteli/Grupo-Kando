@@ -103,6 +103,12 @@ $(employeeTable).bootstrapTable({
 
 $(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
 
+$(employeeTable).on("sort.bs.table", function() {
+	setTimeout(function() {
+		$(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
+	}, 0)
+})
+
 let employeeRows = $(".table-body-row")
 let employeeReversedRows = []
 let searchInput = $("#search")
@@ -155,12 +161,14 @@ employeeRows.each(function(index) {
 	console.log(employeesData[index])
 	if(employeesData[index].allocation > 176) {
 		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
-			"color": "red"
+			"color": "#36024A",
+			"font-weight": 800 
 		})
 	}
 	else if(employeesData[index].allocation > employeesData[index].totalHours) {
 		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
-			"color": "orange"
+			"color": "#D30000",
+			"font-weight": 600
 		})
 	}
 })

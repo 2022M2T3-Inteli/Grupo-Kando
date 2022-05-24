@@ -120,10 +120,19 @@
                   <table
                     id="projects-table"
                     class="table table-hover table-style"
+                    data-show-multi-sort="true"
+                    data-sort-priority='[
+                      {"sortName": "name","sortOrder":"desc"},
+                      {"sortName": "employeeQty","sortOrder":"desc"},
+                      {"sortName": "startDate","sortOrder":"desc"},
+                      {"sortName": "endDate","sortOrder":"desc"},
+                      {"sortName": "totalHours","sortOrder":"desc"}
+
+                    ]'
                   >
                     <thead class="table-head-custom">
                       <tr>
-                        <th data-field="name">Projeto</th>
+                        <th data-field="name" data-sortable="true">Projeto</th>
                         <th data-field="employeesQty">
                           N° de Pessoas
                         </th>
@@ -131,7 +140,7 @@
                           Data de Início
                         </th>
                         <th data-field="endDate">Data Final</th>
-                        <th data-field="totalHours">
+                        <th data-field="totalHours" data-sortable="true">
                           Total de Horas
                         </th>
                         <th data-field="projectTools">Ações</th>
