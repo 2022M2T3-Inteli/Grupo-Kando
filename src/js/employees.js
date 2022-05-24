@@ -103,7 +103,56 @@ $(employeeTable).bootstrapTable({
 
 $(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
 
-$(`${employeeTable} tr`).each(function(index) {
+let employeeRows = $(".table-body-row")
+let employeeReversedRows = []
+let searchInput = $("#search")
+
+employeeRows.each(function(index, row) {
+	employeeReversedRows.push(row)
+})
+employeeReversedRows = employeeReversedRows.reverse()
+
+$(searchInput).keyup(function(){
+	let delay = 100
+	let value = searchInput[0].value
+
+	employeeReversedRows.forEach(function(row) {
+		let employeeName = row.firstChild.innerText.toUpperCase()
+		value = value.toUpperCase()
+
+		console.log(employeeName.includes(value))
+		if(employeeName.includes(value)) {
+			setTimeout(function(){
+				$(row).css({
+					display: "table",
+					border: "solid"
+				})
+			}, delay)
+
+			$(row).css({
+				visibility: "visible",
+				opacity: 1,
+				border: "none"
+			})	
+		}
+		else {
+			setTimeout(function() {
+				$(row).css("display", "none")
+			}, delay)
+			
+			$(row).css({
+				visibility: "hidden",
+				opacity: 0,
+				transition: "visibility 0.5s linear	, opacity 0.5s linear",
+			})
+		}
+
+		delay += 0
+	})
+})
+
+employeeRows.each(function(index) {
+	console.log(employeesData[index])
 	if(employeesData[index].allocation > 176) {
 		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
 			"color": "red"
@@ -115,4 +164,3 @@ $(`${employeeTable} tr`).each(function(index) {
 		})
 	}
 })
-

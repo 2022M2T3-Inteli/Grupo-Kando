@@ -89,13 +89,14 @@
               <div class="container" id="main-container">
                 <div class="row">
                   <div class="col-3" id="search-project">
-                    <form action="/action_page.php">
+                    <form autocomplete="off" onsubmit="return false;">
                       <div id="search-group">
                         <input
                           type="text"
                           id="search"
                           placeholder="Search"
                           name="search"
+                          autocomplete="off"
                         />
                         <div class="input-group-btn">
                           <img src="img/lupa.png" alt="" />

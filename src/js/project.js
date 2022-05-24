@@ -85,6 +85,51 @@ let projectsData = [
 ]
 
 $("#projects-table").bootstrapTable({
-  data: projectsData
+	data: projectsData
 })
 $("#projects-table tr:not(:first)").addClass("table-body-row")
+
+let projectsTable = $("#projects-table")
+let projectRows = $(".table-body-row")
+let projectReversedRows = []
+let searchInput = $("#search")
+
+projectRows.each(function(index, row) {
+	projectReversedRows.push(row)
+})
+projectReversedRows = projectReversedRows.reverse()
+
+$(searchInput).keyup(function(){
+	let delay = 100
+	let value = searchInput[0].value
+	projectReversedRows.forEach(function(row) {
+		let projectName = row.firstChild.innerText.toUpperCase()
+		value = value.toUpperCase()
+
+		if(projectName.includes(value)) {
+			setTimeout(function(){
+				$(row).css({
+					display: "table",
+					border: "solid"
+				})
+			}, delay)
+
+			$(row).css({
+				visibility: "visible",
+				opacity: 1,
+				border: "none"
+			})	
+		}
+		else {
+			setTimeout(function() {
+				$(row).css("display", "none")
+			}, delay)
+			
+			$(row).css({
+				visibility: "hidden",
+				opacity: 0,
+				transition: "visibility 0.5s linear	, opacity 0.5s linear",
+			})
+		}
+	})
+})
