@@ -333,6 +333,37 @@ const generalChart4Config = {
         }
     },
   };
+  //########################################################
+
+  const generalChart5 = {
+    labels: [
+        'Nº de Funcionarios Dentro da Carga Horária',
+        'Nº de Funcionarios em Sobretempo Geral',
+        'Nº de Funcionarios em Sobretempo para Projetos'
+    ],
+    datasets: [{
+        data: [70, 100, 20],
+        backgroundColor: 
+        [
+            'rgb(155, 215, 235)',
+            'rgb(154, 12, 135)',
+            'rgb(255, 199, 12)',
+        ],
+    }]
+  };
+
+const generalChart5Config = {
+    type: 'pie',
+    data: generalChart5,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,    
+        plugins: {
+            offset: 30
+        }
+    },
+  };
+//###########################################################
 
 //  Gráficos da tela Geral do Dashboard
 const generalHoursCtx = $(".hours-chart")
@@ -455,45 +486,33 @@ const project1Chart2Config = {
 
 const project1Chart3 = {
     labels: [
-        "Analistas", "Desenvolvedores", "DBAs", "Gestores de Projetos", "Testers"
+        "Analista", "DBA", "Gestor de Projetos", "Tester", "Suporte", "Desenvolvedor"
     ],
-    datasets: [{
-        type: 'bar',
-        data: [200, 150, 130, 160, 145],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-        ],
-        borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-        ],
-        borderWidth: 1,
-    },
-    {
-        type: "line",
-        data: [180, 180, 180, 180, 180],
-        backgroundColor: "rgb(200, 45, 0)",
-        borderColor: "rgb(200, 45, 0)",
-        pointRadius: 0
-    }
-    ]
+    datasets: [
+        {
+            backgroundColor: 'rgb(200, 0, 0)',
+            borderColor: 'rgb(200, 0, 0)',
+
+            fill: {
+                target: 'origin',
+                above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+            },
+            data: [180, 100, 160, 130, 220, 150],
+            backgroundColor: ["red", "blue", "green", "grey", "pink"], 
+        },
+    ],
 }
 
 const project1Chart3Config = {
+    type: 'bar',
     data: project1Chart3,
     options: {
-        indexAxis: 'y',  
+        responsive: true,
+        maintainAspectRatio: false,    
         plugins: {
             legend: {
                 display: false
-            }
+            },
         }
     }
 }
@@ -550,54 +569,35 @@ const project2Chart2 = {
     }],
 }
 
-const project2Chart2Config = {
-    type: 'line',
-    data: project2Chart2,
-    options: {
-    }
-}
-
 const project2Chart3 = {
     labels: [
-        "Analistas", "Desenvolvedores", "DBAs", "Gestores de Projetos", "Testers"
+        "Analista", "DBA", "Gestor de Projetos", "Tester", "Suporte", "Desenvolvedor"
     ],
-    datasets: [{
-        type: 'bar',
-        data: [130, 120, 110, 195, 130],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-        ],
-        borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-        ],
-        borderWidth: 1,
-    },
-    {
-        type: "line",
-        data: [180, 180, 180, 180, 180],
-        backgroundColor: "rgb(200, 45, 0)",
-        borderColor: "rgb(200, 45, 0)",
-        pointRadius: 0
-    }
-    ]
+    datasets: [
+        {
+            backgroundColor: 'rgb(200, 0, 0)',
+            borderColor: 'rgb(200, 0, 0)',
+
+            fill: {
+                target: 'origin',
+                above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+            },
+            data: [180, 100, 160, 130, 220, 150],
+            backgroundColor: ["red", "blue", "green", "grey", "pink"], 
+        },
+    ],
 }
 
 const project2Chart3Config = {
+    type: 'bar',
     data: project2Chart3,
     options: {
-        indexAxis: 'y',  
+        responsive: true,
+        maintainAspectRatio: false,    
         plugins: {
             legend: {
                 display: false
-            }
+            },
         }
     }
 }
@@ -662,45 +662,33 @@ const project3Chart2Config = {
 
 const project3Chart3 = {
     labels: [
-        "Analistas", "Desenvolvedores", "DBAs", "Gestores de Projetos", "Testers"
+        "Analista", "DBA", "Gestor de Projetos", "Tester", "Suporte", "Desenvolvedor"
     ],
-    datasets: [{
-        type: 'bar',
-        data: [120, 140, 190, 170, 145],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-        ],
-        borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-        ],
-        borderWidth: 1,
-    },
-    {
-        type: "line",
-        data: [180, 180, 180, 180, 180],
-        backgroundColor: "rgb(200, 45, 0)",
-        borderColor: "rgb(200, 45, 0)",
-        pointRadius: 0
-    }
-    ]
+    datasets: [
+        {
+            backgroundColor: 'rgb(200, 0, 0)',
+            borderColor: 'rgb(200, 0, 0)',
+
+            fill: {
+                target: 'origin',
+                above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+            },
+            data: [180, 100, 160, 130, 220, 150],
+            backgroundColor: ["red", "blue", "green", "grey", "pink"], 
+        },
+    ],
 }
 
 const project3Chart3Config = {
+    type: 'bar',
     data: project3Chart3,
     options: {
-        indexAxis: 'y',  
+        responsive: true,
+        maintainAspectRatio: false,    
         plugins: {
             legend: {
                 display: false
-            }
+            },
         }
     }
 }
