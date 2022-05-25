@@ -12,70 +12,217 @@ const yearMounths = [
     'Novembro',
     'Dezembro',
 ]
-const generalChart1 = {
-    labels: yearMounths,
-    datasets: [
-        {
-            label: 'Total de Horas Necessárias por Mês',
-            backgroundColor: 'rgb(200, 0, 0)',
-            borderColor: 'rgb(200, 0, 0)',
-            fill: {
-                target: 'origin',
-                above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+const generalHoursChartsData = [
+    {
+        labels: yearMounths,
+        datasets: [
+            {
+                label: 'Total de Horas Necessárias por Mês',
+                backgroundColor: 'rgb(200, 0, 0)',
+                borderColor: 'rgb(200, 0, 0)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+                },
+                data: [2500, 2500, 3500, 4000, 3500, 2500, 3500, 4000, 4500, 2500, 4500, 2500],
             },
-            data: [2500, 2500, 3500, 4000, 3500, 2500, 3500, 4000, 4500, 2500, 4500, 2500],
-        },
-        {
-            label: 'Total de Horas de Funcionários Disponíveis por mês',
-            backgroundColor: 'rgb(140, 0, 140)',
-            borderColor: 'rgb(140, 0, 140)',
-            // fill: {
-            //     target: 'origin',
-            //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-            // },
-            data: [3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500],
-            pointRadius: 0
-        },
-        {
-            label: 'Total de Horas de CLTs Disponíveis por Mês',
-            backgroundColor: 'rgb(220, 220, 0)',
-            borderColor: 'rgb(220, 220, 0)',
-            // fill: {
-            //     target: 'origin',
-            //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-            // },
-            data: [2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500],
-            pointRadius: 0
-        },
-        {
-            label: 'Total de Horas de Terceiros Disponíveis por Mês',
-            backgroundColor: 'rgb(100, 100, 100)',
-            borderColor: 'rgb(100, 100, 100)',
-            fill: {
-                target: 'origin',
-                above: 'rgb(100, 100, 100, 15%)',   // Area will be red above the origin
+            {
+                label: 'Total de Horas de Funcionários Disponíveis por mês',
+                backgroundColor: 'rgb(140, 0, 140)',
+                borderColor: 'rgb(140, 0, 140)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+                // },
+                data: [3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500],
+                pointRadius: 0
             },
-            data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
-            pointRadius: 0
-        },
-    ],
-}
-const generalChart1Config = {
-    type: 'line',
-    data: generalChart1,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,    
-        plugins: {
-        },
-        scales: {
-            y: {
-                min: 0,
-                max: 5000,
-            }
-        }
+            {
+                label: 'Total de Horas de CLTs Disponíveis por Mês',
+                backgroundColor: 'rgb(220, 220, 0)',
+                borderColor: 'rgb(220, 220, 0)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+                // },
+                data: [2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500],
+                pointRadius: 0
+            },
+            {
+                label: 'Total de Horas de Terceiros Disponíveis por Mês',
+                backgroundColor: 'rgb(100, 100, 100)',
+                borderColor: 'rgb(100, 100, 100)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(100, 100, 100, 15%)',   // Area will be red above the origin
+                },
+                data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+                pointRadius: 0
+            },
+        ],
+    },
+    {
+        labels: yearMounths,
+        datasets: [
+            {
+                label: 'Total de Horas Necessárias por Mês',
+                backgroundColor: 'rgb(200, 0, 0)',
+                borderColor: 'rgb(200, 0, 0)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+                },
+                data: [250, 750, 1000, 700, 300, 200, 400, 1000, 1200, 1400, 2000, 100],
+            },
+            {
+                label: 'Total de Horas de Funcionários Disponíveis por mês',
+                backgroundColor: 'rgb(140, 0, 140)',
+                borderColor: 'rgb(140, 0, 140)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+                // },
+                data: [1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500],
+                pointRadius: 0
+            },
+            {
+                label: 'Total de Horas de CLTs Disponíveis por Mês',
+                backgroundColor: 'rgb(220, 220, 0)',
+                borderColor: 'rgb(220, 220, 0)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+                // },
+                data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
+                pointRadius: 0
+            },
+            {
+                label: 'Total de Horas de Terceiros Disponíveis por Mês',
+                backgroundColor: 'rgb(100, 100, 100)',
+                borderColor: 'rgb(100, 100, 100)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(100, 100, 100, 15%)',   // Area will be red above the origin
+                },
+                data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+                pointRadius: 0
+            },
+        ],
+    },
+    {
+        labels: yearMounths,
+        datasets: [
+            {
+                label: 'Total de Horas Necessárias por Mês',
+                backgroundColor: 'rgb(200, 0, 0)',
+                borderColor: 'rgb(200, 0, 0)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+                },
+                data: [400, 200, 600, 300, 450, 600, 700, 800, 1000, 200, 300, 400],
+            },
+            {
+                label: 'Total de Horas de Funcionários Disponíveis por mês',
+                backgroundColor: 'rgb(140, 0, 140)',
+                borderColor: 'rgb(140, 0, 140)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+                // },
+                data: [1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200],
+                pointRadius: 0
+            },
+            {
+                label: 'Total de Horas de CLTs Disponíveis por Mês',
+                backgroundColor: 'rgb(220, 220, 0)',
+                borderColor: 'rgb(220, 220, 0)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+                // },
+                data: [300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300],
+                pointRadius: 0
+            },
+            {
+                label: 'Total de Horas de Terceiros Disponíveis por Mês',
+                backgroundColor: 'rgb(100, 100, 100)',
+                borderColor: 'rgb(100, 100, 100)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(100, 100, 100, 15%)',   // Area will be red above the origin
+                },
+                data: [900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900],
+                pointRadius: 0
+            },
+        ],
+    },
+    {
+        labels: yearMounths,
+        datasets: [
+            {
+                label: 'Total de Horas Necessárias por Mês',
+                backgroundColor: 'rgb(200, 0, 0)',
+                borderColor: 'rgb(200, 0, 0)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
+                },
+                data: [1000, 1200, 1300, 400, 500, 600, 1200, 700, 900, 1000, 300, 200],
+            },
+            {
+                label: 'Total de Horas de Funcionários Disponíveis por mês',
+                backgroundColor: 'rgb(140, 0, 140)',
+                borderColor: 'rgb(140, 0, 140)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+                // },
+                data: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
+                pointRadius: 0
+            },
+            {
+                label: 'Total de Horas de CLTs Disponíveis por Mês',
+                backgroundColor: 'rgb(220, 220, 0)',
+                borderColor: 'rgb(220, 220, 0)',
+                // fill: {
+                //     target: 'origin',
+                //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+                // },
+                data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
+                pointRadius: 0
+            },
+            {
+                label: 'Total de Horas de Terceiros Disponíveis por Mês',
+                backgroundColor: 'rgb(100, 100, 100)',
+                borderColor: 'rgb(100, 100, 100)',
+                fill: {
+                    target: 'origin',
+                    above: 'rgb(100, 100, 100, 15%)',   // Area will be red above the origin
+                },
+                data: [750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750],
+                pointRadius: 0
+            },
+        ],
     }
-}
+]
+
+// const generalChart1Config = {
+//     type: 'line',
+//     data: generalChart1,
+//     options: {
+//         responsive: true,
+//         maintainAspectRatio: false,    
+//         plugins: {
+//         },
+//         scales: {
+//             y: {
+//                 min: 0,
+//                 max: 5000,
+//             }
+//         }
+//     }
+// }
 
 const generalChart2 = {
     labels: yearMounths,
@@ -188,8 +335,45 @@ const generalChart4Config = {
   };
 
 //  Gráficos da tela Geral do Dashboard
-const generalCtx = document.getElementById('general-hours-chart')
-const generalDashChart1 = new Chart(generalCtx, generalChart1Config)
+const generalHoursCtx = $(".hours-chart")
+const generalHoursCharts = []
+
+generalHoursCtx.each(function(index) {
+    generalHoursCharts.push(new Chart($(`#general-hours-chart${index}`), {
+        type: 'line',
+        data: generalHoursChartsData[index],
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,    
+            plugins: {
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: function(){
+                        // console.log(Math.max(generalHoursChartsData[index].datasets[0].data[0]))
+                        let hoursNeeded = Math.max(...generalHoursChartsData[index].datasets[0].data)
+                        let avaliableHours = generalHoursChartsData[index].datasets[1].data[0]
+                        console.log(hoursNeeded, avaliableHours)
+
+                        if (hoursNeeded > avaliableHours) {
+                            console.log("hours Needed "+hoursNeeded+" avaliable "+avaliableHours)
+                            // console.log(hoursNeeded+500)
+                            return hoursNeeded + 200
+                        }
+                        else {
+                            console.log("hours Needed "+hoursNeeded+" avaliable "+avaliableHours)
+                            // console.log(avaliableHours + 500)
+                            return avaliableHours + 200
+                        }
+                    },
+                }
+            }
+        }
+    })
+    )
+})
+
 
 const generalCtx2 = document.getElementById("general-employee-chart")
 const generalDashChart2 = new Chart(generalCtx2, generalChart2Config)
@@ -199,6 +383,26 @@ const generalDashChart3 = new Chart(generalCtx3, generalDash3Config)
 
 const generalCtx4 = document.getElementById("general-projects-status-chart")
 const generalDashChart4 = new Chart(generalCtx4, generalChart4Config)
+
+let generalLastChart
+let generalLastChartIndex = 0
+function chartChange(value) {
+    if(generalLastChart) {
+        document.getElementById(generalLastChart).hidden = true
+        document.getElementById(generalLastChart+"-title").hidden = true
+    }
+    else {
+        document.getElementById("general-hours-chart0").hidden = true
+        document.getElementById("general-hours-chart0-title").hidden = true
+    }
+    document.getElementById(value).hidden = false
+    document.getElementById(value+"-title").hidden = false
+    generalLastChart = value 
+    generalLastChartIndex += 1
+    if(generalLastChartIndex > generalHoursCharts.length) {
+        generalLastChartIndex = 0
+    }
+}
 
 //  Gráficos da tela de Projeto 1 do Dashboard
 const project1Chart1 = {

@@ -49,8 +49,25 @@
                         <div id="general">
                             <div class="row chart-container">
                                 <div id="general-chart1" class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária por Mês</div>
-                                    <canvas id="general-hours-chart" class="area-chart"></canvas>
+                                    <div class="chart-title">
+                                        <div id="general-hours-chart0-title">Carga Horária Total por Mês</div> 
+                                        <div id="general-hours-chart1-title" hidden>Carga Horária da Função por Mês</div> 
+                                        <div id="general-hours-chart2-title" hidden>Carga Horária da Função por Mês</div> 
+                                        <div id="general-hours-chart3-title" hidden>Carga Horária da Função por Mês</div> 
+                                        <!-- <div class="chart-selection">
+                                            
+                                        </div> -->
+                                        <select name="chart-select" class="chart-selection" onchange="chartChange(this.value)">
+                                            <option value="general-hours-chart0" selected>Sem Filtro</option>
+                                            <option value="general-hours-chart1">Analista</option>
+                                            <option value="general-hours-chart2">Gerente de Projetos</option>
+                                            <option value="general-hours-chart3">DBA</option>
+                                        </select>
+                                    </div>
+                                    <canvas id="general-hours-chart0" class="area-chart hours-chart"></canvas>
+                                    <canvas id="general-hours-chart1" class="area-chart hours-chart" hidden></canvas>
+                                    <canvas id="general-hours-chart2" class="area-chart hours-chart" hidden></canvas>
+                                    <canvas id="general-hours-chart3" class="area-chart hours-chart" hidden></canvas>
                                 </div>
                                 <div id="general-chart2" class="col-5 dash-chart">
                                     <div class="chart-title">Colaboradores Alocados por Mês</div>
@@ -158,6 +175,10 @@
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Chart.js datalabels -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2  "></script>
     <script src="js/dashboard.js"></script>
