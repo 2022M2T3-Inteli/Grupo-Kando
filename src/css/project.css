@@ -20,11 +20,10 @@ body{
 	max-height: 80px;
 }
 
-.project-view {
+.project-tools {
     height: 60px;
     display: flex;
     background-color: none !important;
-    flex-direction: column;
     justify-content: center;
     color: #2b2b2b;
     padding: 20px;
