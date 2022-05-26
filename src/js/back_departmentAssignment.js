@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
-  var sql = 'SELECT * FROM Project ORDER BY id COLLATE NOCASE';
+  var sql = 'SELECT * FROM DepartmentAssignment ORDER BY id COLLATE NOCASE';
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err;
@@ -42,7 +42,7 @@ app.post('/userinsert', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 	res.send(req.body)
 
-	sql = "INSERT INTO Project (name, location, start_date, end_date, description, department_id) VALUES ('" + req.body.name + "', '" + req.body.location + "', '" + req.body.start_date + "', '" + req.body.end_date + "','" + req.description + "', '" + req.body.department_id + "')";                       																																																																																
+	sql = "INSERT INTO DepartmentAssignment (name) VALUES ('" + req.body.name + "')";                       																																																																																
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
@@ -59,7 +59,7 @@ app.post('/userupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "UPDATE Project SET name = '" + req.body.name + "', location = '" + req.body.location + "',  start_date = '" + req.body.start_date + "', end_date = '" + req.body.end_date + "', description = '" + req.body.description + "', department_id = '" + req.body.department_id + "', roles_id = '" + req.body.roles_id + "' WHERE id = " + req.body.id;
+	sql = "UPDATE DepartmentAssignment SET name = '" + req.body.name + "' WHERE id = " + req.body.id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
@@ -75,7 +75,7 @@ app.post('/userdelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "DELETE FROM Project WHERE id = " + req.body.id;
+	sql = "DELETE FROM DepartmentAssignment WHERE id = " + req.body.id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {

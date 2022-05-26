@@ -42,7 +42,7 @@ app.post('/userinsert', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 	res.send(req.body)
 
-	sql = "INSERT INTO Department (name, projects_id) VALUES ('" + req.body.name + "', '" + req.body.projects_id + "')";                       																																																																																
+	sql = "INSERT INTO Department (name) VALUES ('" + req.body.name + "')";                       																																																																																
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
@@ -59,7 +59,7 @@ app.post('/userupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "UPDATE Department SET name = '" + req.body.name + "', projects_id = '" + req.body.projects_id + "' WHERE id = " + req.body.id;
+	sql = "UPDATE Department SET name = '" + req.body.name + "' WHERE id = " + req.body.id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
