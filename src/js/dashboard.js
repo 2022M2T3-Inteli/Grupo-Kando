@@ -415,6 +415,10 @@ const generalDashChart3 = new Chart(generalCtx3, generalDash3Config)
 const generalCtx4 = document.getElementById("general-projects-status-chart")
 const generalDashChart4 = new Chart(generalCtx4, generalChart4Config)
 
+const generalCtx5 = document.getElementById("general-employee-chart2")
+const generalDashChart5 = new Chart(generalCtx5, generalChart5Config)
+
+
 let generalLastChart
 let generalLastChartIndex = 0
 function chartChange(value) {

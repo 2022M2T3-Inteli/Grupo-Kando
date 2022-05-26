@@ -28,6 +28,9 @@ body{
     color: #2b2b2b;
     padding: 20px;
 }
+.project-tools div {
+	padding: 0px 8px;
+}
 .project-view-button:hover {
     cursor: pointer;
 }
