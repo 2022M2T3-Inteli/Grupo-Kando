@@ -40,6 +40,7 @@ app.get('/', (req, res) => {
 app.post('/userinsert', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
+	res.send(req.body)
 
 	sql = "INSERT INTO Project (name, location, start_date, end_date, description, department_id, roles_id) VALUES ('" + req.body.name + "', '" + req.body.location + "', '" + req.body.start_date + "', '" + req.body.end_date + "','" + req.description + "', '" + req.body.department_id + "','" + req.body.roles_id + "')";                       																																																																																
 
