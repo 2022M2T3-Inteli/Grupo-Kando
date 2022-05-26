@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
-  var sql = 'SELECT * FROM Role ORDER BY roleId COLLATE NOCASE';
+  var sql = 'SELECT * FROM Roles ORDER BY Id COLLATE NOCASE';
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err;
@@ -41,7 +41,7 @@ app.post('/userinsert', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "INSERT INTO Role (Function, Employees) VALUES ('" + req.body.Function + "', '" + req.body.Employees + "')";                       																																																																																
+	sql = "INSERT INTO Roles (name, employees_id) VALUES ('" + req.body.name + "', '" + req.body.employees_id + "')";                       																																																																																
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
@@ -58,7 +58,7 @@ app.post('/userupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "UPDATE Role SET Function = '" + req.body.Function + "' WHERE roleId = " + req.body.roleId;
+	sql = "UPDATE Role SET name = '" + req.body.name + "', employees_id'" + req.body.employees_id + "' WHERE rolesId = " + req.body.Id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
@@ -74,7 +74,7 @@ app.post('/userdelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "DELETE FROM Role WHERE roleId = " + req.body.roleId;
+	sql = "DELETE FROM Roles WHERE Id = " + req.body.Id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {

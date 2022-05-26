@@ -41,7 +41,7 @@ app.post('/userinsert', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "INSERT INTO Project (name, location, start_date, end_date, description, type, roles, hours_required) VALUES ('" + req.body.name + "', '" + req.body.location + "', '" + req.body.start_date + "', '" + req.body.end_date + "','" + req.description + "', '" + req.body.type + "','" + req.body.roles + "','" + req.body.hours_required + "')";                       																																																																																
+	sql = "INSERT INTO Project (name, location, start_date, end_date, description, department_id, roles_id) VALUES ('" + req.body.name + "', '" + req.body.location + "', '" + req.body.start_date + "', '" + req.body.end_date + "','" + req.description + "', '" + req.body.department_id + "','" + req.body.roles_id + "')";                       																																																																																
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
@@ -58,7 +58,7 @@ app.post('/userupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "UPDATE Project SET name = '" + req.body.name + "', location = '" + req.body.location + "',  start_date = '" + req.body.start_date + "', end_date = '" + req.body.end_date + "', description = '" + req.body.description + "', type = '" + req.body.type + "', roles = '" + req.body.roles + "', hours_required = '" + req.body.hours_required + "' WHERE id = " + req.body.id;
+	sql = "UPDATE Project SET name = '" + req.body.name + "', location = '" + req.body.location + "',  start_date = '" + req.body.start_date + "', end_date = '" + req.body.end_date + "', description = '" + req.body.description + "', department_id = '" + req.body.department_id + "', roles_id = '" + req.body.roles_id + "' WHERE id = " + req.body.id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
