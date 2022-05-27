@@ -4,7 +4,7 @@ const router = express.Router()
 // const hostname = '127.0.0.1';
 // const port = 3061;
 const sqlite3 = require('sqlite3').verbose();
-const DBPATH = 'banco.db';
+const DBPATH = 'database.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -42,7 +42,7 @@ router.post('/dassignmentinsert', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 	res.send(req.body)
 
-	sql = "INSERT INTO DepartmentAssignment (name) VALUES ('" + req.body.name + "')";                       																																																																																
+	sql = "INSERT INTO DepartmentAssignment (department_id, project_id) VALUES ('" + req.body.employee_id + "', '" + req.body.project_id + "')";                      																																																																																
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
@@ -59,7 +59,7 @@ router.post('/dassignmentupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "UPDATE DepartmentAssignment SET name = '" + req.body.name + "' WHERE id = " + req.body.id;
+	sql = "UPDATE DepartmentAssignment SET department_id = '" + req.body.employee_id + "', project_id = '" + req.body.project_id + "' WHERE id = " + req.body.id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
@@ -71,7 +71,7 @@ router.post('/dassignmentupdate', urlencodedParser, (req, res) => {
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
-router.post('/dassignmentdelete', urlencodedParser, (req, res) => {
+router.delete('/dassignmentdelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -93,4 +93,4 @@ router.post('/dassignmentdelete', urlencodedParser, (req, res) => {
 //   console.log(`Server running at http://${hostname}:${port}/`);
 // });
 
-module.exports
+module.exports = router;

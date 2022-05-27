@@ -21,7 +21,13 @@ app.use(express.json());
 // const role_assignment = require('./back_role_assignment')
 // const role = require('./back_role')
 
-
+app.use("/", require("./back_department_assignment"));
+app.use("/", require("./back_department"));
+app.use("/", require("./back_employee_assignment"));
+app.use("/", require("./back_employees"));
+app.use("/", require("./back_projects"));
+app.use("/", require("./back_role_assignment"));
+app.use("/", require("./back_role"));
 app.use("/", require("./back_department"));
 app.use("/", require("./back_dashboard"))
 

@@ -4,7 +4,7 @@ const router = express.Router()
 // const hostname = '127.0.0.1';
 // const port = 3061;
 const sqlite3 = require('sqlite3').verbose();
-const DBPATH = 'banco.db';
+const DBPATH = 'database.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -68,7 +68,7 @@ router.post('/eassignmentupdate', urlencodedParser, (req, res) => {
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
-router.post('/eassignmentdelete', urlencodedParser, (req, res) => {
+router.delete('/eassignmentdelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 

@@ -4,7 +4,7 @@ const router = express.Router()
 // const hostname = '127.0.0.1';
 // const port = 3061;
 const sqlite3 = require('sqlite3').verbose();
-const DBPATH = 'banco.db';
+const DBPATH = 'database.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -20,7 +20,7 @@ router.get('/role', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
-  var sql = 'SELECT * FROM Roles ORDER BY id COLLATE NOCASE';
+  var sql = 'SELECT * FROM Role ORDER BY id COLLATE NOCASE';
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err;
@@ -37,7 +37,7 @@ router.post('/roleinsert', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "INSERT INTO Roles (name) VALUES ('" + req.body.name + "')";                       																																																																																
+	sql = "INSERT INTO Role (name) VALUES ('" + req.body.name + "')";                       																																																																																
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
@@ -66,11 +66,11 @@ router.post('/roleupdate', urlencodedParser, (req, res) => {
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
-router.post('/roledelete', urlencodedParser, (req, res) => {
+router.delete('/roledelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "DELETE FROM Roles WHERE id = " + req.body.id;
+	sql = "DELETE FROM Role WHERE id = " + req.body.id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {

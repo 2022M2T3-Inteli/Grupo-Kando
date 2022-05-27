@@ -4,7 +4,7 @@ const router = express.Router()
 // const hostname = '127.0.0.1';
 // const port = 3061;
 const sqlite3 = require('sqlite3').verbose();
-const DBPATH = 'banco.db';
+const DBPATH = 'database.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -42,7 +42,7 @@ router.post('/departmentinsert', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 	res.send(req.body)
 
-	sql = "INSERT INTO Department (name, projects_id) VALUES ('" + req.body.name + "', '" + req.body.projects_id + "')";                       																																																																																
+	sql = "INSERT INTO Department (name) VALUES ('" + req.body.name + "')";                       																																																																																
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
@@ -59,7 +59,7 @@ router.post('/departmentupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "UPDATE Department SET name = '" + req.body.name + "', projects_id = '" + req.body.projects_id + "' WHERE id = " + req.body.id;
+	sql = "UPDATE Department SET name = '" + req.body.name + "' WHERE id = " + req.body.id;
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
@@ -71,7 +71,7 @@ router.post('/departmentupdate', urlencodedParser, (req, res) => {
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
-router.post('/departmentdelete', urlencodedParser, (req, res) => {
+router.delete('/departmentdelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
