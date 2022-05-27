@@ -126,7 +126,6 @@ $(searchInput).keyup(function(){
 		let employeeName = row.firstChild.innerText.toUpperCase()
 		value = value.toUpperCase()
 
-		console.log(employeeName.includes(value))
 		if(employeeName.includes(value)) {
 			setTimeout(function(){
 				$(row).css({
@@ -158,7 +157,6 @@ $(searchInput).keyup(function(){
 })
 
 employeeRows.each(function(index) {
-	console.log(employeesData[index])
 	if(employeesData[index].allocation > 176) {
 		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
 			"color": "#36024A",

@@ -109,7 +109,7 @@ let projectsTable = $("#projects-table")
 $(projectsTable).bootstrapTable({
 	data: projectsData
 })
-$(`${projects-table} tr:not(:first)`).addClass("table-body-row")
+$("#projects-table tr:not(:first)").addClass("table-body-row")
 
 
 let projectRows = $(".table-body-row")

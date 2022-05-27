@@ -1,3 +1,8 @@
+let projectsData = {
+    hoursNeeded: [2500, 2500, 3500, 4000, 3500, 2500, 3500, 4000, 4500, 2500, 4500, 2500],
+    // rolesHoursNeeded:
+}
+
 const yearMounths = [
     'Janeiro',
     'Fevereiro',
@@ -24,7 +29,7 @@ const generalHoursChartsData = [
                     target: 'origin',
                     above: 'rgb(200, 0, 0, 15%)',   // Area will be red above the origin
                 },
-                data: [2500, 2500, 3500, 4000, 3500, 2500, 3500, 4000, 4500, 2500, 4500, 2500],
+                data: projectsData.hoursNeeded,
             },
             {
                 label: 'Total de Horas de Funcionários Disponíveis por mês',
@@ -338,8 +343,8 @@ const generalChart4Config = {
   const generalChart5 = {
     labels: [
         'Nº de Funcionarios Dentro da Carga Horária',
-        'Nº de Funcionarios em Sobretempo Geral',
-        'Nº de Funcionarios em Sobretempo para Projetos'
+        'Nº de Funcionarios Sobrecarregados Geral',
+        'Nº de Funcionarios Sobrecarregados para Projetos'
     ],
     datasets: [{
         data: [70, 100, 20],
@@ -382,19 +387,13 @@ generalHoursCtx.each(function(index) {
                 y: {
                     min: 0,
                     max: function(){
-                        // console.log(Math.max(generalHoursChartsData[index].datasets[0].data[0]))
                         let hoursNeeded = Math.max(...generalHoursChartsData[index].datasets[0].data)
                         let avaliableHours = generalHoursChartsData[index].datasets[1].data[0]
-                        console.log(hoursNeeded, avaliableHours)
 
                         if (hoursNeeded > avaliableHours) {
-                            console.log("hours Needed "+hoursNeeded+" avaliable "+avaliableHours)
-                            // console.log(hoursNeeded+500)
                             return hoursNeeded + 200
                         }
                         else {
-                            console.log("hours Needed "+hoursNeeded+" avaliable "+avaliableHours)
-                            // console.log(avaliableHours + 500)
                             return avaliableHours + 200
                         }
                     },
