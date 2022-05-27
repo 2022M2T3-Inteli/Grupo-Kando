@@ -39,7 +39,7 @@ router.get('/roletotalhours', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
-  var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment where role_id = ' + req.body.role_id;
+  var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment where role_id = 1';
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err;
