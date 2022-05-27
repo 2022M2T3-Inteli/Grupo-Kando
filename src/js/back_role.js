@@ -1,17 +1,13 @@
-const express = require('express'); 
-const app = express();
+const express = require('express');
+const router = express.Router()
 
-const hostname = '127.0.0.1';
-const port = 3061;
+// const hostname = '127.0.0.1';
+// const port = 3061;
 const sqlite3 = require('sqlite3').verbose();
 const DBPATH = 'banco.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-app.use(express.static("../frontend/"));
-
-app.use(express.json());
 
 
 /* Definição dos endpoints */
@@ -19,7 +15,7 @@ app.use(express.json());
 /****** CRUD ******************************************************************/
 
 // Retorna todos registros (é o R do CRUD - Read)
-app.get('/', (req, res) => {
+router.get('/role', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -37,7 +33,7 @@ app.get('/', (req, res) => {
 // urlencodedParser
 
 // Insere um registro (é o C do CRUD - Create)
-app.post('/userinsert', (req, res) => {
+router.post('/roleinsert', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -54,7 +50,7 @@ app.post('/userinsert', (req, res) => {
 });
 
 // Atualiza um registro (é o U do CRUD - Update)
-app.post('/userupdate', urlencodedParser, (req, res) => {
+router.post('/roleupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -70,7 +66,7 @@ app.post('/userupdate', urlencodedParser, (req, res) => {
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
-app.post('/userdelete', urlencodedParser, (req, res) => {
+router.post('/roledelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -88,6 +84,8 @@ app.post('/userdelete', urlencodedParser, (req, res) => {
 
 
 /* Inicia o servidor */
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+// app.listen(port, hostname, () => {
+//   console.log(`Server running at http://${hostname}:${port}/`);
+// });
+
+module.exports = router;
