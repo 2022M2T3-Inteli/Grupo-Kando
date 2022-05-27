@@ -1,17 +1,17 @@
-const express = require('express'); 
-const app = express();
+const express = require('express');
+const router = express.Router()
 
-const hostname = '127.0.0.1';
-const port = 3061;
+// const hostname = '127.0.0.1';
+// const port = 3061;
 const sqlite3 = require('sqlite3').verbose();
 const DBPATH = 'banco.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.use(express.static("../frontend/"));
+// router.use(express.static("../frontend/"));
 
-app.use(express.json());
+// router.use(express.json());
 
 
 /* Definição dos endpoints */
@@ -19,7 +19,7 @@ app.use(express.json());
 /****** CRUD ******************************************************************/
 
 // Retorna todos registros (é o R do CRUD - Read)
-app.get('/dassignment', (req, res) => {
+router.get('/dassignment', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -37,7 +37,7 @@ app.get('/dassignment', (req, res) => {
 // urlencodedParser
 
 // Insere um registro (é o C do CRUD - Create)
-app.post('/dassignmentinsert', (req, res) => {
+router.post('/dassignmentinsert', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 	res.send(req.body)
@@ -55,7 +55,7 @@ app.post('/dassignmentinsert', (req, res) => {
 });
 
 // Atualiza um registro (é o U do CRUD - Update)
-app.post('/dassignmentupdate', urlencodedParser, (req, res) => {
+router.post('/dassignmentupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -71,7 +71,7 @@ app.post('/dassignmentupdate', urlencodedParser, (req, res) => {
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
-app.post('/dassignmentdelete', urlencodedParser, (req, res) => {
+router.post('/dassignmentdelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
