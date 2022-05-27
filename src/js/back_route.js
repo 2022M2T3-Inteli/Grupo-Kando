@@ -23,6 +23,7 @@ app.use(express.json());
 
 
 app.use("/", require("./back_department"));
+app.use("/", require("./back_dashboard"))
 
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);

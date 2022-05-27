@@ -36,6 +36,8 @@ let employeeTools = `
 	</div>
 `
 
+let employeeMaxHours = 176
+
 let employeesData = [
 	{
 		allocation: 95,
@@ -62,35 +64,35 @@ let tableData = [
   {
     name: 'Rafael Martins',
     job: "Analista",
-    allocation: employeesData[0].allocation + "H/" + employeesData[0].totalHours + "H",
+    allocation: employeesData[0].allocation + "H/" + employeesData[0].totalHours + "H/" + employeeMaxHours + "H",
     projectsQty: '3 Projetos',
     employeeTools: employeeTools
   },
   {
     name: 'Raquel Rodrigues',
     job: "Gerente de Projetos",
-    allocation: employeesData[1].allocation + "H/" + employeesData[1].totalHours + "H",
+    allocation: employeesData[1].allocation + "H/" + employeesData[1].totalHours + "H/" + employeeMaxHours + "H",
     projectsQty: '4 Projetos',
     employeeTools: employeeTools
   },
   {
     name: 'Fernanda Queiroz',
     job: "DBA",
-    allocation: employeesData[2].allocation + "H/" + employeesData[2].totalHours + "H",
+    allocation: employeesData[2].allocation + "H/" + employeesData[2].totalHours + "H/" + employeeMaxHours + "H",
     projectsQty: '5 Projetos',
     employeeTools: employeeTools
   },
   {
     name: 'Thiago Carvalho',
     job: "Segurança da Informação",
-    allocation: employeesData[3].allocation + "H/" + employeesData[3].totalHours + "H",
+    allocation: employeesData[3].allocation + "H/" + employeesData[3].totalHours + "H/" + employeeMaxHours + "H",
     projectsQty: '6 Projetos',
     employeeTools: employeeTools
   },
   {
     name: 'Matheus Viana',
     job: "Analista",
-    allocation:	employeesData[4].allocation + "H/" + employeesData[4].totalHours + "H",
+    allocation:	employeesData[4].allocation + "H/" + employeesData[4].totalHours + "H/" + employeeMaxHours + "H",
     projectsQty: '10 Projetos',
     employeeTools: employeeTools
   }
@@ -159,13 +161,19 @@ $(searchInput).keyup(function(){
 employeeRows.each(function(index) {
 	if(employeesData[index].allocation > 176) {
 		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
-			"color": "#36024A",
+			"color": "#020202",
 			"font-weight": 800 
 		})
 	}
 	else if(employeesData[index].allocation > employeesData[index].totalHours) {
 		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
 			"color": "#D30000",
+			"font-weight": 600
+		})
+	}
+	else {
+		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
+			"color": "green",
 			"font-weight": 600
 		})
 	}
