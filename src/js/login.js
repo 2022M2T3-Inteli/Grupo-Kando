@@ -1,7 +1,7 @@
 let users = [
     {
         email: "admin@yamaha.com",
-        password: "Admin@yamaha22"
+        password: "admin"
     },
     // {
     //     email: "admin2@yamaha.com",
