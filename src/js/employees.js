@@ -100,8 +100,20 @@ let tableData = [
 
 let employeeTable = "#employees-table"
 $(employeeTable).bootstrapTable({
-  data: tableData
+  data: getEmployeeList()
 })
+
+function getEmployeeList() {
+	let url = "/employees"
+
+	let xhttp = new XMLHttpRequest()
+	xhttp.open("get", url, false)
+	xhttp.send()
+
+	let data = JSON.parse(xhttp.responseText)
+	console.log(data)
+	return data
+}
 
 $(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
 

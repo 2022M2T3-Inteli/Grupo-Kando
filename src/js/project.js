@@ -107,9 +107,21 @@ let projectsData = [
 
 let projectsTable = $("#projects-table")
 $(projectsTable).bootstrapTable({
-	data: projectsData
+	data: getProjectsList()
 })
 $("#projects-table tr:not(:first)").addClass("table-body-row")
+
+function getProjectsList() {
+	let url = "/projects"
+
+	let xhttp = new XMLHttpRequest()
+	xhttp.open("get", url, false)
+	xhttp.send()
+
+	let data = JSON.parse(xhttp.responseText)
+	console.log(data)
+	return data
+}
 
 
 let projectRows = $(".table-body-row")
