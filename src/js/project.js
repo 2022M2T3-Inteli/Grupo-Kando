@@ -31,36 +31,38 @@ if (toastTrigger) {
 let projectTools = `
 		<!-- button trigger modal view project -->
 			<div class="project-tools">
-			<!-- button trigger view employee -->
+			<!-- button trigger view project -->
 			<div
 				class="material-symbols-outlined project-view-button"
 				data-bs-toggle="modal"
-				data-bs-target="#view-employee-modal"
+				data-bs-target="#view-project-modal"
 			>
 				visibility
 			</div>
-
-     
-      <div
-				class="material-symbols-outlined project-view-button"
-				data-bs-toggle="modal"
-				data-bs-target="#view-employee-modal"
-			>
-      <span class="material-symbols-outlined">
-      edit
-      </span>
-			</div>
-
+      <! -- button edit modal remove -->
       <div
       class="material-symbols-outlined project-view-button"
       data-bs-toggle="modal"
-      data-bs-target="#view-employee-modal"
+      data-bs-target="#remove-employee-modal"
     >
       delete
     </div>
-
       
-		</div>
+      
+      <! -- button trigger edit modal -->
+      <div
+      class="material-symbols-outlined project-edit-button"
+      data-bs-toggle="modal"
+      data-bs-target="#edit-project-modal"
+      >
+      edit
+      
+        </div>
+
+
+      </div>
+     
+      
 `
 let projectsData = [
   {
