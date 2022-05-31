@@ -6,7 +6,7 @@ const db = new sqlite3.Database(path.join(__dirname, "../data/database.db"), err
 	if (err) {
 		return console.error(err.message);
 	}
-	console.log("Successful connection to the database 'projeto.db'");
+	console.log("Successful connection to the database 'database.db'");
 });
 
 module.exports = db;

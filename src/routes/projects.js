@@ -78,10 +78,4 @@ router.delete('/projectsdelete', urlencodedParser, (req, res) => {
 	// db.close(); // Fecha o banco
 });
 
-
-/* Inicia o servidor */
-// app.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
-
 module.exports = router;

@@ -82,11 +82,4 @@ router.delete('/departmentdelete', urlencodedParser, (req, res) => {
 	// db.close(); // Fecha o banco
 });
 
-
-/* Inicia o servidor */
-// router.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
-
-// export default console.log('foi')
 module.exports = router;
