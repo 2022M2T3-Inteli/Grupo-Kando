@@ -27,7 +27,7 @@ function validate() {
     if(email && password) {
         users.some(function(user, index) {
             if(email === user.email && password === user.password) {
-                return window.location = "dashboard.html"
+                return window.location = "dashboard"
             }
             else if(index >= users.length -1) {
                 return alert("Credenciais Incorretas!")

@@ -1,17 +1,12 @@
 const express = require('express');
 const router = express.Router()
+const db = require('../utils/db');
 
 // const hostname = '127.0.0.1';
 // const port = 3061;
-const sqlite3 = require('sqlite3').verbose();
-const DBPATH = 'database.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-// router.use(express.static("../frontend/"));
-
-// router.use(express.json());
 
 
 /* Definição dos endpoints */
@@ -19,64 +14,59 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 /****** CRUD ******************************************************************/
 
 // Retorna todos registros (é o R do CRUD - Read)
-router.get('/dassignment', (req, res) => {
+router.get('/role', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
-  var sql = 'SELECT * FROM DepartmentAssignment ORDER BY id COLLATE NOCASE';
+  	var sql = 'SELECT * FROM Role ORDER BY id COLLATE NOCASE';
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err;
 		}
 		res.json(rows);
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 });
 
 // urlencodedParser
 
 // Insere um registro (é o C do CRUD - Create)
-router.post('/dassignmentinsert', (req, res) => {
+router.post('/roleinsert', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
-	res.send(req.body)
 
-	sql = "INSERT INTO DepartmentAssignment (department_id, project_id) VALUES ('" + req.body.employee_id + "', '" + req.body.project_id + "')";                      																																																																																
+	sql = "INSERT INTO Role (name) VALUES ('" + req.body.name + "')";                       																																																																																
 
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err;
 		}
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 	res.end();
 });
 
 // Atualiza um registro (é o U do CRUD - Update)
-router.post('/dassignmentupdate', urlencodedParser, (req, res) => {
+router.post('/roleupdate', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "UPDATE DepartmentAssignment SET department_id = '" + req.body.employee_id + "', project_id = '" + req.body.project_id + "' WHERE id = " + req.body.id;
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
+	sql = "UPDATE Role SET name = '" + req.body.name + "' WHERE id = " + req.body.id;
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err;
 		}
 		res.end();
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
-router.delete('/dassignmentdelete', urlencodedParser, (req, res) => {
+router.delete('/roledelete', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	sql = "DELETE FROM DepartmentAssignment WHERE id = " + req.body.id;
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
+	sql = "DELETE FROM Role WHERE id = " + req.body.id;
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err;
@@ -84,7 +74,7 @@ router.delete('/dassignmentdelete', urlencodedParser, (req, res) => {
         else console.log(sql);
 		res.end();
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 });
 
 

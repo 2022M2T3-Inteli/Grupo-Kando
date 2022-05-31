@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router()
+const db = require('../utils/db');
 
 // const hostname = '127.0.0.1';
 // const port = 3061;
-const sqlite3 = require('sqlite3').verbose();
-const DBPATH = 'database.db';
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -15,19 +14,18 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 /****** CRUD ******************************************************************/
 
 // Retorna todos registros (é o R do CRUD - Read)
-router.get('/employees', (req, res) => {
+router.get('/allemployees', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
-  var sql = 'SELECT * FROM Employee ORDER BY id COLLATE NOCASE';
+	var sql = 'SELECT * FROM Employee ORDER BY id COLLATE NOCASE';
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err;
 		}
 		res.json(rows);
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 });
 
 // urlencodedParser
@@ -39,13 +37,12 @@ router.post('/employeesinsert', (req, res) => {
 
 	sql = "INSERT INTO Employee (name, location, role_id, projects_workload, available_projects_workload, type, tags) VALUES ('" + req.body.name + "', '" + req.body.location + "', '" + req.body.role + "', '" + req.body.projects_workload + "', '" + req.body.available_projects_workload + "','" + req.body.tags + "', '" + req.body.projects + "')";                       																																																																																
 
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err;
 		}
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 	res.end();
 });
 
@@ -55,14 +52,13 @@ router.post('/employeesupdate', urlencodedParser, (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
 	sql = "UPDATE Employee SET name = '" + req.body.name + "', tags = '" + req.body.tags + "',  location = '" + req.body.location + "', role_id = '" + req.body.role_id + "', projects_workload = '" + req.body.projects_workload + "', available_projects_workload = '" + req.body.available_projects_workload + "', type = '" + req.body.type + "' WHERE id = " + req.body.id;
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err;
 		}
 		res.end();
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 });
 
 // Exclui um registro (é o D do CRUD - Delete)
@@ -71,7 +67,6 @@ router.delete('/employeesdelete', urlencodedParser, (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
 	sql = "DELETE FROM Employee WHERE id = " + req.body.id;
-	var db = new sqlite3.Database(DBPATH); // Abre o banco
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err;
@@ -79,7 +74,7 @@ router.delete('/employeesdelete', urlencodedParser, (req, res) => {
         else console.log(sql);
 		res.end();
 	});
-	db.close(); // Fecha o banco
+	// db.close(); // Fecha o banco
 });
 
 

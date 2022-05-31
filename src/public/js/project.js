@@ -112,7 +112,7 @@ $(projectsTable).bootstrapTable({
 $("#projects-table tr:not(:first)").addClass("table-body-row")
 
 function getProjectsList() {
-	let url = "/projects"
+	let url = "/allprojects"
 
 	let xhttp = new XMLHttpRequest()
 	xhttp.open("get", url, false)

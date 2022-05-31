@@ -34,52 +34,7 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div id="sidebar" class="col">
-          <div class="row">
-            <!-- icone do dashboard -->
-            <a href="dashboard.html">
-              <div>
-                <img
-                  src="img/dashbord-icon.png"
-                  alt="dashboard-menu-icon"
-                  class="icons-group"
-                  id="icon1"
-                />
-              </div>
-            </a>
-
-            <!-- ícone de projetos -->
-            <a href="projects.html">
-              <div>
-                <img
-                  src="img/projects-icon.png"
-                  alt="projects-menu-icon"
-                  class="icons-group"
-                  id="icon2"
-                />
-              </div>
-            </a>
-
-            <!-- icone de funcionarios -->
-            <a href="employees.html">
-              <div>
-                <img
-                  src="img/employess-icon.png"
-                  alt="employee-menu-icon"
-                  class="icons-group"
-                  id="icon3"
-                />
-              </div>
-            </a>
-            <a href="index.html" id="icon-exit">
-              <img
-                src="img/logout-icon.png"
-                alt="logout-icon"
-                class="icons-group"
-              />
-            </a>
-          </div>
-        </div>
+        <%- include("../sidebar/sidebar.ejs") %>
         <div id="page" class="col">
           <div class="row">
             <div id="header" class="col">

@@ -16,22 +16,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div id="sidebar" class="col" >
-                <div class="row">
-                    <a href="dashboard.html">
-                        <img src="img/dashbord-icon.png"   alt="dashbord-icon" class="icons-group" id="icon1">
-                             </a>
-                    <a href="projects.html">
-                        <img src="img/projects-icon.png"   alt="projects-icon" class="icons-group">
-                            </a>
-                    <a href="employees.html">
-                        <img src="img/employess-icon.png"   alt="employees-icon" class="icons-group">
-                            </a>
-                    <a href="index.html" id="icon-exit">
-                        <img src="img/logout-icon.png" alt="logout-icon" class="icons-group">
-                    </a>
-                </div>
-            </div>
+            <%- include("../sidebar/sidebar.ejs") %>
             <div id="page" class="col">
                 <div class="row">
                     <div id="header" class="col">

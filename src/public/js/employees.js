@@ -104,7 +104,7 @@ $(employeeTable).bootstrapTable({
 })
 
 function getEmployeeList() {
-	let url = "/employees"
+	let url = "/allemployees"
 
 	let xhttp = new XMLHttpRequest()
 	xhttp.open("get", url, false)
