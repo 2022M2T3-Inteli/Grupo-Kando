@@ -217,6 +217,20 @@
                     </div>
                   </div>
                   <div class="row form-group">
+                  <div class="col-4">
+                    <label for="project-start-date"
+                      >Data de Inicio:
+                    </label>
+                  </div>
+                  <div class="col">
+                    <input
+                      type="date"
+                      name="project-start-date"
+                      id="start-date"
+                    />
+                  </div>
+                  </div>
+                  <div class="row form-group">
                     <div class="col-4">
                       <label for="project-conclusion-date"
                         >Data de Conclusão:
@@ -229,6 +243,7 @@
                         id="conclusion-date"
                       />
                     </div>
+                   
                   </div>
                   <div class="row form-group">
                     <div class="col-4">
@@ -238,6 +253,7 @@
                       <select name="project-local" id="local">
                         <option value="AM">Manaus</option>
                         <option value="SP">Guarulhos</option>
+                        <option value="SP">Ambos</option>
                       </select>
                     </div>
                   </div>
@@ -514,6 +530,70 @@
         </div>
       </div>
 
+      <!-- modal remove project -->
+      <div 
+      class="modal fade" 
+      id="remove-project-modal" 
+      tabindex="-1"
+      aria-labelledby="view-project-modal-label"
+      aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Excluir Projeto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Deseja Excluir o Projeto?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="parent-modal parent-modal-project">
+          <div
+              class="modal fade"
+              id="remove-project-modal"
+              tabindex="-1"
+              aria-labelledby="view-project-modal-label"
+              aria-hidden="true"
+          >
+              <div class="modal-dialog modal-dialog-container">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <div class="col">
+                        <button
+                    type="button"
+                   class="btn-close"
+                   data-bs-dismiss="modal"
+                   aria-label="Close"
+                    ></button>
+                       
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row container">
+                        
+                </div>
+              </div>
+        
+        
+        
+        
+        </div>
+
+
+
+      </div> -->
+
       <!-- modal view project -->
       <div class="parent-modal parent-modal-project">
         <div
@@ -645,6 +725,7 @@
                       <select name="project-local" id="local">
                         <option value="AM">Manaus</option>
                         <option value="SP">Guarulhos</option>
+                        <option value="SP">Ambos</option>
                       </select>
                     </div>
                   </div>

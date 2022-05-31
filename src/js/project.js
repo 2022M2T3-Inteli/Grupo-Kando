@@ -39,25 +39,26 @@ let projectTools = `
 			>
 				visibility
 			</div>
-      <! -- button edit modal remove -->
-      <div
-      class="material-symbols-outlined project-view-button"
-      data-bs-toggle="modal"
-      data-bs-target="#remove-employee-modal"
-    >
-      delete
-    </div>
+      
       
       
       <! -- button trigger edit modal -->
       <div
-      class="material-symbols-outlined project-edit-button"
+      class="material-symbols-outlined project-view-button"
       data-bs-toggle="modal"
       data-bs-target="#edit-project-modal"
       >
       edit
       
         </div>
+        <! -- button modal remove -->
+      <div
+      class="material-symbols-outlined project-view-button"
+      data-bs-toggle="modal"
+      data-bs-target="#remove-project-modal"
+    >
+      delete
+    </div>
 
 
       </div>
