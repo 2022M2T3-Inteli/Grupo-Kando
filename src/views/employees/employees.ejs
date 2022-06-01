@@ -34,12 +34,10 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <%- include("../sidebar/sidebar.ejs") %>
+        <%- include("../partials/sidebar.ejs") %>
         <div id="page" class="col">
+            <%- include("../partials/header.ejs", {page: "Funcionários"}) %>
           <div class="row">
-            <div id="header" class="col">
-              <h1>Funcionários</h1>
-            </div>
             <div id="main">
               <div class="container" id="main-container">
                 <div class="row">

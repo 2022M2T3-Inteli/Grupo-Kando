@@ -1,13 +1,21 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const db = require("./utils/db")
 
 const hostname = '127.0.0.1'
 const port = 8080;
 
-const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
+const dashboardRoute = require("./routes/Dashaboard")
+const projectsRoute = require("./routes/Projects")
+const employeesRoute = require("./routes/Employees")
+const departmentRoute = require("./routes/Department")
+const rolesRoute = require("./routes/Roles")
+
+app.use("/", dashboardRoute)
+app.use("/", projectsRoute)
+app.use("/", employeesRoute)
+app.use("/", departmentRoute)
+app.use("/", rolesRoute)
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -28,15 +36,6 @@ app.get("/employees", function(req, res) {
 app.get("/projects", function(req, res) {
 	res.render("projects/projects")
 })
-
-app.use("/", require("./routes/department"))
-app.use("/", require("./routes/department_assignment"))
-app.use("/", require("./routes/employee_assignment"))
-app.use("/", require("./routes/employees"))
-app.use("/", require("./routes/projects"))
-app.use("/", require("./routes/role_assignment"))
-app.use("/", require("./routes/role"))
-app.use("/", require("./routes/dashboard"))
 
 app.use(express.json())
 

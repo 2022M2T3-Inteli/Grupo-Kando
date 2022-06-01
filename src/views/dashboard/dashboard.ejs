@@ -16,13 +16,9 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <%- include("../sidebar/sidebar.ejs") %>
+            <%- include("../partials/sidebar.ejs") %>
             <div id="page" class="col">
-                <div class="row">
-                    <div id="header" class="col">
-                        <h1>Dashboard</h1>
-                    </div>
-                </div>
+                <%- include("../partials/header.ejs", {page: "Dashboard"}) %>
                 <div class="row">
                     <div id="dashboard">
                         <select name="dashboard-section" id="dashboard-section" onchange="changeDashSection(this.value)">

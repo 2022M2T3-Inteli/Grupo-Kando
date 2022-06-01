@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 const db = require('../data/db')
 
-router.get('/department', (req, res) => {
+router.get('/role', (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
 
-  	var sql = 'SELECT * FROM Department ORDER BY id COLLATE NOCASE'
+  	var sql = 'SELECT * FROM Role ORDER BY id COLLATE NOCASE'
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err
@@ -15,12 +15,11 @@ router.get('/department', (req, res) => {
 	})
 })
 
-router.post('/departmentinsert', (req, res) => {
+router.post('/roleinsert', (req, res) => {
 	res.statusCode = 200
-	res.setHeader('Access-Control-Allow-Origin', '*') 
-	res.send(req.body)
+	res.setHeader('Access-Control-Allow-Origin', '*')
 
-	sql = "INSERT INTO Department (name) VALUES ('" + req.body.name + "')"                       																																																																																
+	sql = "INSERT INTO Role (name) VALUES ('" + req.body.name + "')"                       																																																																																
 
 	db.run(sql, [],  err => {
 		if (err) {
@@ -30,11 +29,11 @@ router.post('/departmentinsert', (req, res) => {
 	res.end()
 })
 
-router.post('/departmentupdate', (req, res) => {
+router.post('/roleupdate', (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
 
-	sql = "UPDATE Department SET name = '" + req.body.name + "' WHERE id = " + req.body.id
+	sql = "UPDATE Role SET name = '" + req.body.name + "' WHERE id = " + req.body.id
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err
@@ -43,11 +42,11 @@ router.post('/departmentupdate', (req, res) => {
 	})
 })
 
-router.delete('/departmentdelete', (req, res) => {
+router.delete('/roledelete', (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
 
-	sql = "DELETE FROM Department WHERE id = " + req.body.id
+	sql = "DELETE FROM Role WHERE id = " + req.body.id
 	db.run(sql, [],  err => {
 		if (err) {
 		    throw err

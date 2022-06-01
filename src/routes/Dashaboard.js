@@ -2,10 +2,23 @@ const express = require('express')
 const router = express.Router()
 const db = require('../data/db')
 
-router.get('/dassignment', (req, res) => {
+router.get('/totalhours', (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*') 
-  	var sql = 'SELECT * FROM DepartmentAssignment ORDER BY id COLLATE NOCASE'
+	var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment'
+	db.all(sql, [],  (err, rows ) => {
+		if (err) {
+		    throw err
+		}
+		res.json(rows)
+	})
+})
+
+router.get('/roletotalhours', (req, res) => {
+	res.statusCode = 200
+	res.setHeader('Access-Control-Allow-Origin', '*')
+
+  	var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment where role_id = 1'
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err
@@ -19,7 +32,7 @@ router.post('/dassignmentinsert', (req, res) => {
 	res.setHeader('Access-Control-Allow-Origin', '*')
 	res.send(req.body)
 
-	sql = "INSERT INTO DepartmentAssignment (department_id, project_id) VALUES ('" + req.body.employee_id + "', '" + req.body.project_id + "')"                      																																																																																
+	sql = "INSERT INTO DepartmentAssignment (name) VALUES ('" + req.body.name + "')"                       																																																																																
 
 	db.run(sql, [],  err => {
 		if (err) {
@@ -30,21 +43,12 @@ router.post('/dassignmentinsert', (req, res) => {
 })
 
 router.post('/dassignmentupdate', (req, res) => {
-	res.statusCode = 200
-	res.setHeader('Access-Control-Allow-Origin', '*')
-
-	sql = "UPDATE DepartmentAssignment SET department_id = '" + req.body.employee_id + "', project_id = '" + req.body.project_id + "' WHERE id = " + req.body.id
-	db.run(sql, [],  err => {
-		if (err) {
-		    throw err
-		}
-		res.end()
-	})
+	
 })
 
 router.delete('/dassignmentdelete', (req, res) => {
 	res.statusCode = 200
-	res.setHeader('Access-Control-Allow-Origin', '*')
+	res.setHeader('Access-Control-Allow-Origin', '*') 
 	sql = "DELETE FROM DepartmentAssignment WHERE id = " + req.body.id
 	db.run(sql, [],  err => {
 		if (err) {
