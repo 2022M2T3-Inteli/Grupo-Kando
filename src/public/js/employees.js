@@ -39,154 +39,142 @@ let employeeTools = `
 let employeeMaxHours = 176
 
 let employeesData = [
-	{
-		allocation: 95,
-		totalHours: 160
-	},
-	{
-		allocation: 177,
-		totalHours: 170
-	},	{
-		allocation: 160,
-		totalHours: 176
-	},
-	{
-		allocation: 135,
-		totalHours: 120
-	},
-	{
-		allocation: 245,
-		totalHours: 176
-	}
-	
-]
-let tableData = [
   {
-    name: 'Rafael Martins',
-    job: "Analista",
-    allocation: employeesData[0].allocation + "H/" + employeesData[0].totalHours + "H/" + employeeMaxHours + "H",
-    projectsQty: '3 Projetos',
-    employeeTools: employeeTools
+    allocation: 95,
+    totalHours: 160
   },
   {
-    name: 'Raquel Rodrigues',
-    job: "Gerente de Projetos",
-    allocation: employeesData[1].allocation + "H/" + employeesData[1].totalHours + "H/" + employeeMaxHours + "H",
-    projectsQty: '4 Projetos',
-    employeeTools: employeeTools
+    allocation: 177,
+    totalHours: 170
   },
   {
-    name: 'Fernanda Queiroz',
-    job: "DBA",
-    allocation: employeesData[2].allocation + "H/" + employeesData[2].totalHours + "H/" + employeeMaxHours + "H",
-    projectsQty: '5 Projetos',
-    employeeTools: employeeTools
+    allocation: 160,
+    totalHours: 176
   },
   {
-    name: 'Thiago Carvalho',
-    job: "Segurança da Informação",
-    allocation: employeesData[3].allocation + "H/" + employeesData[3].totalHours + "H/" + employeeMaxHours + "H",
-    projectsQty: '6 Projetos',
-    employeeTools: employeeTools
+    allocation: 135,
+    totalHours: 120
   },
   {
-    name: 'Matheus Viana',
-    job: "Analista",
-    allocation:	employeesData[4].allocation + "H/" + employeesData[4].totalHours + "H/" + employeeMaxHours + "H",
-    projectsQty: '10 Projetos',
-    employeeTools: employeeTools
+    allocation: 245,
+    totalHours: 176
   }
 ]
-
-let employeeTable = "#employees-table"
-$(employeeTable).bootstrapTable({
-  data: getEmployeeList()
-})
+let tableData = []
 
 function getEmployeeList() {
-	let url = "/allemployees"
+  let url = '/allemployees'
 
-	let xhttp = new XMLHttpRequest()
-	xhttp.open("get", url, false)
-	xhttp.send()
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhttp.send()
 
-	let data = JSON.parse(xhttp.responseText)
-	console.log(data)
-	return data
+  let data = JSON.parse(xhttp.responseText)
+  data.forEach((row, index) => {
+    tableData.push(row)
+    tableData[index].tools = `
+			<div class="employee-view">
+				<!-- button trigger view employee -->
+				<div class="material-symbols-outlined employee-view-button" 
+					data-bs-toggle="modal"
+					data-bs-target="#view-employee-modal"
+					id="${row.id}"
+					onclick="showEmployee(this.id)">
+						visibility
+				</div>
+			</div>
+			`
+  })
 }
 
-$(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
+function showEmployee(id) {
+  let url = '/employee/' + id
 
-$(employeeTable).on("sort.bs.table", function() {
-	setTimeout(function() {
-		$(`${employeeTable} tr:not(:first)`).addClass("table-body-row")
-	}, 0)
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+  console.log(data)
+}
+getEmployeeList()
+
+let employeeTable = '#employees-table'
+$(employeeTable).bootstrapTable({
+  data: tableData
 })
 
-let employeeRows = $(".table-body-row")
-let employeeReversedRows = []
-let searchInput = $("#search")
+$(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
 
-employeeRows.each(function(index, row) {
-	employeeReversedRows.push(row)
+$(employeeTable).on('sort.bs.table', function () {
+  setTimeout(function () {
+    $(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
+  }, 0)
+})
+
+let employeeRows = $('.table-body-row')
+let employeeReversedRows = []
+let searchInput = $('#search')
+
+employeeRows.each(function (index, row) {
+  employeeReversedRows.push(row)
 })
 employeeReversedRows = employeeReversedRows.reverse()
 
-$(searchInput).keyup(function(){
-	let delay = 100
-	let value = searchInput[0].value
+$(searchInput).keyup(function () {
+  let delay = 100
+  let value = searchInput[0].value
 
-	employeeReversedRows.forEach(function(row) {
-		let employeeName = row.firstChild.innerText.toUpperCase()
-		value = value.toUpperCase()
+  employeeReversedRows.forEach(function (row) {
+    let employeeName = row.firstChild.innerText.toUpperCase()
+    value = value.toUpperCase()
 
-		if(employeeName.includes(value)) {
-			setTimeout(function(){
-				$(row).css({
-					display: "table",
-					border: "solid"
-				})
-			}, delay)
+    if (employeeName.includes(value)) {
+      setTimeout(function () {
+        $(row).css({
+          display: 'table',
+          border: 'solid'
+        })
+      }, delay)
 
-			$(row).css({
-				visibility: "visible",
-				opacity: 1,
-				border: "none"
-			})	
-		}
-		else {
-			setTimeout(function() {
-				$(row).css("display", "none")
-			}, delay)
-			
-			$(row).css({
-				visibility: "hidden",
-				opacity: 0,
-				transition: "visibility 0.5s linear	, opacity 0.5s linear",
-			})
-		}
+      $(row).css({
+        visibility: 'visible',
+        opacity: 1,
+        border: 'none'
+      })
+    } else {
+      setTimeout(function () {
+        $(row).css('display', 'none')
+      }, delay)
 
-		delay += 0
-	})
+      $(row).css({
+        visibility: 'hidden',
+        opacity: 0,
+        transition: 'visibility 0.5s linear	, opacity 0.5s linear'
+      })
+    }
+
+    delay += 0
+  })
 })
 
-employeeRows.each(function(index) {
-	if(employeesData[index].allocation > 176) {
-		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
-			"color": "#020202",
-			"font-weight": 800 
-		})
-	}
-	else if(employeesData[index].allocation > employeesData[index].totalHours) {
-		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
-			"color": "#D30000",
-			"font-weight": 600
-		})
-	}
-	else {
-		$(`${employeeTable} tr:eq(${index+1}) td:eq(2)`).css({
-			"color": "green",
-			"font-weight": 600
-		})
-	}
+employeeRows.each(function (index) {
+  if (employeesData[index].allocation > 176) {
+    $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+      color: '#020202',
+      'font-weight': 800
+    })
+  } else if (
+    employeesData[index].allocation > employeesData[index].totalHours
+  ) {
+    $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+      color: '#D30000',
+      'font-weight': 600
+    })
+  } else {
+    $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+      color: 'green',
+      'font-weight': 600
+    })
+  }
 })

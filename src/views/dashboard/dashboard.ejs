@@ -1,165 +1,220 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="http://fonts.cdnfonts.com/css/estricta" rel="stylesheet">
-</head>
-<body>
+    <link href="http://fonts.cdnfonts.com/css/estricta" rel="stylesheet" />
+  </head>
+  <body>
     <div class="container-fluid">
-        <div class="row">
-            <%- include("../partials/sidebar.ejs") %>
-            <div id="page" class="col">
-                <%- include("../partials/header.ejs", {page: "Dashboard"}) %>
-                <div class="row">
-                    <div id="dashboard">
-                        <select name="dashboard-section" id="dashboard-section" onchange="changeDashSection(this.value)">
-                            <option value="general" selected>Geral</option>
-                            <option value="project1">Projeto 1</option>
-                            <option value="project2">Projeto 2</option>
-                            <option value="project3">Projeto 3</option>
-                        </select>
-                        <div id="general">
-                            <div class="row chart-container">
-                                <div id="general-chart1" class="col-5 dash-chart">
-                                    <div class="chart-title">
-                                        <div id="general-hours-chart0-title">Carga Horária Total por Mês</div> 
-                                        <div id="general-hours-chart1-title" hidden>Carga Horária da Função por Mês</div> 
-                                        <div id="general-hours-chart2-title" hidden>Carga Horária da Função por Mês</div> 
-                                        <div id="general-hours-chart3-title" hidden>Carga Horária da Função por Mês</div> 
-                                        <!-- <div class="chart-selection">
+      <div class="row">
+        <%- include("../partials/sidebar.ejs") %>
+        <div id="page" class="col">
+          <%- include("../partials/header.ejs", {page: "Dashboard"}) %>
+          <div class="row">
+            <div id="dashboard">
+              <select
+                name="dashboard-section"
+                id="dashboard-section"
+                onchange="changeDashSection(this.value)"
+              >
+                <option value="general" selected>Geral</option>
+                <option value="project1">Projeto 1</option>
+                <option value="project2">Projeto 2</option>
+                <option value="project3">Projeto 3</option>
+              </select>
+              <div id="general">
+                <div class="row chart-container">
+                  <div id="general-chart1" class="col-5 dash-chart">
+                    <div class="chart-title">
+                      <div id="general-hours-chart0-title">
+                        Carga Horária Total por Mês
+                      </div>
+                      <div id="general-hours-chart1-title" hidden>
+                        Carga Horária da Função por Mês
+                      </div>
+                      <div id="general-hours-chart2-title" hidden>
+                        Carga Horária da Função por Mês
+                      </div>
+                      <div id="general-hours-chart3-title" hidden>
+                        Carga Horária da Função por Mês
+                      </div>
+                      <!-- <div class="chart-selection">
                                             
                                         </div> -->
-                                        <select name="chart-select" class="chart-selection" onchange="chartChange(this.value)">
-                                            <option value="general-hours-chart0" selected>Sem Filtro</option>
-                                            <option value="general-hours-chart1">Analista</option>
-                                            <option value="general-hours-chart2">Gerente de Projetos</option>
-                                            <option value="general-hours-chart3">DBA</option>
-                                        </select>
-                                    </div>
-                                    <canvas id="general-hours-chart0" class="area-chart hours-chart"></canvas>
-                                    <canvas id="general-hours-chart1" class="area-chart hours-chart" hidden></canvas>
-                                    <canvas id="general-hours-chart2" class="area-chart hours-chart" hidden></canvas>
-                                    <canvas id="general-hours-chart3" class="area-chart hours-chart" hidden></canvas>
-                                </div>
-                                <div id="general-chart2" class="col-5 dash-chart">
-                                    <div class="chart-title">Colaboradores Alocados por Mês</div>
-                                    <canvas id="general-employee-chart" class="area-chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="row chart-container">
-                                <div id="general-chart3" class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária Média por Mês</div>
-                                    <canvas id="general-role-chart"></canvas>
-                                </div>
-                                <div id="general-chart4" class="col-5 dash-chart">
-                                    <div class="chart-title">Status dos Projetos em Andamento</div>
-                                    <canvas id="general-projects-status-chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="row chart-container">
-                                <div id="general-chart5" class="col-5 dash-chart">
-                                    <div class="chart-title">Status dos Funcionarios</div>
-                                    <canvas id="general-employee-chart2"></canvas>
-                                </div>
-                            </div>
-                        </div> 
-                        <div id="project1" hidden>
-                            <div class="row chart-container">
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Colaboradores Alocados ao Projeto</div>
-                                    <canvas id="project1-employee-chart"></canvas>
-                                </div>
-                                <!-- ######################################################## -->
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária Média por Mês12321</div>
-                                    <canvas id="project1-role-chart"></canvas>
-                                    <div class="chart-description-container">
-                                        <div class="role-chart-limit">Limite de 180H </div>
-                                    </div>
-                                </div>
-                                <!-- ################################################################ -->
-                            </div>
-                            <!-- <div class="row chart-container">
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária Média por Mês</div>
-                                    <canvas id="project1-role-chart"></canvas>
-                                    <div class="chart-description-container">
-                                        <div class="role-chart-limit">Limite de 180H </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div>
-
-                        <div id="project2" hidden>
-                            <div class="row chart-container">
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Colaboradores Alocados ao Projeto</div>
-                                    <canvas id="project2-employee-chart"></canvas>
-                                </div>
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária Média por Mês</div>
-                                    <canvas id="project2-role-chart"></canvas>
-                                    <div class="chart-description-container">
-                                        <div class="role-chart-limit">Limite de 180H </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-5 dash-chart">
-                                    <div class="chart-title">Colaboradores Alocados por Mês</div>
-                                    <canvas id="project1-employee-chart" class="area-chart"></canvas>
-                                </div> -->
-                            </div>
-                            <!-- <div class="row chart-container">
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária Média por Mês</div>
-                                    <canvas id="project2-role-chart"></canvas>
-                                    <div class="chart-description-container">
-                                        <div class="role-chart-limit">Limite de 180H </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div>
-
-                        <div id="project3" hidden>
-                            <div class="row chart-container">
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Colaboradores Alocados ao Projeto</div>
-                                    <canvas id="project3-employee-chart"></canvas>
-                                </div>
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária Média por Mês</div>
-                                    <canvas id="project3-role-chart"></canvas>
-                                    <div class="chart-description-container">
-                                        <div class="role-chart-limit">Limite de 180H </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-5 dash-chart">
-                                    <div class="chart-title">Colaboradores Alocados por Mês</div>
-                                    <canvas id="project1-employee-chart" class="area-chart"></canvas>
-                                </div> -->
-                            </div>
-                            <!-- <div class="row chart-container">
-                                <div class="col-5 dash-chart">
-                                    <div class="chart-title">Carga Horária Média por Mês</div>
-                                    <canvas id="project3-role-chart"></canvas>
-                                    <div class="chart-description-container">
-                                        <div class="role-chart-limit">Limite de 180H </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div>
+                      <select
+                        name="chart-select"
+                        class="chart-selection"
+                        onchange="chartChange(this.value)"
+                      >
+                        <option value="general-hours-chart0" selected>
+                          Sem Filtro
+                        </option>
+                        <option value="general-hours-chart1">Analista</option>
+                        <option value="general-hours-chart2">
+                          Gerente de Projetos
+                        </option>
+                        <option value="general-hours-chart3">DBA</option>
+                      </select>
                     </div>
+                    <canvas
+                      id="general-hours-chart0"
+                      class="area-chart hours-chart"
+                    ></canvas>
+                    <canvas
+                      id="general-hours-chart1"
+                      class="area-chart hours-chart"
+                      hidden
+                    ></canvas>
+                    <canvas
+                      id="general-hours-chart2"
+                      class="area-chart hours-chart"
+                      hidden
+                    ></canvas>
+                    <canvas
+                      id="general-hours-chart3"
+                      class="area-chart hours-chart"
+                      hidden
+                    ></canvas>
+                  </div>
+                  <div id="general-chart2" class="col-5 dash-chart">
+                    <div class="chart-title">
+                      Colaboradores Alocados por Mês
+                    </div>
+                    <canvas
+                      id="general-employee-chart"
+                      class="area-chart"
+                    ></canvas>
+                  </div>
                 </div>
+                <div class="row chart-container">
+                  <div id="general-chart3" class="col-5 dash-chart">
+                    <div class="chart-title">Carga Horária Média por Mês</div>
+                    <canvas id="general-role-chart"></canvas>
+                  </div>
+                  <div id="general-chart4" class="col-5 dash-chart">
+                    <div class="chart-title">
+                      Status dos Projetos em Andamento
+                    </div>
+                    <canvas id="general-projects-status-chart"></canvas>
+                  </div>
+                </div>
+                <div class="row chart-container">
+                  <div id="general-chart5" class="col-5 dash-chart">
+                    <div class="chart-title">Status dos Funcionarios</div>
+                    <canvas id="general-employee-chart2"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div id="project1" hidden>
+                <div class="row chart-container">
+                  <div class="col-5 dash-chart">
+                    <div class="chart-title">
+                      Colaboradores Alocados ao Projeto
+                    </div>
+                    <canvas id="project1-employee-chart"></canvas>
+                  </div>
+                  <!-- ######################################################## -->
+                  <div class="col-5 dash-chart">
+                    <div class="chart-title">
+                      Carga Horária Média por Mês12321
+                    </div>
+                    <canvas id="project1-role-chart"></canvas>
+                    <div class="chart-description-container">
+                      <div class="role-chart-limit">Limite de 180H</div>
+                    </div>
+                  </div>
+                  <!-- ################################################################ -->
+                </div>
+                <!-- <div class="row chart-container">
+                                <div class="col-5 dash-chart">
+                                    <div class="chart-title">Carga Horária Média por Mês</div>
+                                    <canvas id="project1-role-chart"></canvas>
+                                    <div class="chart-description-container">
+                                        <div class="role-chart-limit">Limite de 180H </div>
+                                    </div>
+                                </div>
+                            </div> -->
+              </div>
+
+              <div id="project2" hidden>
+                <div class="row chart-container">
+                  <div class="col-5 dash-chart">
+                    <div class="chart-title">
+                      Colaboradores Alocados ao Projeto
+                    </div>
+                    <canvas id="project2-employee-chart"></canvas>
+                  </div>
+                  <div class="col-5 dash-chart">
+                    <div class="chart-title">Carga Horária Média por Mês</div>
+                    <canvas id="project2-role-chart"></canvas>
+                    <div class="chart-description-container">
+                      <div class="role-chart-limit">Limite de 180H</div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-5 dash-chart">
+                                    <div class="chart-title">Colaboradores Alocados por Mês</div>
+                                    <canvas id="project1-employee-chart" class="area-chart"></canvas>
+                                </div> -->
+                </div>
+                <!-- <div class="row chart-container">
+                                <div class="col-5 dash-chart">
+                                    <div class="chart-title">Carga Horária Média por Mês</div>
+                                    <canvas id="project2-role-chart"></canvas>
+                                    <div class="chart-description-container">
+                                        <div class="role-chart-limit">Limite de 180H </div>
+                                    </div>
+                                </div>
+                            </div> -->
+              </div>
+
+              <div id="project3" hidden>
+                <div class="row chart-container">
+                  <div class="col-5 dash-chart">
+                    <div class="chart-title">
+                      Colaboradores Alocados ao Projeto
+                    </div>
+                    <canvas id="project3-employee-chart"></canvas>
+                  </div>
+                  <div class="col-5 dash-chart">
+                    <div class="chart-title">Carga Horária Média por Mês</div>
+                    <canvas id="project3-role-chart"></canvas>
+                    <div class="chart-description-container">
+                      <div class="role-chart-limit">Limite de 180H</div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-5 dash-chart">
+                                    <div class="chart-title">Colaboradores Alocados por Mês</div>
+                                    <canvas id="project1-employee-chart" class="area-chart"></canvas>
+                                </div> -->
+                </div>
+                <!-- <div class="row chart-container">
+                                <div class="col-5 dash-chart">
+                                    <div class="chart-title">Carga Horária Média por Mês</div>
+                                    <canvas id="project3-role-chart"></canvas>
+                                    <div class="chart-description-container">
+                                        <div class="role-chart-limit">Limite de 180H </div>
+                                    </div>
+                                </div>
+                            </div> -->
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Bootstrap -->
@@ -171,5 +226,6 @@
     <!-- Chart.js datalabels -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2  "></script>
     <script src="js/dashboard.js"></script>
-</body>
+    <script></script>
+  </body>
 </html>
