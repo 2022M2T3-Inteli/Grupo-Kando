@@ -5,7 +5,7 @@ const path = require('path')
 const port = 8080 || 5000;
 
 const dashboardRoute = require(path.join(__dirname, "/routes/Dashaboard"))
-const projectsRoute = require(path.join(__dirname, "/routes/projects"))
+const projectsRoute = require(path.join(__dirname, "/routes/Projects"))
 const employeesRoute = require(path.join(__dirname, "/routes/Employees"))
 const departmentRoute = require(path.join(__dirname, "/routes/Department"))
 const rolesRoute = require(path.join(__dirname, "/routes/Roles"))
