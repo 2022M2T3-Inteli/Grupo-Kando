@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../data/db')
+const path = require(path)
+const db = require(path.join(__dirname, '../data/db'))
 
 router.get('/allprojects', (req, res) => {
 	res.statusCode = 200

@@ -2,14 +2,13 @@ const express = require('express')
 const app = express()
 const path = require('path')
 
-const hostname = '127.0.0.1'
-const port = 8080;
+const port = 8080 || 5000;
 
-const dashboardRoute = require("./routes/Dashaboard")
-const projectsRoute = require("./routes/Projects")
-const employeesRoute = require("./routes/Employees")
-const departmentRoute = require("./routes/Department")
-const rolesRoute = require("./routes/Roles")
+const dashboardRoute = require(path.join(__dirname, "/routes/Dashaboard"))
+const projectsRoute = require(path.join(__dirname, "./routes/Projects"))
+const employeesRoute = require(path.join(__dirname, "./routes/Employees"))
+const departmentRoute = require(path.join(__dirname, "./routes/Department"))
+const rolesRoute = require(path.join(__dirname, "./routes/Roles"))
 
 app.use("/", dashboardRoute)
 app.use("/", projectsRoute)
@@ -39,6 +38,6 @@ app.get("/projects", function(req, res) {
 
 app.use(express.json())
 
-const server = app.listen(parseInt(8080), () => {
+const server = app.listen(port, () => {
 	console.log("Servidor executando na porta " + server.address().port)
 })
