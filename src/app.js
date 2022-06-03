@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 
-const port = 8080 || 5000;
+const port = process.env.PORT || 5000;
 
 const dashboardRoute = require(path.join(__dirname, "/routes/Dashboard"))
 const projectsRoute = require(path.join(__dirname, "/routes/Projects"))
