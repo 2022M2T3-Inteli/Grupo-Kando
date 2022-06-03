@@ -2,13 +2,13 @@ const express = require('express')
 const app = express()
 const path = require('path')
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
-const dashboardRoute = require(path.join(__dirname, "/routes/Dashboard"))
-const projectsRoute = require(path.join(__dirname, "/routes/Projects"))
-const employeesRoute = require(path.join(__dirname, "/routes/Employees"))
-const departmentRoute = require(path.join(__dirname, "/routes/Department"))
-const rolesRoute = require(path.join(__dirname, "/routes/Roles"))
+const dashboardRoute = require("./routes/Dashboard")
+const projectsRoute = require("./routes/Projects")
+const employeesRoute = require("./routes/Employees")
+const departmentRoute = require("./routes/Department")
+const rolesRoute = require("./routes/Roles")
 
 app.use("/", dashboardRoute)
 app.use("/", projectsRoute)
