@@ -1,4 +1,11 @@
 {
+  "name": "kando-project",
+  "version": "0.3.0",
+  "description": "Yamaha Project",
+  "engines": {
+    "node": "16.x"
+  },
+  "main": "app.js",
   "dependencies": {
     "axios": "^0.27.2",
     "ejs": "^3.1.8",
@@ -8,5 +15,19 @@
   "scripts": {
     "start": "node src/app.js",
     "test": "node src/test.js"
-  }
+  },
+  "devDependencies": {
+    "got": "^11.3.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2022M2T3/Projeto1"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }
