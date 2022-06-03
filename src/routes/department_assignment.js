@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const db = (__dirname, '../data/db')
+const db = require('../data/db')
 
 router.get('/dassignment', (req, res) => {
 	res.statusCode = 200
