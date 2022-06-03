@@ -1,5 +1,3 @@
-const axios = require('axios')
-
 let projectsData = {
   hoursNeeded: [
     2500, 2500, 3500, 4000, 3500, 2500, 3500, 4000, 4500, 2500, 4500, 2500
