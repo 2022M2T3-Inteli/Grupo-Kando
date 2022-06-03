@@ -6,7 +6,7 @@
     "sqlite3": "^5.0.8"
   },
   "scripts": {
-    "start": "node --prefix ./src/app.js",
-    "test": "node --prefix ./src/test.js"
+    "start": "node src/app.js",
+    "test": "node src/test.js"
   }
 }
