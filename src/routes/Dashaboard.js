@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../data/db')
+const db = (__dirname, '../data/db')
 
 router.get('/totalhours', (req, res) => {
   res.statusCode = 200
