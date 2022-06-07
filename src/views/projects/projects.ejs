@@ -1,55 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cadastro projeto</title>
 
-    <!-- <link rel="stylesheet" href="css/cadastro_projeto.css" /> -->
-    <!-- <link rel="stylesheet" href="css/projects2.css" /> -->
-    <link rel="stylesheet" href="css/project.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <!-- Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link href="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.css" rel="stylesheet">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cadastro projeto</title>
+
+  <!-- <link rel="stylesheet" href="css/cadastro_projeto.css" /> -->
+  <!-- <link rel="stylesheet" href="css/projects2.css" /> -->
+  <link rel="stylesheet" href="css/project.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.css" rel="stylesheet">
 </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <%- include("../partials/sidebar.ejs") %>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <%- include("../partials/sidebar.ejs") %>
         <div id="page" class="col">
-            <%- include("../partials/header.ejs", {page: "Projetos"}) %>
+          <%- include("../partials/header.ejs", {page: "Projetos" }) %>
             <div id="main">
               <div class="container" id="main-container">
                 <div class="row">
                   <div class="col-3" id="search-project">
                     <form autocomplete="off" onsubmit="return false;">
                       <div id="search-group">
-                        <input
-                          type="text"
-                          id="search"
-                          placeholder="Search"
-                          name="search"
-                          autocomplete="off"
-                        />
+                        <input type="text" id="search" placeholder="Search" name="search" autocomplete="off" />
                         <div class="input-group-btn">
                           <img src="img/lupa.png" alt="" />
                         </div>
@@ -58,21 +42,14 @@
                   </div>
                   <!-- Button trigger modal -->
                   <div class="col add-element-button main-buttons-container">
-                    <button
-                      type="button"
-                      class="btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#add-project-modal"
-                    >
+                    <button type="button" class="btn-primary" data-bs-toggle="modal"
+                      data-bs-target="#add-project-modal">
                       Adicionar novo
                     </button>
                   </div>
                 </div>
                 <div class="row table-container">
-                  <table
-                    id="projects-table"
-                    class="table table-hover table-style"
-                    data-show-multi-sort="true"
+                  <table id="projects-table" class="table table-hover table-style" data-show-multi-sort="true"
                     data-sort-priority='[
                       {"sortName": "name","sortOrder":"desc"},
                       {"sortName": "employeeQty","sortOrder":"desc"},
@@ -80,602 +57,451 @@
                       {"sortName": "endDate","sortOrder":"desc"},
                       {"sortName": "totalHours","sortOrder":"desc"}
 
-                    ]'
-                  >
+                    ]'>
                     <thead class="table-head-custom">
                       <tr>
                         <th data-field="name" data-sortable="true">Projeto</th>
                         <th data-field="employeesQty">
                           N° de Pessoas
                         </th>
-                        <th data-field="startDate">
+                        <th data-field="start_date">
                           Data de Início
                         </th>
-                        <th data-field="endDate">Data Final</th>
+                        <th data-field="end_date">Data Final</th>
                         <th data-field="totalHours" data-sortable="true">
                           Total de Horas
                         </th>
-                        <th data-field="projectTools">Ações</th>
+                        <th data-field="tools">Ações</th>
                       </tr>
                     </thead>
                   </table>
                 </div>
               </div>
             </div>
-          </div>
         </div>
+    </div>
 
-        <!-- toast - project added succesfully -->
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-          <div
-            id="liveToast"
-            class="toast"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-          >
-            <div class="toast-header">
-              <strong class="me-auto">Mensagem</strong>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="toast"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="toast-body">Projeto criado com sucesso.</div>
-          </div>
+    <!-- toast - project added succesfully -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Mensagem</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
+        <div class="toast-body">Projeto criado com sucesso.</div>
       </div>
+    </div>
+  </div>
 
-      
 
-      <!-- modal add project -->
-      <div class="parent-modal">
-        <div
-          class="modal fade"
-          id="add-project-modal"
-          tabindex="-1"
-          aria-labelledby="add-project-modal-label"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-container">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="add-project-modal-label">
-                  <strong>Adicionar Projeto</strong>
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <div class="row container">
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="project-name">Nome do Projeto: </label>
-                    </div>
-                    <div class="col-8">
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="project-name"
-                        id="project-name"
-                        placeholder="Nome do Projeto"
-                      />
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="project-conclusion-date"
-                        >Data de Conclusão:
-                      </label>
-                    </div>
-                    <div class="col">
-                      <input
-                        type="date"
-                        name="project-conclusion-date"
-                        id="conclusion-date"
-                      />
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="project-local">Região: </label>
-                    </div>
-                    <div class="col">
-                      <select name="project-local" id="local">
-                        <option value="AM">Manaus</option>
-                        <option value="SP">Guarulhos</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="project-description"
-                        >Descrição do Projeto:
-                      </label>
-                    </div>
-                    <div class="col-8">
-                      <textarea
-                        class="form-control"
-                        name="project-description"
-                        id="project-description"
-                        rows="6"
-                      ></textarea>
-                    </div>
-                    <div class="row" id="div-add-role">
-                      <div class="col-1">
-                        <label for="tags">Funções: </label>
-                      </div>
-                      <div class="col" id="add-employee-role">
-                        <div class="row">
-                          <div class="col-10">
-                            <select class="form-control" id="new-employee-role">
-                              <option value="dev" id="developer-role-name">
-                                Desenvolvedor
-                              </option>
-                              <option value="analyst" id="analist-role-name">
-                                Analista
-                              </option>
-                              <option value="tester" id="tester-role-name">
-                                Tester
-                              </option>
-                              <option value="mannager" id="tester-role-name">
-                                Gestor de Projeto
-                              </option>
-                            </select>
-                          </div>
-                          <div id="new-role-add" class="col-2">
-                            <button type="button" onclick="newRoleName()">
-                              +
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row" id="roles-added">
-                      <div class="accordion" id="accordionExample">
-                        <div id="analyst" class="accordion-item" hidden>
-                          <h2 class="accordion-header" id="headingOne">
-                            <button
-                              class="accordion-button"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#collapseOne"
-                              aria-expanded="true"
-                              aria-controls="collapseOne"
-                            >
-                              Analistas
-                            </button>
-                          </h2>
-                          <div
-                            id="collapseOne"
-                            class="accordion-collapse collapse show"
-                            aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample"
-                          >
-                            <div class="accordion-body">
-                              <div class="row">
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Hugo Tavares
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 25H</div>
-                                  </div>
-                                </div>
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Nicole Queiroz
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 14H</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="dev" class="accordion-item" hidden>
-                          <h2 class="accordion-header" id="headingTwo">
-                            <button
-                              class="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#collapseTwo"
-                              aria-expanded="false"
-                              aria-controls="collapseTwo"
-                            >
-                              Desenvolvedores
-                            </button>
-                          </h2>
-                          <div
-                            id="collapseTwo"
-                            class="accordion-collapse collapse"
-                            aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionExample"
-                          >
-                            <div class="accordion-body">
-                              <div class="row">
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Fernando Paiva
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 120H</div>
-                                  </div>
-                                </div>
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Thaís Araujo
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 140H</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="tester" class="accordion-item" hidden>
-                          <h2 class="accordion-header" id="headingThree">
-                            <button
-                              class="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#collapseThree"
-                              aria-expanded="false"
-                              aria-controls="collapseThree"
-                            >
-                              Testers
-                            </button>
-                          </h2>
-                          <div
-                            id="collapseThree"
-                            class="accordion-collapse collapse"
-                            aria-labelledby="headingThree"
-                            data-bs-parent="#accordionExample"
-                          >
-                            <div class="accordion-body">
-                              <div class="row">
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Beatriz Trindade
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 110H</div>
-                                  </div>
-                                </div>
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Ronaldo Freitas
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 67H</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="mannager" class="accordion-item" hidden>
-                          <h2 class="accordion-header" id="headingFour">
-                            <button
-                              class="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#collapseFour"
-                              aria-expanded="false"
-                              aria-controls="collapseFour"
-                            >
-                              Gestores de Projetos
-                            </button>
-                          </h2>
-                          <div
-                            id="collapseFour"
-                            class="accordion-collapse collapse"
-                            aria-labelledby="headingFour"
-                            data-bs-parent="#accordionExample"
-                          >
-                            <div class="accordion-body">
-                              <div class="row">
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Raquel Farias
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 32H</div>
-                                  </div>
-                                </div>
-                                <div class="employee">
-                                  <div class="col employee-name">
-                                    Cláudio Pimentel
-                                  </div>
-                                  <div class="col employee-allocation">
-                                    <label for="">Alocar: </label>
-                                    <input
-                                      type="text"
-                                      class="employee-allocation-input"
-                                    />
-                                    <div>Disponível 79H</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
+  <!-- modal add project -->
+  <div class="parent-modal">
+    <div class="modal fade" id="add-project-modal" tabindex="-1" aria-labelledby="add-project-modal-label"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-container">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="add-project-modal-label">
+              <strong>Adicionar Projeto</strong>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row container">
+              <div class="row form-group">
+                <div class="col-4">
+                  <label for="project-name">Nome do Projeto: </label>
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control" name="project-name" id="project-name"
+                    placeholder="Nome do Projeto" />
                 </div>
               </div>
-              <div class="modal-footer">
-                <div class="buttons-container">
-                  <button
-                    type="button"
-                    class="btn-primary"
-                    id="liveToastBtn"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    Criar Projeto
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- modal view project -->
-      <div class="parent-modal parent-modal-project">
-        <div
-          class="modal fade"
-          id="view-project-modal"
-          tabindex="-1"
-          aria-labelledby="view-project-modal-label"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-container">
-            <div class="modal-content">
-              <div class="modal-header">
-                <div class="col">
-                  <button
-                    type="button"
-                    class="btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#edit-project-modal"
-                  >
-                    Editar
-                  </button>
+              <div class="row form-group">
+                <div class="col-4">
+                  <label for="project-conclusion-date">Data de Conclusão:
+                  </label>
                 </div>
                 <div class="col">
-                  <h5 class="modal-title" id="view-project-modal-label">
-                    Projeto
-                  </h5>
+                  <input type="date" name="project-conclusion-date" id="conclusion-date" />
                 </div>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
-              <div class="modal-body">
-                <div class="row container" id="project-info-section">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <th scope="row">Nome:</th>
-                        <td>PROJETO 1</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Região:</th>
-                        <td>MANAUS</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Início:</th>
-                        <td>01/02/2022</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Fim:</th>
-                        <td>08/08/2022</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div class="row form-group">
+                <div class="col-4">
+                  <label for="project-local">Região: </label>
                 </div>
-
-                <div class="row container">
-                  <table
-                    id="project-employees-list"
-                    class="table table-sm project-view-tables"
-                  >
-                    <thead>
-                      <tr class="table-head">
-                        <th scope="col">Funcionário</th>
-                        <th scope="col">Função</th>
-                        <th scope="col">Alocação Mensal</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Fernando Paiva</td>
-                        <td>Programador</td>
-                        <td>64H / 180H</td>
-                      </tr>
-                      <tr>
-                        <td>Carlos Alberto Rocha</td>
-                        <td>Analista</td>
-                        <td>58H / 180H</td>
-                      </tr>
-                      <tr>
-                        <td>Larissa Alves</td>
-                        <td>Suporte</td>
-                        <td>100H / 180H</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="col">
+                  <select name="project-local" id="local">
+                    <option value="AM">Manaus</option>
+                    <option value="SP">Guarulhos</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-4">
+                  <label for="project-description">Descrição do Projeto:
+                  </label>
+                </div>
+                <div class="col-8">
+                  <textarea class="form-control" name="project-description" id="project-description"
+                    rows="6"></textarea>
+                </div>
+                <div class="row" id="div-add-role">
+                  <div class="col-1">
+                    <label for="tags">Funções: </label>
+                  </div>
+                  <div class="col" id="add-employee-role">
+                    <div class="row">
+                      <div class="col-10">
+                        <select class="form-control" id="new-employee-role">
+                          <option value="dev" id="developer-role-name">
+                            Desenvolvedor
+                          </option>
+                          <option value="analyst" id="analist-role-name">
+                            Analista
+                          </option>
+                          <option value="tester" id="tester-role-name">
+                            Tester
+                          </option>
+                          <option value="mannager" id="tester-role-name">
+                            Gestor de Projeto
+                          </option>
+                        </select>
+                      </div>
+                      <div id="new-role-add" class="col-2">
+                        <button type="button" onclick="newRoleName()">
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" id="roles-added">
+                  <div class="accordion" id="accordionExample">
+                    <div id="analyst" class="accordion-item" hidden>
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Analistas
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <div class="row">
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Hugo Tavares
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 25H</div>
+                              </div>
+                            </div>
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Nicole Queiroz
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 14H</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="dev" class="accordion-item" hidden>
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Desenvolvedores
+                        </button>
+                      </h2>
+                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <div class="row">
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Fernando Paiva
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 120H</div>
+                              </div>
+                            </div>
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Thaís Araujo
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 140H</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="tester" class="accordion-item" hidden>
+                      <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Testers
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <div class="row">
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Beatriz Trindade
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 110H</div>
+                              </div>
+                            </div>
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Ronaldo Freitas
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 67H</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="mannager" class="accordion-item" hidden>
+                      <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                          Gestores de Projetos
+                        </button>
+                      </h2>
+                      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <div class="row">
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Raquel Farias
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 32H</div>
+                              </div>
+                            </div>
+                            <div class="employee">
+                              <div class="col employee-name">
+                                Cláudio Pimentel
+                              </div>
+                              <div class="col employee-allocation">
+                                <label for="">Alocar: </label>
+                                <input type="text" class="employee-allocation-input" />
+                                <div>Disponível 79H</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- modal edit project -->
-      <div class="parent-modal">
-        <div
-          class="modal fade"
-          id="edit-project-modal"
-          tabindex="-1"
-          aria-labelledby="edit-project-modal-label"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-container">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="edit-project-modal-label">
-                  Editar Projeto
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <div class="row container">
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="project-name">Nome do Projeto: </label>
-                      </div>
-                      <div class="col-8">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="project-name"
-                          id="project-name"
-                          placeholder="Nome do Projeto"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="project-local">Região: </label>
-                    </div>
-                    <div class="col">
-                      <select name="project-local" id="local">
-                        <option value="AM">Manaus</option>
-                        <option value="SP">Guarulhos</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="project-start-date">Início: </label>
-                      </div>
-                      <div class="col-8">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="project-start-date"
-                          id="project-start-date"
-                          placeholder="Data de Início"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="project-end-date">Fim: </label>
-                      </div>
-                      <div class="col-8">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="project-end-date"
-                          id="project-end-date"
-                          placeholder="Data de Fim"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <div id="buttons-container">
-                  <button type="button" class="btn-primary close">
-                    Salvar
-                  </button>
-                  <button type="button" class="btn-primary close">
-                    Cancelar
-                  </button>
-                </div>
-              </div>
+          <div class="modal-footer">
+            <div class="buttons-container">
+              <button type="button" class="btn-primary" id="liveToastBtn" data-bs-dismiss="modal" aria-label="Close">
+                Criar Projeto
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Bootstrap -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- modal view project -->
+  <div class="parent-modal parent-modal-project">
+    <div class="modal fade" id="view-project-modal" tabindex="-1" aria-labelledby="view-project-modal-label"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-container">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col">
+              <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#edit-project-modal">
+                Editar
+              </button>
+            </div>
+            <div class="col">
+              <h5 class="modal-title" id="view-project-modal-label">
+                Projeto
+              </h5>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row container" id="project-info-section">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Nome:</th>
+                    <td>PROJETO 1</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Região:</th>
+                    <td>MANAUS</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Início:</th>
+                    <td>01/02/2022</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Fim:</th>
+                    <td>08/08/2022</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-    <!-- Bootstrap Table -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.js"></script>
-    <!-- Latest compiled and minified Locales -->
-    <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="js/project.js"></script>
-  </body>
+            <div class="row container">
+              <table id="project-employees-list" class="table table-sm project-view-tables">
+                <thead>
+                  <tr class="table-head">
+                    <th scope="col">Funcionário</th>
+                    <th scope="col">Função</th>
+                    <th scope="col">Alocação Mensal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Fernando Paiva</td>
+                    <td>Programador</td>
+                    <td>64H / 180H</td>
+                  </tr>
+                  <tr>
+                    <td>Carlos Alberto Rocha</td>
+                    <td>Analista</td>
+                    <td>58H / 180H</td>
+                  </tr>
+                  <tr>
+                    <td>Larissa Alves</td>
+                    <td>Suporte</td>
+                    <td>100H / 180H</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal edit project -->
+  <div class="parent-modal">
+    <div class="modal fade" id="edit-project-modal" tabindex="-1" aria-labelledby="edit-project-modal-label"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-container">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="edit-project-modal-label">
+              Editar Projeto
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row container">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="project-name">Nome do Projeto: </label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control" name="project-name" id="project-name"
+                      placeholder="Nome do Projeto" />
+                  </div>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-4">
+                  <label for="project-local">Região: </label>
+                </div>
+                <div class="col">
+                  <select name="project-local" id="local">
+                    <option value="AM">Manaus</option>
+                    <option value="SP">Guarulhos</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="project-start-date">Início: </label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control" name="project-start-date" id="project-start-date"
+                      placeholder="Data de Início" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="project-end-date">Fim: </label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control" name="project-end-date" id="project-end-date"
+                      placeholder="Data de Fim" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div id="buttons-container">
+              <button type="button" class="btn-primary close">
+                Salvar
+              </button>
+              <button type="button" class="btn-primary close">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Bootstrap Table -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.js"></script>
+  <!-- Latest compiled and minified Locales -->
+  <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+  <script src="js/project.js"></script>
+</body>
+
 </html>

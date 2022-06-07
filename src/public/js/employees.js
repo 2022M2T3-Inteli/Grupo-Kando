@@ -63,7 +63,7 @@ let employeesData = [
 let tableData = []
 
 function getEmployeeList() {
-  let url = '/allemployees'
+  let url = 'employees/all'
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)

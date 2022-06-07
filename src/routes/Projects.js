@@ -5,7 +5,7 @@ const db = require('../data/db')
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-router.get('/', (req, res) => {
+router.get('/all', (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
   	var sql = 'SELECT * FROM Project ORDER BY id COLLATE NOCASE'
