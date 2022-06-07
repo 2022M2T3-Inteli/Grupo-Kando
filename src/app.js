@@ -10,11 +10,12 @@ const employeesRoute = require("./routes/Employees")
 const departmentRoute = require("./routes/Department")
 const rolesRoute = require("./routes/Roles")
 
-app.use("/", dashboardRoute)
-app.use("/", projectsRoute)
-app.use("/", employeesRoute)
-app.use("/", departmentRoute)
-app.use("/", rolesRoute)
+
+app.use("/dashboard", dashboardRoute)
+app.use("/projects", projectsRoute)
+app.use("/employees", employeesRoute)
+app.use("/departments", departmentRoute)
+app.use("/roles", rolesRoute)
 
 app.use(express.static(path.join(__dirname, 'public')))
 

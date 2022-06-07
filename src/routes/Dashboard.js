@@ -7,36 +7,36 @@ router.get('/totalhours', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   let totalHours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-  data.forEach(element => {
-    if (element.year == 2022) {
-      switch (element.month) {
-        case 1:
-          totalHours[0] += element.hours_assigned
-          break
-        case 2:
-          totalHours[1] += element.hours_assigned
-          break
-        case 3:
-          totalHours[2] += element.hours_assigned
-          break
-        case 4:
-          totalHours[3] += element.hours_assigned
-          break
-        case 5:
-          totalHours[4] += element.hours_assigned
-          break
-        case 6:
-          totalHours[5] += element.hours_assigned
-          break
-        case 7:
-          totalHours[6] += element.hours_assigned
-          break
+  // data.forEach(element => {
+  //   if (element.year == 2022) {
+  //     switch (element.month) {
+  //       case 1:
+  //         totalHours[0] += element.hours_assigned
+  //         break
+  //       case 2:
+  //         totalHours[1] += element.hours_assigned
+  //         break
+  //       case 3:
+  //         totalHours[2] += element.hours_assigned
+  //         break
+  //       case 4:
+  //         totalHours[3] += element.hours_assigned
+  //         break
+  //       case 5:
+  //         totalHours[4] += element.hours_assigned
+  //         break
+  //       case 6:
+  //         totalHours[5] += element.hours_assigned
+  //         break
+  //       case 7:
+  //         totalHours[6] += element.hours_assigned
+  //         break
 
-        default:
-          break
-      }
-    }
-  })
+  //       default:
+  //         break
+  //     }
+  //   }
+  // })
   var sql = 'SELECT hours_assigned FROM RoleAssignment'
   db.all(sql, [], (err, rows) => {
     if (err) {

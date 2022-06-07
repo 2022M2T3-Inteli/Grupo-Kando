@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 const db = require('../data/db')
 
-router.get('/allemployees', (req, res) => {
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+router.get('/', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
@@ -15,7 +18,8 @@ router.get('/allemployees', (req, res) => {
   })
 })
 
-router.get('/employee/:id', (req, res) => {
+router.get('/:id', (req, res) => {
+  let id = req.params["id"];
   res.statusCode = 200 // retorna que executou sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com cors
 
@@ -29,7 +33,7 @@ router.get('/employee/:id', (req, res) => {
   })
 })
 
-router.post('/employeesinsert', (req, res) => {
+router.post('/', urlencodedParser, (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
@@ -58,7 +62,7 @@ router.post('/employeesinsert', (req, res) => {
   res.end()
 })
 
-router.post('/employeesupdate', (req, res) => {
+router.patch('/', urlencodedParser,  (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
@@ -87,12 +91,13 @@ router.post('/employeesupdate', (req, res) => {
   })
 })
 
-router.delete('/employeesdelete', (req, res) => {
+router.delete('/:id', urlencodedParser, (req, res) => {
+  let id = req.params["id"];
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
-  sql = 'DELETE FROM Employee WHERE id = ' + req.body.id
-  db.run(sql, [], err => {
+  sql = 'DELETE FROM Employee WHERE id = ?' 
+  db.run(sql, [id], err => {
     if (err) {
       throw err
     } else console.log(sql)

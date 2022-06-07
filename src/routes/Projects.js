@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 const db = require('../data/db')
 
-router.get('/allprojects', (req, res) => {
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+router.get('/', (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
   	var sql = 'SELECT * FROM Project ORDER BY id COLLATE NOCASE'
@@ -14,10 +17,10 @@ router.get('/allprojects', (req, res) => {
 	})
 })
 
-router.post('/projectsinsert', (req, res) => {
+router.post('/', urlencodedParser, (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
-	res.send(req.body)
+	// res.send(req.body)
 
 	sql = "INSERT INTO Project (name, location, start_date, end_date, description, department_id) VALUES ('" + req.body.name + "', '" + req.body.location + "', '" + req.body.start_date + "', '" + req.body.end_date + "','" + req.description + "', '" + req.body.department_id + "')"                       																																																																																
 
@@ -29,7 +32,7 @@ router.post('/projectsinsert', (req, res) => {
 	res.end()
 })
 
-router.post('/projectsupdate', (req, res) => {
+router.patch('/', urlencodedParser, (req, res) => {
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
 
@@ -42,12 +45,13 @@ router.post('/projectsupdate', (req, res) => {
 	})
 })
 
-router.delete('/projectsdelete', (req, res) => {
+router.delete('/:id', urlencodedParser, (req, res) => {
+	let id = req.params["id"];
 	res.statusCode = 200
 	res.setHeader('Access-Control-Allow-Origin', '*')
 
-	sql = "DELETE FROM Project WHERE id = " + req.body.id
-	db.run(sql, [],  err => {
+	sql = "DELETE FROM Project WHERE id = ? " 
+	db.run(sql, [id],  err => {
 		if (err) {
 		    throw err
 		}
