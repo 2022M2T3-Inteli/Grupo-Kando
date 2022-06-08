@@ -1,44 +1,39 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../data/db')
+const today = new Date() // função para requisitar a data atual do sistema
+const month = today.getMonth() + 1 // função para requisitar o mês atual do sistema
+const year = today.getFullYear() // função para requisitar o ano atual do sistema
 
 router.get('/totalhours', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let totalHours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-  // data.forEach(element => {
-  //   if (element.year == 2022) {
-  //     switch (element.month) {
-  //       case 1:
-  //         totalHours[0] += element.hours_assigned
-  //         break
-  //       case 2:
-  //         totalHours[1] += element.hours_assigned
-  //         break
-  //       case 3:
-  //         totalHours[2] += element.hours_assigned
-  //         break
-  //       case 4:
-  //         totalHours[3] += element.hours_assigned
-  //         break
-  //       case 5:
-  //         totalHours[4] += element.hours_assigned
-  //         break
-  //       case 6:
-  //         totalHours[5] += element.hours_assigned
-  //         break
-  //       case 7:
-  //         totalHours[6] += element.hours_assigned
-  //         break
-
-  //       default:
-  //         break
-  //     }
-  //   }
-  // })
-  var sql = 'SELECT hours_assigned FROM RoleAssignment'
+  var sql =
+    'SELECT hours_assigned, month, employee_id FROM EmployeeAssignment WHERE year = ' +
+    year
   db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    res.json(rows)
+  })
+})
+
+router.get('/totalhours/:type', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let type = req.params['type']
+
+  var sql =
+    'SELECT EmployeeAssignment.hours_assigned, EmployeeAssignment.month, EmployeeAssignment.employee_id FROM EmployeeAssignment WHERE EmployeeAssignment.year = ' +
+    year +
+    ` AND EmployeeAssignment.employee_id IN 
+      ( 
+        SELECT Employee.id FROM Employee WHERE Employee.type = ?
+      )
+    `
+  db.all(sql, [type], (err, rows) => {
     if (err) {
       throw err
     }
@@ -50,42 +45,12 @@ router.get('/roletotalhours', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
-  var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment where role_id = 1'
+  var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment WHERE role_id = 1'
   db.all(sql, [], (err, rows) => {
     if (err) {
       throw err
     }
     res.json(rows)
-  })
-})
-
-router.post('/dassignmentinsert', (req, res) => {
-  res.statusCode = 200
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.send(req.body)
-
-  sql =
-    "INSERT INTO DepartmentAssignment (name) VALUES ('" + req.body.name + "')"
-
-  db.run(sql, [], err => {
-    if (err) {
-      throw err
-    }
-  })
-  res.end()
-})
-
-router.post('/dassignmentupdate', (req, res) => {})
-
-router.delete('/dassignmentdelete', (req, res) => {
-  res.statusCode = 200
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  sql = 'DELETE FROM DepartmentAssignment WHERE id = ' + req.body.id
-  db.run(sql, [], err => {
-    if (err) {
-      throw err
-    } else console.log(sql)
-    res.end()
   })
 })
 

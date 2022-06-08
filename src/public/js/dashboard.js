@@ -1,8 +1,119 @@
-let projectsData = {
-  hoursNeeded: [
-    2500, 2500, 3500, 4000, 3500, 2500, 3500, 4000, 4500, 2500, 4500, 2500
-  ]
-  // rolesHoursNeeded:
+let totalMonthWorkload = {
+  hoursNeeded: {
+    jan: 0,
+    feb: 0,
+    mar: 0,
+    apr: 0,
+    may: 0,
+    jun: 0,
+    jul: 0,
+    aug: 0,
+    sep: 0,
+    oct: 0,
+    nov: 0,
+    dec: 0
+  },
+  hoursAvailableAll: {
+    jan: 0,
+    feb: 0,
+    mar: 0,
+    apr: 0,
+    may: 0,
+    jun: 0,
+    jul: 0,
+    aug: 0,
+    sep: 0,
+    oct: 0,
+    nov: 0,
+    dec: 0
+  },
+  hoursAvailableCLT: {
+    jan: 0,
+    feb: 0,
+    mar: 0,
+    apr: 0,
+    may: 0,
+    jun: 0,
+    jul: 0,
+    aug: 0,
+    sep: 0,
+    oct: 0,
+    nov: 0,
+    dec: 0
+  },
+  hoursAvailableETW: {
+    jan: 0,
+    feb: 0,
+    mar: 0,
+    apr: 0,
+    may: 0,
+    jun: 0,
+    jul: 0,
+    aug: 0,
+    sep: 0,
+    oct: 0,
+    nov: 0,
+    dec: 0
+  }
+}
+
+function getHoursNeeded(type) {
+  let url
+  if (type != 'all') {
+    url = '/totalhours/' + type
+  } else {
+    url = '/totalhours'
+  }
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhhtp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+
+  data.forEach(row => {
+    switch (row.month) {
+      case 1:
+        totalMonthWorkload.hoursAvailableAll.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
+        break
+      case 2:
+        totalMonthWorkload.hoursAvailableAll.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
+        break
+      case 3:
+        totalMonthWorkload.hoursAvailableAll.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em março aumentarão
+        break
+      case 4:
+        totalMonthWorkload.hoursAvailableAll.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em abril aumentarão
+        break
+      case 5:
+        totalMonthWorkload.hoursAvailableAll.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em maio aumentarão
+        break
+      case 6:
+        totalMonthWorkload.hoursAvailableAll.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em junho aumentarão
+        break
+      case 7:
+        totalMonthWorkload.hoursAvailableAll.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em julho aumentarão
+        break
+      case 8:
+        totalMonthWorkload.hoursAvailableAll.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em agosto aumentarão
+        break
+      case 9:
+        totalMonthWorkload.hoursAvailableAll.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em setembro aumentarão
+        break
+      case 10:
+        totalMonthWorkload.hoursAvailableAll.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em outubro aumentarão
+        break
+      case 11:
+        totalMonthWorkload.hoursAvailableAll.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em novembro aumentarão
+        break
+      case 12:
+        totalMonthWorkload.hoursAvailableAll.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em dezembro aumentarão
+        break
+
+      default:
+        break
+    }
+  })
 }
 
 const yearMounths = [
@@ -37,10 +148,6 @@ const generalHoursChartsData = [
         label: 'Total de Horas de Funcionários Disponíveis por mês',
         backgroundColor: 'rgb(140, 0, 140)',
         borderColor: 'rgb(140, 0, 140)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-        // },
         data: [
           3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500
         ],
@@ -228,23 +335,6 @@ const generalHoursChartsData = [
   }
 ]
 
-// const generalChart1Config = {
-//     type: 'line',
-//     data: generalChart1,
-//     options: {
-//         responsive: true,
-//         maintainAspectRatio: false,
-//         plugins: {
-//         },
-//         scales: {
-//             y: {
-//                 min: 0,
-//                 max: 5000,
-//             }
-//         }
-//     }
-// }
-
 const generalChart2 = {
   labels: yearMounths,
   datasets: [
@@ -399,6 +489,36 @@ const generalChart5Config = {
 //  Gráficos da tela Geral do Dashboard
 const generalHoursCtx = $('.hours-chart')
 const generalHoursCharts = []
+
+function generateHoursChart() {
+  new Chart($(`#general-hours-chart${index}`), {
+    type: 'line',
+    data: generalHoursChartsData[index],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {},
+      scales: {
+        y: {
+          min: 0,
+          max: function () {
+            let hoursNeeded = Math.max(
+              ...generalHoursChartsData[index].datasets[0].data
+            )
+            let avaliableHours =
+              generalHoursChartsData[index].datasets[1].data[0]
+
+            if (hoursNeeded > avaliableHours) {
+              return hoursNeeded + 200
+            } else {
+              return avaliableHours + 200
+            }
+          }
+        }
+      }
+    }
+  })
+}
 
 generalHoursCtx.each(function (index) {
   generalHoursCharts.push(
