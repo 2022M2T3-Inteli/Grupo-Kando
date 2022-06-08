@@ -133,40 +133,99 @@ function getHoursAvailable(role) {
   data.forEach(row => {
     switch (row.month) {
       case 1:
-        totalMonthWorkload.hoursAvailableAll.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
+        }
         break
       case 2:
-        totalMonthWorkload.hoursAvailableAll.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 3:
-        totalMonthWorkload.hoursAvailableAll.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em março aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 4:
-        totalMonthWorkload.hoursAvailableAll.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em abril aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 5:
-        totalMonthWorkload.hoursAvailableAll.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em maio aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 6:
-        totalMonthWorkload.hoursAvailableAll.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em junho aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 7:
-        totalMonthWorkload.hoursAvailableAll.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em julho aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 8:
-        totalMonthWorkload.hoursAvailableAll.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em agosto aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 9:
-        totalMonthWorkload.hoursAvailableAll.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em setembro aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 10:
-        totalMonthWorkload.hoursAvailableAll.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em outubro aumentarão
-        break
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em fevereiro aumentarão
+        }        break
       case 11:
-        totalMonthWorkload.hoursAvailableAll.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em novembro aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em fevereiro aumentarão
+        }
         break
       case 12:
-        totalMonthWorkload.hoursAvailableAll.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em dezembro aumentarão
+        if (role == "CLT") {
+          totalMonthWorkload.hoursAvailableCLT.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em fevereiro aumentarão
+        }
+        else {
+          totalMonthWorkload.hoursAvailableETW.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em fevereiro aumentarão
+        }
         break
 
       default:
