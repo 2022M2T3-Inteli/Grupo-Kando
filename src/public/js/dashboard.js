@@ -57,12 +57,130 @@ let totalMonthWorkload = {
   }
 }
 
-function getHoursNeeded(type) {
+function getHoursNeeded(role) {
   let url
   if (type != 'all') {
-    url = '/totalhours/' + type
+    url = '/totalhours/' + role
   } else {
     url = '/totalhours'
+  }
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhhtp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+
+  data.forEach(row => {
+    switch (row.month) {
+      case 1:
+        totalMonthWorkload.hoursNeeded.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
+        break
+      case 2:
+        totalMonthWorkload.hoursNeeded.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
+        break
+      case 3:
+        totalMonthWorkload.hoursNeeded.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em março aumentarão
+        break
+      case 4:
+        totalMonthWorkload.hoursNeeded.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em abril aumentarão
+        break
+      case 5:
+        totalMonthWorkload.hoursNeeded.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em maio aumentarão
+        break
+      case 6:
+        totalMonthWorkload.hoursNeeded.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em junho aumentarão
+        break
+      case 7:
+        totalMonthWorkload.hoursNeeded.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em julho aumentarão
+        break
+      case 8:
+        totalMonthWorkload.hoursNeeded.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em agosto aumentarão
+        break
+      case 9:
+        totalMonthWorkload.hoursNeeded.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em setembro aumentarão
+        break
+      case 10:
+        totalMonthWorkload.hoursNeeded.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em outubro aumentarão
+        break
+      case 11:
+        totalMonthWorkload.hoursNeeded.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em novembro aumentarão
+        break
+      case 12:
+        totalMonthWorkload.hoursNeeded.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em dezembro aumentarão
+        break
+
+      default:
+        break
+    }
+  })
+}
+
+function getHoursAvailable(role) {
+  let url
+  if (type != 'all') {
+    url = '/hoursavailable/' + role
+  } else {
+    url = '/hoursavailable'
+  }
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhhtp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+
+  data.forEach(row => {
+    switch (row.month) {
+      case 1:
+        totalMonthWorkload.hoursAvailableAll.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
+        break
+      case 2:
+        totalMonthWorkload.hoursAvailableAll.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
+        break
+      case 3:
+        totalMonthWorkload.hoursAvailableAll.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em março aumentarão
+        break
+      case 4:
+        totalMonthWorkload.hoursAvailableAll.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em abril aumentarão
+        break
+      case 5:
+        totalMonthWorkload.hoursAvailableAll.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em maio aumentarão
+        break
+      case 6:
+        totalMonthWorkload.hoursAvailableAll.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em junho aumentarão
+        break
+      case 7:
+        totalMonthWorkload.hoursAvailableAll.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em julho aumentarão
+        break
+      case 8:
+        totalMonthWorkload.hoursAvailableAll.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em agosto aumentarão
+        break
+      case 9:
+        totalMonthWorkload.hoursAvailableAll.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em setembro aumentarão
+        break
+      case 10:
+        totalMonthWorkload.hoursAvailableAll.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em outubro aumentarão
+        break
+      case 11:
+        totalMonthWorkload.hoursAvailableAll.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em novembro aumentarão
+        break
+      case 12:
+        totalMonthWorkload.hoursAvailableAll.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em dezembro aumentarão
+        break
+
+      default:
+        break
+    }
+  })
+}
+
+function getHoursAvailableByType(role, type) {
+  let url
+  if (role != 'all') {
+    url = `/hoursavailable/${role}/${type}`
+  } else {
+    url = `/hoursavailable/${type}`
   }
 
   let xhttp = new XMLHttpRequest()
