@@ -72,9 +72,10 @@ function getProjectsList() {
 				<div
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
-					data-bs-target="#view-employee-modal"
+					data-bs-target="#remove-project-modal"
 					id="${row.id}"
-					onclick="deleteProject(this.id)"
+					onclick="modalDelete(this.id)"
+					
 				>
 					delete
 				</div>
@@ -93,8 +94,16 @@ function getProjectsList() {
 }
 getProjectsList()
 
-function deleteProject(id) {
-	let url = "projects/"+id
+
+let projectId = 0
+function modalDelete(id) {
+ projectId = id
+
+
+}
+
+function deleteProject() {
+	let url = "projects/"+projectId
 
 	let xhttp = new XMLHttpRequest()
 	

@@ -26,14 +26,34 @@ function removeTagElement(el) {
 
 // Dados da tabela de funcionários
 let employeeTools = `
-	<div class="employee-view">
-		<!-- button trigger view employee -->
-		<div class="material-symbols-outlined employee-view-button" 
-		data-bs-toggle="modal"
-		data-bs-target="#view-employee-modal">
-		visibility
-		</div>
-	</div>
+!-- button trigger modal view employee -->
+      <div class="employee-tools">
+      <!-- button trigger view employee -->
+      <div
+        class="material-symbols-outlined employee-view-button"
+        data-bs-toggle="modal"
+        data-bs-target="#view-employee-modal"
+      >
+        visibility
+      </div>
+      <! -- button trigger edit modal -->
+      <div
+      class="material-symbols-outlined employee-view-button"
+      data-bs-toggle="modal"
+      data-bs-target="#edit-employee-modal"
+      >
+      edit
+        </div>
+        <! -- button modal remove -->
+      <div
+      class="material-symbols-outlined employee-view-button"
+      data-bs-toggle="modal"
+      data-bs-target="#remove-employee-modal"
+    >
+      delete
+    </div>
+      </div>
+
 `
 
 let employeeMaxHours = 176
