@@ -46,8 +46,7 @@ router.get('/hoursavailable', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
 
   var sql =
-    'SELECT hours_assigned, month, employee_id FROM EmployeeAssignment WHERE year = ' +
-    year
+    'SELECT SUM(projects_workload) FROM Employee'
   db.all(sql, [], (err, rows) => {
     if (err) {
       throw err
@@ -58,20 +57,13 @@ router.get('/hoursavailable', (req, res) => {
 })
 
 // É passado nos parametros (url) o type de funcionário a ser consultado.
-router.get('/hoursavailable/:type', (req, res) => {
+router.get('/hoursavailable/:role', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let type = req.params['type']
+  let role = req.params['role']
 
-  var sql =
-    'SELECT EmployeeAssignment.hours_assigned, EmployeeAssignment.month, EmployeeAssignment.employee_id FROM EmployeeAssignment WHERE EmployeeAssignment.year = ' +
-    year +
-    ` AND EmployeeAssignment.employee_id IN 
-      ( 
-        SELECT Employee.id FROM Employee WHERE Employee.type = ?
-      )
-    `
-  db.all(sql, [type], (err, rows) => {
+  var sql = 'SELECT SUM(projects_workload) FROM Employee WHERE role_name = ?'
+  db.all(sql, [role], (err, rows) => {
     if (err) {
       throw err
     }
@@ -87,14 +79,7 @@ router.get('/hoursavailable/:role/:type', (req, res) => {
   let role = req.params['role']
   let type = req.params['type']
 
-  var sql =
-    'SELECT EmployeeAssignment.hours_assigned, EmployeeAssignment.month, EmployeeAssignment.employee_id FROM EmployeeAssignment WHERE EmployeeAssignment.year = ' +
-    year +
-    ` AND EmployeeAssignment.employee_id IN 
-      ( 
-        SELECT Employee.id FROM Employee WHERE Employee.role_name = ? AND Employee.type = ?
-      )
-    `
+  var sql = 'SELECT SUM(projects_workload) FROM Employee WHERE role_name = ? AND type = ?'
   db.all(sql, [role, type], (err, rows) => {
     if (err) {
       throw err

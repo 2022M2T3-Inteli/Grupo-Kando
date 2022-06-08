@@ -1,61 +1,22 @@
-let totalMonthWorkload = {
-  hoursNeeded: {
-    jan: 0,
-    feb: 0,
-    mar: 0,
-    apr: 0,
-    may: 0,
-    jun: 0,
-    jul: 0,
-    aug: 0,
-    sep: 0,
-    oct: 0,
-    nov: 0,
-    dec: 0
-  },
-  hoursAvailableAll: {
-    jan: 0,
-    feb: 0,
-    mar: 0,
-    apr: 0,
-    may: 0,
-    jun: 0,
-    jul: 0,
-    aug: 0,
-    sep: 0,
-    oct: 0,
-    nov: 0,
-    dec: 0
-  },
-  hoursAvailableCLT: {
-    jan: 0,
-    feb: 0,
-    mar: 0,
-    apr: 0,
-    may: 0,
-    jun: 0,
-    jul: 0,
-    aug: 0,
-    sep: 0,
-    oct: 0,
-    nov: 0,
-    dec: 0
-  },
-  hoursAvailableETW: {
-    jan: 0,
-    feb: 0,
-    mar: 0,
-    apr: 0,
-    may: 0,
-    jun: 0,
-    jul: 0,
-    aug: 0,
-    sep: 0,
-    oct: 0,
-    nov: 0,
-    dec: 0
-  }
-}
+// let totalMonthWorkload = {
+//   hoursNeeded: {
+//     jan: 0,
+//     feb: 0,
+//     mar: 0,
+//     apr: 0,
+//     may: 0,
+//     jun: 0,
+//     jul: 0,
+//     aug: 0,
+//     sep: 0,
+//     oct: 0,
+//     nov: 0,
+//     dec: 0
+//   },
+//   hoursAvailableAll: 0,
+//   hoursAvailableCLT: 0,
+//   hoursAvailableETW: 0
+// }
 
 function getHoursNeeded(role) {
   let url
@@ -71,49 +32,52 @@ function getHoursNeeded(role) {
 
   let data = JSON.parse(xhttp.responseText)
 
+  let hoursNeededPeerMounth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   data.forEach(row => {
     switch (row.month) {
       case 1:
-        totalMonthWorkload.hoursNeeded.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
+        hoursNeededPeerMounth[0] += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
         break
       case 2:
-        totalMonthWorkload.hoursNeeded.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
+        hoursNeededPeerMounth[1] += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
         break
       case 3:
-        totalMonthWorkload.hoursNeeded.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em março aumentarão
+        hoursNeededPeerMounth[2] += row.hours_assigned // caso o mês seja 3, as horas necessárias em março aumentarão
         break
       case 4:
-        totalMonthWorkload.hoursNeeded.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em abril aumentarão
+        hoursNeededPeerMounth[3] += row.hours_assigned // caso o mês seja 4, as horas necessárias em abril aumentarão
         break
       case 5:
-        totalMonthWorkload.hoursNeeded.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em maio aumentarão
+        hoursNeededPeerMounth[4] += row.hours_assigned // caso o mês seja 5, as horas necessárias em maio aumentarão
         break
       case 6:
-        totalMonthWorkload.hoursNeeded.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em junho aumentarão
+        hoursNeededPeerMounth[5] += row.hours_assigned // caso o mês seja 6, as horas necessárias em junho aumentarão
         break
       case 7:
-        totalMonthWorkload.hoursNeeded.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em julho aumentarão
+        hoursNeededPeerMounth[6] += row.hours_assigned // caso o mês seja 7, as horas necessárias em julho aumentarão
         break
       case 8:
-        totalMonthWorkload.hoursNeeded.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em agosto aumentarão
+        hoursNeededPeerMounth[7] += row.hours_assigned // caso o mês seja 8, as horas necessárias em agosto aumentarão
         break
       case 9:
-        totalMonthWorkload.hoursNeeded.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em setembro aumentarão
+        hoursNeededPeerMounth[8] += row.hours_assigned // caso o mês seja 9, as horas necessárias em setembro aumentarão
         break
       case 10:
-        totalMonthWorkload.hoursNeeded.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em outubro aumentarão
+        hoursNeededPeerMounth[9] += row.hours_assigned // caso o mês seja 10, as horas necessárias em outubro aumentarão
         break
       case 11:
-        totalMonthWorkload.hoursNeeded.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em novembro aumentarão
+        hoursNeededPeerMounth[10] += row.hours_assigned // caso o mês seja 11, as horas necessárias em novembro aumentarão
         break
       case 12:
-        totalMonthWorkload.hoursNeeded.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em dezembro aumentarão
+        hoursNeededPeerMounth[11] += row.hours_assigned // caso o mês seja 12, as horas necessárias em dezembro aumentarão
         break
 
       default:
         break
     }
   })
+
+  return hoursNeededPeerMounth
 }
 
 function getHoursAvailable(role) {
@@ -129,109 +93,22 @@ function getHoursAvailable(role) {
   xhhtp.send()
 
   let data = JSON.parse(xhttp.responseText)
+  let totalHours = [
+    data.projecs_workload, 
+    data.projecs_workload, 
+    data.projecs_workload, 
+    data.projecs_workload, 
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload
+  ]
 
-  data.forEach(row => {
-    switch (row.month) {
-      case 1:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
-        }
-        break
-      case 2:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 3:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 4:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 5:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 6:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 7:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 8:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 9:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 10:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em fevereiro aumentarão
-        }        break
-      case 11:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em fevereiro aumentarão
-        }
-        break
-      case 12:
-        if (role == "CLT") {
-          totalMonthWorkload.hoursAvailableCLT.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em fevereiro aumentarão
-        }
-        else {
-          totalMonthWorkload.hoursAvailableETW.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em fevereiro aumentarão
-        }
-        break
-
-      default:
-        break
-    }
-  })
+  return totalHours
 }
 
 function getHoursAvailableByType(role, type) {
@@ -247,50 +124,23 @@ function getHoursAvailableByType(role, type) {
   xhhtp.send()
 
   let data = JSON.parse(xhttp.responseText)
+  
+  let totalHours = [
+    data.projecs_workload, 
+    data.projecs_workload, 
+    data.projecs_workload, 
+    data.projecs_workload, 
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload
+  ]
 
-  data.forEach(row => {
-    switch (row.month) {
-      case 1:
-        totalMonthWorkload.hoursAvailableAll.jan += row.hours_assigned // caso o mês seja 1, as horas necessárias em janeiro aumentarão
-        break
-      case 2:
-        totalMonthWorkload.hoursAvailableAll.feb += row.hours_assigned // caso o mês seja 2, as horas necessárias em fevereiro aumentarão
-        break
-      case 3:
-        totalMonthWorkload.hoursAvailableAll.mar += row.hours_assigned // caso o mês seja 3, as horas necessárias em março aumentarão
-        break
-      case 4:
-        totalMonthWorkload.hoursAvailableAll.apr += row.hours_assigned // caso o mês seja 4, as horas necessárias em abril aumentarão
-        break
-      case 5:
-        totalMonthWorkload.hoursAvailableAll.may += row.hours_assigned // caso o mês seja 5, as horas necessárias em maio aumentarão
-        break
-      case 6:
-        totalMonthWorkload.hoursAvailableAll.jun += row.hours_assigned // caso o mês seja 6, as horas necessárias em junho aumentarão
-        break
-      case 7:
-        totalMonthWorkload.hoursAvailableAll.jul += row.hours_assigned // caso o mês seja 7, as horas necessárias em julho aumentarão
-        break
-      case 8:
-        totalMonthWorkload.hoursAvailableAll.aug += row.hours_assigned // caso o mês seja 8, as horas necessárias em agosto aumentarão
-        break
-      case 9:
-        totalMonthWorkload.hoursAvailableAll.sep += row.hours_assigned // caso o mês seja 9, as horas necessárias em setembro aumentarão
-        break
-      case 10:
-        totalMonthWorkload.hoursAvailableAll.oct += row.hours_assigned // caso o mês seja 10, as horas necessárias em outubro aumentarão
-        break
-      case 11:
-        totalMonthWorkload.hoursAvailableAll.nov += row.hours_assigned // caso o mês seja 11, as horas necessárias em novembro aumentarão
-        break
-      case 12:
-        totalMonthWorkload.hoursAvailableAll.dec += row.hours_assigned // caso o mês seja 12, as horas necessárias em dezembro aumentarão
-        break
-
-      default:
-        break
-    }
-  })
+  return totalHours
 }
 
 const yearMounths = [
@@ -307,210 +157,206 @@ const yearMounths = [
   'Novembro',
   'Dezembro'
 ]
-const generalHoursChartsData = [
-  {
-    labels: yearMounths,
-    datasets: [
-      {
-        label: 'Total de Horas Necessárias por Mês',
-        backgroundColor: 'rgb(200, 0, 0)',
-        borderColor: 'rgb(200, 0, 0)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
+function generateHoursChartData(role) {
+  return [
+    {
+      labels: yearMounths,
+      datasets: [
+        {
+          label: 'Total de Horas Necessárias por Mês',
+          backgroundColor: 'rgb(200, 0, 0)',
+          borderColor: 'rgb(200, 0, 0)',
+          fill: {
+            target: 'origin',
+            above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
+          },
+          data: getHoursNeeded(role)
         },
-        data: projectsData.hoursNeeded
-      },
-      {
-        label: 'Total de Horas de Funcionários Disponíveis por mês',
-        backgroundColor: 'rgb(140, 0, 140)',
-        borderColor: 'rgb(140, 0, 140)',
-        data: [
-          3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500, 3500
-        ],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de CLTs Disponíveis por Mês',
-        backgroundColor: 'rgb(220, 220, 0)',
-        borderColor: 'rgb(220, 220, 0)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-        // },
-        data: [
-          2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500
-        ],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de Terceiros Disponíveis por Mês',
-        backgroundColor: 'rgb(100, 100, 100)',
-        borderColor: 'rgb(100, 100, 100)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
+        {
+          label: 'Total de Horas de Funcionários Disponíveis por mês',
+          backgroundColor: 'rgb(140, 0, 140)',
+          borderColor: 'rgb(140, 0, 140)',
+          data: getHoursAvailable(role),
+          pointRadius: 0
         },
-        data: [
-          1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000
-        ],
-        pointRadius: 0
-      }
-    ]
-  },
-  {
-    labels: yearMounths,
-    datasets: [
-      {
-        label: 'Total de Horas Necessárias por Mês',
-        backgroundColor: 'rgb(200, 0, 0)',
-        borderColor: 'rgb(200, 0, 0)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
+        {
+          label: 'Total de Horas de CLTs Disponíveis por Mês',
+          backgroundColor: 'rgb(220, 220, 0)',
+          borderColor: 'rgb(220, 220, 0)',
+          // fill: {
+          //     target: 'origin',
+          //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+          // },
+          data: getHoursAvailableByType(role, "CLT"),
+          pointRadius: 0
         },
-        data: [250, 750, 1000, 700, 300, 200, 400, 1000, 1200, 1400, 2000, 100]
-      },
-      {
-        label: 'Total de Horas de Funcionários Disponíveis por mês',
-        backgroundColor: 'rgb(140, 0, 140)',
-        borderColor: 'rgb(140, 0, 140)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-        // },
-        data: [
-          1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500
-        ],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de CLTs Disponíveis por Mês',
-        backgroundColor: 'rgb(220, 220, 0)',
-        borderColor: 'rgb(220, 220, 0)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-        // },
-        data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de Terceiros Disponíveis por Mês',
-        backgroundColor: 'rgb(100, 100, 100)',
-        borderColor: 'rgb(100, 100, 100)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
-        },
-        data: [
-          1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000
-        ],
-        pointRadius: 0
-      }
-    ]
-  },
-  {
-    labels: yearMounths,
-    datasets: [
-      {
-        label: 'Total de Horas Necessárias por Mês',
-        backgroundColor: 'rgb(200, 0, 0)',
-        borderColor: 'rgb(200, 0, 0)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
-        },
-        data: [400, 200, 600, 300, 450, 600, 700, 800, 1000, 200, 300, 400]
-      },
-      {
-        label: 'Total de Horas de Funcionários Disponíveis por mês',
-        backgroundColor: 'rgb(140, 0, 140)',
-        borderColor: 'rgb(140, 0, 140)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-        // },
-        data: [
-          1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200
-        ],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de CLTs Disponíveis por Mês',
-        backgroundColor: 'rgb(220, 220, 0)',
-        borderColor: 'rgb(220, 220, 0)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-        // },
-        data: [300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de Terceiros Disponíveis por Mês',
-        backgroundColor: 'rgb(100, 100, 100)',
-        borderColor: 'rgb(100, 100, 100)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
-        },
-        data: [900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900],
-        pointRadius: 0
-      }
-    ]
-  },
-  {
-    labels: yearMounths,
-    datasets: [
-      {
-        label: 'Total de Horas Necessárias por Mês',
-        backgroundColor: 'rgb(200, 0, 0)',
-        borderColor: 'rgb(200, 0, 0)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
-        },
-        data: [1000, 1200, 1300, 400, 500, 600, 1200, 700, 900, 1000, 300, 200]
-      },
-      {
-        label: 'Total de Horas de Funcionários Disponíveis por mês',
-        backgroundColor: 'rgb(140, 0, 140)',
-        borderColor: 'rgb(140, 0, 140)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-        // },
-        data: [
-          2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000
-        ],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de CLTs Disponíveis por Mês',
-        backgroundColor: 'rgb(220, 220, 0)',
-        borderColor: 'rgb(220, 220, 0)',
-        // fill: {
-        //     target: 'origin',
-        //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-        // },
-        data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
-        pointRadius: 0
-      },
-      {
-        label: 'Total de Horas de Terceiros Disponíveis por Mês',
-        backgroundColor: 'rgb(100, 100, 100)',
-        borderColor: 'rgb(100, 100, 100)',
-        fill: {
-          target: 'origin',
-          above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
-        },
-        data: [750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750],
-        pointRadius: 0
-      }
-    ]
-  }
-]
+        {
+          label: 'Total de Horas de Terceiros Disponíveis por Mês',
+          backgroundColor: 'rgb(100, 100, 100)',
+          borderColor: 'rgb(100, 100, 100)',
+          fill: {
+            target: 'origin',
+            above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
+          },
+          data: getHoursAvailableByType(role, "TERCEIRO"),
+          pointRadius: 0
+        }
+      ]
+    },
+    // {
+    //   labels: yearMounths,
+    //   datasets: [
+    //     {
+    //       label: 'Total de Horas Necessárias por Mês',
+    //       backgroundColor: 'rgb(200, 0, 0)',
+    //       borderColor: 'rgb(200, 0, 0)',
+    //       fill: {
+    //         target: 'origin',
+    //         above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
+    //       },
+    //       data: [250, 750, 1000, 700, 300, 200, 400, 1000, 1200, 1400, 2000, 100]
+    //     },
+    //     {
+    //       label: 'Total de Horas de Funcionários Disponíveis por mês',
+    //       backgroundColor: 'rgb(140, 0, 140)',
+    //       borderColor: 'rgb(140, 0, 140)',
+    //       // fill: {
+    //       //     target: 'origin',
+    //       //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+    //       // },
+    //       data: [
+    //         1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500
+    //       ],
+    //       pointRadius: 0
+    //     },
+    //     {
+    //       label: 'Total de Horas de CLTs Disponíveis por Mês',
+    //       backgroundColor: 'rgb(220, 220, 0)',
+    //       borderColor: 'rgb(220, 220, 0)',
+    //       // fill: {
+    //       //     target: 'origin',
+    //       //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+    //       // },
+    //       data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
+    //       pointRadius: 0
+    //     },
+    //     {
+    //       label: 'Total de Horas de Terceiros Disponíveis por Mês',
+    //       backgroundColor: 'rgb(100, 100, 100)',
+    //       borderColor: 'rgb(100, 100, 100)',
+    //       fill: {
+    //         target: 'origin',
+    //         above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
+    //       },
+    //       data: [
+    //         1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000
+    //       ],
+    //       pointRadius: 0
+    //     }
+    //   ]
+    // },
+    // {
+    //   labels: yearMounths,
+    //   datasets: [
+    //     {
+    //       label: 'Total de Horas Necessárias por Mês',
+    //       backgroundColor: 'rgb(200, 0, 0)',
+    //       borderColor: 'rgb(200, 0, 0)',
+    //       fill: {
+    //         target: 'origin',
+    //         above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
+    //       },
+    //       data: [400, 200, 600, 300, 450, 600, 700, 800, 1000, 200, 300, 400]
+    //     },
+    //     {
+    //       label: 'Total de Horas de Funcionários Disponíveis por mês',
+    //       backgroundColor: 'rgb(140, 0, 140)',
+    //       borderColor: 'rgb(140, 0, 140)',
+    //       // fill: {
+    //       //     target: 'origin',
+    //       //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+    //       // },
+    //       data: [
+    //         1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200
+    //       ],
+    //       pointRadius: 0
+    //     },
+    //     {
+    //       label: 'Total de Horas de CLTs Disponíveis por Mês',
+    //       backgroundColor: 'rgb(220, 220, 0)',
+    //       borderColor: 'rgb(220, 220, 0)',
+    //       // fill: {
+    //       //     target: 'origin',
+    //       //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+    //       // },
+    //       data: [300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300],
+    //       pointRadius: 0
+    //     },
+    //     {
+    //       label: 'Total de Horas de Terceiros Disponíveis por Mês',
+    //       backgroundColor: 'rgb(100, 100, 100)',
+    //       borderColor: 'rgb(100, 100, 100)',
+    //       fill: {
+    //         target: 'origin',
+    //         above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
+    //       },
+    //       data: [900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900],
+    //       pointRadius: 0
+    //     }
+    //   ]
+    // },
+    // {
+    //   labels: yearMounths,
+    //   datasets: [
+    //     {
+    //       label: 'Total de Horas Necessárias por Mês',
+    //       backgroundColor: 'rgb(200, 0, 0)',
+    //       borderColor: 'rgb(200, 0, 0)',
+    //       fill: {
+    //         target: 'origin',
+    //         above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
+    //       },
+    //       data: [1000, 1200, 1300, 400, 500, 600, 1200, 700, 900, 1000, 300, 200]
+    //     },
+    //     {
+    //       label: 'Total de Horas de Funcionários Disponíveis por mês',
+    //       backgroundColor: 'rgb(140, 0, 140)',
+    //       borderColor: 'rgb(140, 0, 140)',
+    //       // fill: {
+    //       //     target: 'origin',
+    //       //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
+    //       // },
+    //       data: [
+    //         2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000
+    //       ],
+    //       pointRadius: 0
+    //     },
+    //     {
+    //       label: 'Total de Horas de CLTs Disponíveis por Mês',
+    //       backgroundColor: 'rgb(220, 220, 0)',
+    //       borderColor: 'rgb(220, 220, 0)',
+    //       // fill: {
+    //       //     target: 'origin',
+    //       //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
+    //       // },
+    //       data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
+    //       pointRadius: 0
+    //     },
+    //     {
+    //       label: 'Total de Horas de Terceiros Disponíveis por Mês',
+    //       backgroundColor: 'rgb(100, 100, 100)',
+    //       borderColor: 'rgb(100, 100, 100)',
+    //       fill: {
+    //         target: 'origin',
+    //         above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
+    //       },
+    //       data: [750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750],
+    //       pointRadius: 0
+    //     }
+    //   ]
+    // }
+  ]
+}
 
 const generalChart2 = {
   labels: yearMounths,
@@ -667,8 +513,8 @@ const generalChart5Config = {
 const generalHoursCtx = $('.hours-chart')
 const generalHoursCharts = []
 
-function generateHoursChart() {
-  new Chart($(`#general-hours-chart${index}`), {
+function generateHoursChart(role) {
+  new Chart($(`#general-hours-chart${role}`), {
     type: 'line',
     data: generalHoursChartsData[index],
     options: {
