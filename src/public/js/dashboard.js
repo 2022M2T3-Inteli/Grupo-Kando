@@ -94,10 +94,10 @@ function getHoursAvailable(role) {
 
   let data = JSON.parse(xhttp.responseText)
   let totalHours = [
-    data.projecs_workload, 
-    data.projecs_workload, 
-    data.projecs_workload, 
-    data.projecs_workload, 
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
     data.projecs_workload,
     data.projecs_workload,
     data.projecs_workload,
@@ -124,12 +124,12 @@ function getHoursAvailableByType(role, type) {
   xhhtp.send()
 
   let data = JSON.parse(xhttp.responseText)
-  
+
   let totalHours = [
-    data.projecs_workload, 
-    data.projecs_workload, 
-    data.projecs_workload, 
-    data.projecs_workload, 
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
+    data.projecs_workload,
     data.projecs_workload,
     data.projecs_workload,
     data.projecs_workload,
@@ -187,7 +187,7 @@ function generateHoursChartData(role) {
           //     target: 'origin',
           //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
           // },
-          data: getHoursAvailableByType(role, "CLT"),
+          data: getHoursAvailableByType(role, 'CLT'),
           pointRadius: 0
         },
         {
@@ -198,11 +198,11 @@ function generateHoursChartData(role) {
             target: 'origin',
             above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
           },
-          data: getHoursAvailableByType(role, "TERCEIRO"),
+          data: getHoursAvailableByType(role, 'TERCEIRO'),
           pointRadius: 0
         }
       ]
-    },
+    }
     // {
     //   labels: yearMounths,
     //   datasets: [
@@ -607,6 +607,17 @@ function chartChange(value) {
 }
 
 //  Gráficos da tela de Projeto 1 do Dashboard
+
+function getProjectEmployee(type) {
+  let url = '/projectemployees/14/' + type
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  return JSON.parse(xhttp.responseText)
+}
+
 const project1Chart1 = {
   labels: [
     'Nº de Funcionários Terceirizado no Projeto',
@@ -614,7 +625,7 @@ const project1Chart1 = {
   ],
   datasets: [
     {
-      data: [15, 20],
+      data: [getProjectEmployee('CLT'), getProjectEmployee('TERCEIRO')],
       backgroundColor: [
         'rgb(255, 205, 86)',
         'rgb(54, 162, 235)'

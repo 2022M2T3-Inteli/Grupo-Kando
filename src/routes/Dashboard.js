@@ -45,8 +45,7 @@ router.get('/hoursavailable', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
-  var sql =
-    'SELECT SUM(projects_workload) FROM Employee'
+  var sql = 'SELECT SUM(projects_workload) FROM Employee'
   db.all(sql, [], (err, rows) => {
     if (err) {
       throw err
@@ -72,14 +71,14 @@ router.get('/hoursavailable/:role', (req, res) => {
   })
 })
 
-
 router.get('/hoursavailable/:role/:type', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
   let role = req.params['role']
   let type = req.params['type']
 
-  var sql = 'SELECT SUM(projects_workload) FROM Employee WHERE role_name = ? AND type = ?'
+  var sql =
+    'SELECT SUM(projects_workload) FROM Employee WHERE role_name = ? AND type = ?'
   db.all(sql, [role, type], (err, rows) => {
     if (err) {
       throw err
@@ -94,6 +93,60 @@ router.get('/roletotalhours', (req, res) => {
 
   var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment WHERE role_id = 1'
   db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    res.json(rows)
+  })
+})
+
+// faz uma requisição para consultar o número de funcionários em determinado projeto
+router.get('/projectemployees/:project_id/', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let project_id = req.params['project_id']
+
+  var sql =
+    'SELECT COUNT(DISTINCT employee_id) FROM EmployeeAssignment WHERE project_id = ?'
+  db.all(sql, [project_id], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    res.json(rows)
+  })
+})
+
+// filtra a consulta do número de funcionários em um projeto, se são CLT ou TERCEIROS
+router.get('/projectemployees/:project_id/:type', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let project_id = req.params['project_id']
+  let type = req.params['type']
+
+  var sql =
+    'SELECT COUNT(DISTINCT employee_id) FROM EmployeeAssignment WHERE project_id = ?' +
+    ` AND EmployeeAssignment.employee_id IN 
+      ( 
+        SELECT Employee.id FROM Employee WHERE Employee.type = ?
+      )
+    `
+  db.all(sql, [project_id, type], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    res.json(rows)
+  })
+})
+
+router.get('/monthemployeesassigned', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let role = req.params['role']
+  let type = req.params['type']
+
+  var sql =
+    'SELECT COUNT(employee_id) FROM EmployeeAssignment WHERE month = ? AND type = ?'
+  db.all(sql, [role, type], (err, rows) => {
     if (err) {
       throw err
     }
