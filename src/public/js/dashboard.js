@@ -18,17 +18,20 @@
 //   hoursAvailableETW: 0
 // }
 
+let generalChartData = []
+
 function getHoursNeeded(role) {
   let url
-  if (type != 'all') {
-    url = '/totalhours/' + role
+  if (role != 'all') {
+    url = 'dashboard/totalhours/' + role
   } else {
-    url = '/totalhours'
+    url = 'dashboard/totalhours'
   }
+  console.log(url)
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
-  xhhtp.send()
+  xhttp.send()
 
   let data = JSON.parse(xhttp.responseText)
 
@@ -82,64 +85,55 @@ function getHoursNeeded(role) {
 
 function getHoursAvailable(role) {
   let url
-  if (type != 'all') {
-    url = '/hoursavailable/' + role
+  if (role != 'all') {
+    url = 'dashboard/hoursavailablefiltred/' + role
   } else {
-    url = '/hoursavailable'
+    url = 'dashboard/hoursavailable'
   }
+  console.log(url)
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
-  xhhtp.send()
+  xhttp.send()
 
   let data = JSON.parse(xhttp.responseText)
-  let totalHours = [
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload
-  ]
-
+  let hoursMonth = data.projects_workload
+  
+  let totalHours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  if (hoursMonth) {
+    for(i=0; i<12; i++) {
+      totalHours[i] = hoursMonth
+    }
+  }
+  console.log(totalHours)
   return totalHours
 }
 
 function getHoursAvailableByType(role, type) {
   let url
   if (role != 'all') {
-    url = `/hoursavailable/${role}/${type}`
+    url = `dashboard/hoursavailablefiltred/${role}/${type}`
+    console.log(url)
   } else {
-    url = `/hoursavailable/${type}`
+    url = `dashboard/hoursavailable/${type}`
   }
+  console.log(url, " por tipo")
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
-  xhhtp.send()
+  xhttp.send()
 
   let data = JSON.parse(xhttp.responseText)
 
-  let totalHours = [
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload,
-    data.projecs_workload
-  ]
-
+  let hoursMonth = data.projects_workload
+  
+  let totalHours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  if (hoursMonth) {
+    for(i=0; i<12; i++) {
+      totalHours[i] = hoursMonth
+    }
+  }
+  console.log(totalHours)
   return totalHours
 }
 
@@ -158,7 +152,7 @@ const yearMounths = [
   'Dezembro'
 ]
 function generateHoursChartData(role) {
-  return [
+  generalChartData = [
     {
       labels: yearMounths,
       datasets: [
@@ -202,160 +196,9 @@ function generateHoursChartData(role) {
           pointRadius: 0
         }
       ]
-    }
-    // {
-    //   labels: yearMounths,
-    //   datasets: [
-    //     {
-    //       label: 'Total de Horas Necessárias por Mês',
-    //       backgroundColor: 'rgb(200, 0, 0)',
-    //       borderColor: 'rgb(200, 0, 0)',
-    //       fill: {
-    //         target: 'origin',
-    //         above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
-    //       },
-    //       data: [250, 750, 1000, 700, 300, 200, 400, 1000, 1200, 1400, 2000, 100]
-    //     },
-    //     {
-    //       label: 'Total de Horas de Funcionários Disponíveis por mês',
-    //       backgroundColor: 'rgb(140, 0, 140)',
-    //       borderColor: 'rgb(140, 0, 140)',
-    //       // fill: {
-    //       //     target: 'origin',
-    //       //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-    //       // },
-    //       data: [
-    //         1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500
-    //       ],
-    //       pointRadius: 0
-    //     },
-    //     {
-    //       label: 'Total de Horas de CLTs Disponíveis por Mês',
-    //       backgroundColor: 'rgb(220, 220, 0)',
-    //       borderColor: 'rgb(220, 220, 0)',
-    //       // fill: {
-    //       //     target: 'origin',
-    //       //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-    //       // },
-    //       data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
-    //       pointRadius: 0
-    //     },
-    //     {
-    //       label: 'Total de Horas de Terceiros Disponíveis por Mês',
-    //       backgroundColor: 'rgb(100, 100, 100)',
-    //       borderColor: 'rgb(100, 100, 100)',
-    //       fill: {
-    //         target: 'origin',
-    //         above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
-    //       },
-    //       data: [
-    //         1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000
-    //       ],
-    //       pointRadius: 0
-    //     }
-    //   ]
-    // },
-    // {
-    //   labels: yearMounths,
-    //   datasets: [
-    //     {
-    //       label: 'Total de Horas Necessárias por Mês',
-    //       backgroundColor: 'rgb(200, 0, 0)',
-    //       borderColor: 'rgb(200, 0, 0)',
-    //       fill: {
-    //         target: 'origin',
-    //         above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
-    //       },
-    //       data: [400, 200, 600, 300, 450, 600, 700, 800, 1000, 200, 300, 400]
-    //     },
-    //     {
-    //       label: 'Total de Horas de Funcionários Disponíveis por mês',
-    //       backgroundColor: 'rgb(140, 0, 140)',
-    //       borderColor: 'rgb(140, 0, 140)',
-    //       // fill: {
-    //       //     target: 'origin',
-    //       //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-    //       // },
-    //       data: [
-    //         1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200
-    //       ],
-    //       pointRadius: 0
-    //     },
-    //     {
-    //       label: 'Total de Horas de CLTs Disponíveis por Mês',
-    //       backgroundColor: 'rgb(220, 220, 0)',
-    //       borderColor: 'rgb(220, 220, 0)',
-    //       // fill: {
-    //       //     target: 'origin',
-    //       //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-    //       // },
-    //       data: [300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300],
-    //       pointRadius: 0
-    //     },
-    //     {
-    //       label: 'Total de Horas de Terceiros Disponíveis por Mês',
-    //       backgroundColor: 'rgb(100, 100, 100)',
-    //       borderColor: 'rgb(100, 100, 100)',
-    //       fill: {
-    //         target: 'origin',
-    //         above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
-    //       },
-    //       data: [900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900],
-    //       pointRadius: 0
-    //     }
-    //   ]
-    // },
-    // {
-    //   labels: yearMounths,
-    //   datasets: [
-    //     {
-    //       label: 'Total de Horas Necessárias por Mês',
-    //       backgroundColor: 'rgb(200, 0, 0)',
-    //       borderColor: 'rgb(200, 0, 0)',
-    //       fill: {
-    //         target: 'origin',
-    //         above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
-    //       },
-    //       data: [1000, 1200, 1300, 400, 500, 600, 1200, 700, 900, 1000, 300, 200]
-    //     },
-    //     {
-    //       label: 'Total de Horas de Funcionários Disponíveis por mês',
-    //       backgroundColor: 'rgb(140, 0, 140)',
-    //       borderColor: 'rgb(140, 0, 140)',
-    //       // fill: {
-    //       //     target: 'origin',
-    //       //     above: 'rgb(140, 0, 140, 15%)',   // Area will be red above the origin
-    //       // },
-    //       data: [
-    //         2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000
-    //       ],
-    //       pointRadius: 0
-    //     },
-    //     {
-    //       label: 'Total de Horas de CLTs Disponíveis por Mês',
-    //       backgroundColor: 'rgb(220, 220, 0)',
-    //       borderColor: 'rgb(220, 220, 0)',
-    //       // fill: {
-    //       //     target: 'origin',
-    //       //     above: 'rgb(220, 220, 0, 15%)',   // Area will be red above the origin
-    //       // },
-    //       data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
-    //       pointRadius: 0
-    //     },
-    //     {
-    //       label: 'Total de Horas de Terceiros Disponíveis por Mês',
-    //       backgroundColor: 'rgb(100, 100, 100)',
-    //       borderColor: 'rgb(100, 100, 100)',
-    //       fill: {
-    //         target: 'origin',
-    //         above: 'rgb(100, 100, 100, 15%)' // Area will be red above the origin
-    //       },
-    //       data: [750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750, 750],
-    //       pointRadius: 0
-    //     }
-    //   ]
-    // }
+    },
   ]
+  return generateHoursChart()
 }
 
 const generalChart2 = {
@@ -510,13 +353,11 @@ const generalChart5Config = {
 //###########################################################
 
 //  Gráficos da tela Geral do Dashboard
-const generalHoursCtx = $('.hours-chart')
-const generalHoursCharts = []
-
+let generalChart
 function generateHoursChart(role) {
-  new Chart($(`#general-hours-chart${role}`), {
+  generalChart = new Chart($(`#general-hours-chart`), {
     type: 'line',
-    data: generalHoursChartsData[index],
+    data: generalChartData[0],
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -526,11 +367,9 @@ function generateHoursChart(role) {
           min: 0,
           max: function () {
             let hoursNeeded = Math.max(
-              ...generalHoursChartsData[index].datasets[0].data
+              ...generalChartData[0].datasets[0].data
             )
-            let avaliableHours =
-              generalHoursChartsData[index].datasets[1].data[0]
-
+            let avaliableHours = generalChartData[0].datasets[1].data[0]
             if (hoursNeeded > avaliableHours) {
               return hoursNeeded + 200
             } else {
@@ -542,38 +381,6 @@ function generateHoursChart(role) {
     }
   })
 }
-
-generalHoursCtx.each(function (index) {
-  generalHoursCharts.push(
-    new Chart($(`#general-hours-chart${index}`), {
-      type: 'line',
-      data: generalHoursChartsData[index],
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {},
-        scales: {
-          y: {
-            min: 0,
-            max: function () {
-              let hoursNeeded = Math.max(
-                ...generalHoursChartsData[index].datasets[0].data
-              )
-              let avaliableHours =
-                generalHoursChartsData[index].datasets[1].data[0]
-
-              if (hoursNeeded > avaliableHours) {
-                return hoursNeeded + 200
-              } else {
-                return avaliableHours + 200
-              }
-            }
-          }
-        }
-      }
-    })
-  )
-})
 
 const generalCtx2 = document.getElementById('general-employee-chart')
 const generalDashChart2 = new Chart(generalCtx2, generalChart2Config)
@@ -587,26 +394,15 @@ const generalDashChart4 = new Chart(generalCtx4, generalChart4Config)
 const generalCtx5 = document.getElementById('general-employee-chart2')
 const generalDashChart5 = new Chart(generalCtx5, generalChart5Config)
 
-let generalLastChart
-let generalLastChartIndex = 0
+generateHoursChartData("all")
 function chartChange(value) {
-  if (generalLastChart) {
-    document.getElementById(generalLastChart).hidden = true
-    document.getElementById(generalLastChart + '-title').hidden = true
-  } else {
-    document.getElementById('general-hours-chart0').hidden = true
-    document.getElementById('general-hours-chart0-title').hidden = true
+  if(generalChart) {
+    generalChart.destroy()
   }
-  document.getElementById(value).hidden = false
-  document.getElementById(value + '-title').hidden = false
-  generalLastChart = value
-  generalLastChartIndex += 1
-  if (generalLastChartIndex > generalHoursCharts.length) {
-    generalLastChartIndex = 0
-  }
+  generateHoursChartData(value)
 }
 
-//  Gráficos da tela de Projeto 1 do Dashboard
+// Gráficos da tela de Projeto 1 do Dashboard
 
 function getProjectEmployee(type) {
   let url = '/projectemployees/14/' + type
@@ -902,8 +698,8 @@ const project3Chart3Config = {
 const project3Ctx = document.getElementById('project3-employee-chart')
 const project3DashChart1 = new Chart(project3Ctx, project3Chart1Config)
 
-// const project2Ctx2 = document.getElementById("project2-estimate-chart")
-// const project2DashChart2 = new Chart(project2Ctx2, project2Chart2Config)
+const project2Ctx2 = document.getElementById("project2-estimate-chart")
+const project2DashChart2 = new Chart(project2Ctx2, project2Chart2Config)
 
 const project3Ctx3 = document.getElementById('project3-role-chart')
 const project3DashChart3 = new Chart(project3Ctx3, project3Chart3Config)

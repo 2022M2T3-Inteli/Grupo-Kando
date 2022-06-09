@@ -60,34 +60,19 @@
                         class="chart-selection"
                         onchange="chartChange(this.value)"
                       >
-                        <option value="general-hours-chart0" selected>
+                        <option value="all" selected>
                           Sem Filtro
                         </option>
-                        <option value="general-hours-chart1">Analista</option>
-                        <option value="general-hours-chart2">
+                        <option value="Analista">Analista</option>
+                        <option value="Gerente de Projetos">
                           Gerente de Projetos
                         </option>
-                        <option value="general-hours-chart3">DBA</option>
+                        <option value="DBA">DBA</option>
                       </select>
                     </div>
                     <canvas
-                      id="general-hours-chart0"
+                      id="general-hours-chart"
                       class="area-chart hours-chart"
-                    ></canvas>
-                    <canvas
-                      id="general-hours-chart1"
-                      class="area-chart hours-chart"
-                      hidden
-                    ></canvas>
-                    <canvas
-                      id="general-hours-chart2"
-                      class="area-chart hours-chart"
-                      hidden
-                    ></canvas>
-                    <canvas
-                      id="general-hours-chart3"
-                      class="area-chart hours-chart"
-                      hidden
                     ></canvas>
                   </div>
                   <div id="general-chart2" class="col-5 dash-chart">
