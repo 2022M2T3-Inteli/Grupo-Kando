@@ -102,6 +102,30 @@ function getEmployeeList() {
 					onclick="showEmployee(this.id)">
 						visibility
 				</div>
+
+        <div
+					class="material-symbols-outlined project-view-button"
+					data-bs-toggle="modal"
+					data-bs-target="#view-employee-modal"
+					id="${row.id}"
+					onclick="editProject(this.id)"
+				>
+					<span class="material-symbols-outlined">
+						edit
+					</span>
+				</div>
+
+				<div
+					class="material-symbols-outlined project-view-button"
+					data-bs-toggle="modal"
+					data-bs-target="#remove-employee-modal"
+					id="${row.id}"
+					onclick="modalDelete(this.id)"
+					
+				>
+					delete
+				</div>
+
 			</div>
 			`
   })
@@ -118,6 +142,25 @@ function showEmployee(id) {
   console.log(data)
 }
 getEmployeeList()
+
+let employeeId = 0
+function modalDelete(id) {
+ employeeId = id
+
+
+}
+
+function deleteEmployee() {
+	let url = "employees/"+employeeId
+
+	let xhttp = new XMLHttpRequest()
+	
+	xhttp.addEventListener("load", getEmployeeList)
+
+	xhttp.open("delete", url, false)
+	xhttp.send()
+
+}
 
 let employeeTable = '#employees-table'
 $(employeeTable).bootstrapTable({
