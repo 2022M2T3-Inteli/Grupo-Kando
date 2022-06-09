@@ -102,6 +102,8 @@ function modalDelete(id) {
 
 }
 
+
+
 function deleteProject() {
 	let url = "projects/"+projectId
 

@@ -80,20 +80,24 @@ let employeesData = [
     totalHours: 176
   }
 ]
-let tableData = []
 
+let employeeTable = $("#employees-table")
+let tableData = []
 function getEmployeeList() {
   let url = 'employees/all'
 
   let xhttp = new XMLHttpRequest()
+
   xhttp.open('get', url, false)
   xhttp.send()
 
   let data = JSON.parse(xhttp.responseText)
+
+  tableData = []
   data.forEach((row, index) => {
     tableData.push(row)
     tableData[index].tools = `
-			<div class="employee-view">
+			<div class="employee-tools">
 				<!-- button trigger view employee -->
 				<div class="material-symbols-outlined employee-view-button" 
 					data-bs-toggle="modal"
@@ -116,7 +120,7 @@ function getEmployeeList() {
 				</div>
 
 				<div
-					class="material-symbols-outlined project-view-button"
+					class="material-symbols-outlined employee-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#remove-employee-modal"
 					id="${row.id}"
@@ -125,11 +129,21 @@ function getEmployeeList() {
 				>
 					delete
 				</div>
-
 			</div>
-			`
+		`
   })
+
+  $(employeeTable).bootstrapTable("destroy")
+  setInterval(function() {
+    $(employeeTable).bootstrapTable({
+      data: tableData
+    })
+    $("#employees-table tr:not(:first)").addClass("table-body-row")
+  }, 0)
+
 }
+getEmployeeList()
+
 
 function showEmployee(id) {
   let url = '/employee/' + id
@@ -141,12 +155,11 @@ function showEmployee(id) {
   let data = JSON.parse(xhttp.responseText)
   console.log(data)
 }
-getEmployeeList()
+
 
 let employeeId = 0
 function modalDelete(id) {
  employeeId = id
-
 
 }
 
@@ -162,7 +175,6 @@ function deleteEmployee() {
 
 }
 
-let employeeTable = '#employees-table'
 $(employeeTable).bootstrapTable({
   data: tableData
 })
