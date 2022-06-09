@@ -59,7 +59,7 @@ router.post('/', urlencodedParser, (req, res) => {
       throw err
     }
   })
-  res.end()
+  res.render('employees/employees')
 })
 
 router.patch('/', urlencodedParser,  (req, res) => {
@@ -89,6 +89,7 @@ router.patch('/', urlencodedParser,  (req, res) => {
     }
     res.end()
   })
+  xhttp.addEventListener("load", getEmployeeList)
 })
 
 router.delete('/:id', urlencodedParser, (req, res) => {
