@@ -20,6 +20,22 @@
 
 let generalChartData = []
 
+const yearMounths = [
+  'Janeiro',
+  'Fevereiro',
+  'Março',
+  'Abril',
+  'Maio',
+  'Junho',
+  'Julho',
+  'Agosto',
+  'Setembro',
+  'Outubro',
+  'Novembro',
+  'Dezembro'
+]
+
+// Gráfico de Horas Totais (Primeiro Gráfico)
 function getHoursNeeded(role) {
   let url
   if (role != 'all') {
@@ -27,7 +43,6 @@ function getHoursNeeded(role) {
   } else {
     url = 'dashboard/totalhours'
   }
-  console.log(url)
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
@@ -79,7 +94,6 @@ function getHoursNeeded(role) {
         break
     }
   })
-
   return hoursNeededPeerMounth
 }
 
@@ -90,7 +104,6 @@ function getHoursAvailable(role) {
   } else {
     url = 'dashboard/hoursavailable'
   }
-  console.log(url)
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
@@ -105,7 +118,6 @@ function getHoursAvailable(role) {
       totalHours[i] = hoursMonth
     }
   }
-  console.log(totalHours)
   return totalHours
 }
 
@@ -113,11 +125,9 @@ function getHoursAvailableByType(role, type) {
   let url
   if (role != 'all') {
     url = `dashboard/hoursavailablefiltred/${role}/${type}`
-    console.log(url)
   } else {
     url = `dashboard/hoursavailable/${type}`
   }
-  console.log(url, " por tipo")
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
@@ -133,24 +143,9 @@ function getHoursAvailableByType(role, type) {
       totalHours[i] = hoursMonth
     }
   }
-  console.log(totalHours)
   return totalHours
 }
 
-const yearMounths = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro'
-]
 function generateHoursChartData(role) {
   generalChartData = [
     {
@@ -199,6 +194,35 @@ function generateHoursChartData(role) {
     },
   ]
   return generateHoursChart()
+}
+
+let generalChart
+function generateHoursChart(role) {
+  generalChart = new Chart($(`#general-hours-chart`), {
+    type: 'line',
+    data: generalChartData[0],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {},
+      scales: {
+        y: {
+          min: 0,
+          max: function () {
+            let hoursNeeded = Math.max(
+              ...generalChartData[0].datasets[0].data
+            )
+            let avaliableHours = generalChartData[0].datasets[1].data[0]
+            if (hoursNeeded > avaliableHours) {
+              return hoursNeeded + 200
+            } else {
+              return avaliableHours + 200
+            }
+          }
+        }
+      }
+    }
+  })
 }
 
 const generalChart2 = {
@@ -353,35 +377,6 @@ const generalChart5Config = {
 //###########################################################
 
 //  Gráficos da tela Geral do Dashboard
-let generalChart
-function generateHoursChart(role) {
-  generalChart = new Chart($(`#general-hours-chart`), {
-    type: 'line',
-    data: generalChartData[0],
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {},
-      scales: {
-        y: {
-          min: 0,
-          max: function () {
-            let hoursNeeded = Math.max(
-              ...generalChartData[0].datasets[0].data
-            )
-            let avaliableHours = generalChartData[0].datasets[1].data[0]
-            if (hoursNeeded > avaliableHours) {
-              return hoursNeeded + 200
-            } else {
-              return avaliableHours + 200
-            }
-          }
-        }
-      }
-    }
-  })
-}
-
 const generalCtx2 = document.getElementById('general-employee-chart')
 const generalDashChart2 = new Chart(generalCtx2, generalChart2Config)
 
@@ -404,44 +399,44 @@ function chartChange(value) {
 
 // Gráficos da tela de Projeto 1 do Dashboard
 
-function getProjectEmployee(type) {
-  let url = '/projectemployees/14/' + type
+// function getProjectEmployee(type) {
+//   let url = '/projectemployees/14/' + type
 
-  let xhttp = new XMLHttpRequest()
-  xhttp.open('get', url, false)
-  xhttp.send()
+//   let xhttp = new XMLHttpRequest()
+//   xhttp.open('get', url, false)
+//   xhttp.send()
 
-  return JSON.parse(xhttp.responseText)
-}
+//   return JSON.parse(xhttp.responseText)
+// }
 
-const project1Chart1 = {
-  labels: [
-    'Nº de Funcionários Terceirizado no Projeto',
-    'Nº de Funcionários CLT no Projeto'
-  ],
-  datasets: [
-    {
-      data: [getProjectEmployee('CLT'), getProjectEmployee('TERCEIRO')],
-      backgroundColor: [
-        'rgb(255, 205, 86)',
-        'rgb(54, 162, 235)'
-        // 'rgb(255, 99, 132)',
-      ]
-    }
-  ]
-}
+// const project1Chart1 = {
+//   labels: [
+//     'Nº de Funcionários Terceirizado no Projeto',
+//     'Nº de Funcionários CLT no Projeto'
+//   ],
+//   datasets: [
+//     {
+//       data: [getProjectEmployee('CLT'), getProjectEmployee('TERCEIRO')],
+//       backgroundColor: [
+//         'rgb(255, 205, 86)',
+//         'rgb(54, 162, 235)'
+//         // 'rgb(255, 99, 132)',
+//       ]
+//     }
+//   ]
+// }
 
-const project1Chart1Config = {
-  type: 'pie',
-  data: project1Chart1,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      offset: 30
-    }
-  }
-}
+// const project1Chart1Config = {
+//   type: 'pie',
+//   data: project1Chart1,
+//   options: {
+//     responsive: true,
+//     maintainAspectRatio: false,
+//     plugins: {
+//       offset: 30
+//     }
+//   }
+// }
 
 const project1Chart2 = {
   labels: ['data inicial', 'data final'],
@@ -504,7 +499,7 @@ const project1Chart3Config = {
 }
 
 const project1Ctx = document.getElementById('project1-employee-chart')
-const project1DashChart1 = new Chart(project1Ctx, project1Chart1Config)
+// const project1DashChart1 = new Chart(project1Ctx, project1Chart1Config)
 
 // const project1Ctx2 = document.getElementById("project1-estimate-chart")
 // const project1DashChart2 = new Chart(project1Ctx2, project1Chart2Config)
@@ -699,7 +694,7 @@ const project3Ctx = document.getElementById('project3-employee-chart')
 const project3DashChart1 = new Chart(project3Ctx, project3Chart1Config)
 
 const project2Ctx2 = document.getElementById("project2-estimate-chart")
-const project2DashChart2 = new Chart(project2Ctx2, project2Chart2Config)
+// const project2DashChart2 = new Chart(project2Ctx2, project2Chart2Config)
 
 const project3Ctx3 = document.getElementById('project3-role-chart')
 const project3DashChart3 = new Chart(project3Ctx3, project3Chart3Config)

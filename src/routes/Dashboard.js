@@ -37,7 +37,6 @@ router.get('/totalhours/:role', (req, res) => {
     if (err) {
       throw err
     }
-    console.log(rows)
     res.json(rows)
   })
 })
@@ -51,7 +50,6 @@ router.get('/hoursavailable', (req, res) => {
     if (err) {
       throw err
     }
-    // console.log(rows)
     res.json(row)
   })
 })
