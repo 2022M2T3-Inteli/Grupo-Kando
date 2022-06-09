@@ -119,117 +119,120 @@
       </div>
 
       <!-- Modal Add Employee -->
-      <div class="parent-modal">
-        <div
-          class="modal fade"
-          id="add-employee-modal"
-          tabindex="-1"
-          aria-labelledby="add-employee-modal-label"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-container">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="add-employee-modal-label">
-                  Adicionar Funcionário
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <div class="row container">
-                  <div class="row form-group">
+      <form action ='/employees/' method ='POST'>
+        <div class="parent-modal">
+          <div
+            class="modal fade"
+            id="add-employee-modal"
+            tabindex="-1"
+            aria-labelledby="add-employee-modal-label"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-container">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="add-employee-modal-label">
+                    Adicionar Funcionário
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row container">
+                    <div class="row form-group">
+                        <div class="col-4">
+                          <label for="employee-name">Nome do Funcionário: </label>
+                        </div>
+                        <div class="col">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="name"
+                            id="employee-name"
+                            placeholder="Nome do Funcionário"
+                          />
+                        </div>
+                    </div>
+                    <div class="row form-group">
                       <div class="col-4">
-                        <label for="employee-name">Nome do Funcionário: </label>
+                        <label for="employee-function">Função: </label>
+                      </div>
+                      <div class="col">
+                        <select name="role" id="employee-function">
+                          <option value="dev">Desenvolvedor</option>
+                          <option value="analist">Analista</option>
+                          <option value="project-manager">
+                            Gerente de Projetos
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-4">
+                        <label for="employee-local">Região: </label>
+                      </div>
+                      <div class="col">
+                        <select name="location" id="local">
+                          <option value="AM">Manaus</option>
+                          <option value="SP">Guarulhos</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-4">
+                        <label for="employee-worktime"
+                          >Tempo alocado para projetos no mês:
+                        </label>
                       </div>
                       <div class="col">
                         <input
-                          type="text"
-                          class="form-control"
-                          name="employee-name"
-                          id="employee-name"
-                          placeholder="Nome do Funcionário"
+                          type="number"
+                          name="projects_workload"
+                          id="employee-worktime"
                         />
                       </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="employee-function">Função: </label>
                     </div>
-                    <div class="col">
-                      <select name="employee-function" id="employee-function">
-                        <option value="dev">Desenvolvedor</option>
-                        <option value="analist">Analista</option>
-                        <option value="project-manager">
-                          Gerente de Projetos
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="employee-local">Região: </label>
-                    </div>
-                    <div class="col">
-                      <select name="employee-local" id="local">
-                        <option value="AM">Manaus</option>
-                        <option value="SP">Guarulhos</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="employee-worktime"
-                        >Tempo alocado para projetos no mês:
-                      </label>
-                    </div>
-                    <div class="col">
-                      <input
-                        type="number"
-                        name="employee-worktime"
-                        id="employee-worktime"
-                      />
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4"><label for="">Funcionário Interno (CLT)</label></div>
-                    <div class="col">
-                      <select name="employee-type" id="">
-                        <option value="clt">CLT</option>
-                        <option value="third-employee">Terceiro</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col employee-tag-list">
-                      <div class="employee-tag-element">
-                      </div>
-                      <div class="employee-add-tag">
-                        <button type="button" onclick="newTagName()">+</button>
+                    <div class="row form-group">
+                      <div class="col-4"><label for="">Funcionário Interno (CLT)</label></div>
+                      <div class="col">
+                        <select name="type" id="">
+                          <option value="clt">CLT</option>
+                          <option value="third-employee">Terceiro</option>
+                        </select>
                       </div>
                     </div>
-                  </div>
+                    <div class="row">
+                      <div class="col-1"><label for="tags">Tags: </label></div>
+                      <div class="col employee-tag-list">
+                        <div class="employee-tag-element">
+                        </div>
+                        <div class="employee-add-tag">
+                          <button type="button" onclick="newTagName()">+</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <div class="buttons-container">
-                <button type="button" class="btn-primary" id="liveToastBtn"
-                data-bs-dismiss="modal"
-                aria-label="Close">
-                  Adicionar Funcionário
-                </button>
+              <div class="modal-footer">
+                <div class="buttons-container">
+                  <button type="submit" class="btn-primary" id="liveToastBtn"
+                  data-bs-dismiss="modal"
+                  aria-label="Close">
+                    Adicionar Funcionário
+                  </button>
+                </div>
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
               </div>
-              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-              <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
             </div>
           </div>
         </div>
-      </div>
+      </form>
+
       <!-- Modal View Employee -->
       <div class="parent-modal parent-modal-employee">
         <div

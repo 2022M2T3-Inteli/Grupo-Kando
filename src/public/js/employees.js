@@ -15,7 +15,7 @@ function changeInputTagValue(value) {
 // função que remove a caixa de input da tag e adiciona ela a página do funcionário, quando o usuário clicar em "ok"
 function addTagElement() {
   document.getElementById('new-tag-name').remove()
-  tagList.innerHTML += `<div id="${tagName}" class="tag">${tagName}</div><button type="button" class="tag-button" name="${tagName}" onclick="removeTagElement(this)">x</button>`
+  tagList.innerHTML += `<div id="${tagName}" class="tag" name="tags">${tagName}</div><button type="button" class="tag-button" name="${tagName}" onclick="removeTagElement(this)">x</button>`
 }
 
 // função que remove a tag, caso o usuário clique no "x"
@@ -82,7 +82,7 @@ let employeesData = [
 ]
 
 let employeeTable = $("#employees-table")
-let tableData = []
+// let tableData = []
 function getEmployeeList() {
   let url = 'employees/all'
 

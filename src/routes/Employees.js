@@ -38,7 +38,7 @@ router.post('/', urlencodedParser, (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
 
   sql =
-    "INSERT INTO Employee (name, location, role_id, projects_workload, available_projects_workload, type, tags) VALUES ('" +
+    "INSERT INTO Employee (name, location, role_name, projects_workload, available_projects_workload, type, tags) VALUES ('" +
     req.body.name +
     "', '" +
     req.body.location +
@@ -47,11 +47,11 @@ router.post('/', urlencodedParser, (req, res) => {
     "', '" +
     req.body.projects_workload +
     "', '" +
-    req.body.available_projects_workload +
+    req.body.projects_work +
+    "', '" +
+    req.body.type +
     "','" +
     req.body.tags +
-    "', '" +
-    req.body.projects +
     "')"
 
   db.run(sql, [], err => {
