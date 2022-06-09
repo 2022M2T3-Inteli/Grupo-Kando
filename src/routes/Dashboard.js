@@ -28,11 +28,11 @@ router.get('/totalhours/:role', (req, res) => {
   var sql =
     'SELECT hours_assigned, month, role_name FROM RoleAssignment WHERE role_name = ? AND year = ' +
     year
-    // ` AND RoleAssignment.role_name IN 
-    //   ( 
-    //     SELECT role FROM Role WHERE Role.type = ?
-    //   )
-    // `
+  // ` AND RoleAssignment.role_name IN
+  //   (
+  //     SELECT role FROM Role WHERE Role.type = ?
+  //   )
+  // `
   db.all(sql, [role], (err, rows) => {
     if (err) {
       throw err
@@ -75,7 +75,8 @@ router.get('/hoursavailablefiltred/:role', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   let role = req.params['role']
 
-  var sql = 'SELECT SUM(projects_workload) AS projects_workload FROM Employee WHERE role_name = ?'
+  var sql =
+    'SELECT SUM(projects_workload) AS projects_workload FROM Employee WHERE role_name = ?'
   db.get(sql, [role], (err, row) => {
     if (err) {
       throw err
@@ -100,36 +101,7 @@ router.get('/hoursavailablefiltred/:role/:type', (req, res) => {
   })
 })
 
-router.get('/roletotalhours', (req, res) => {
-  res.statusCode = 200
-  res.setHeader('Access-Control-Allow-Origin', '*')
-
-  var sql = 'SELECT SUM(hours_assigned) FROM RoleAssignment WHERE role_id = 1'
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      throw err
-    }
-    res.json(rows)
-  })
-})
-
-// faz uma requisição para consultar o número de funcionários em determinado projeto
-router.get('/projectemployees/:project_id/', (req, res) => {
-  res.statusCode = 200
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  let project_id = req.params['project_id']
-
-  var sql =
-    'SELECT COUNT(DISTINCT employee_id) FROM EmployeeAssignment WHERE project_id = ?'
-  db.all(sql, [project_id], (err, rows) => {
-    if (err) {
-      throw err
-    }
-    res.json(rows)
-  })
-})
-
-// filtra a consulta do número de funcionários em um projeto, se são CLT ou TERCEIROS
+// filtra a consulta do número de funcionários em um projeto, filtrando se são CLT ou TERCEIROS
 router.get('/projectemployees/:project_id/:type', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -137,7 +109,7 @@ router.get('/projectemployees/:project_id/:type', (req, res) => {
   let type = req.params['type']
 
   var sql =
-    'SELECT COUNT(DISTINCT employee_id) FROM EmployeeAssignment WHERE project_id = ?' +
+    'SELECT COUNT(DISTINCT employee_id) AS employee_qty FROM EmployeeAssignment WHERE project_id = ?' +
     ` AND EmployeeAssignment.employee_id IN 
       ( 
         SELECT Employee.id FROM Employee WHERE Employee.type = ?
@@ -151,15 +123,38 @@ router.get('/projectemployees/:project_id/:type', (req, res) => {
   })
 })
 
-router.get('/monthemployeesassigned', (req, res) => {
+// faz uma requisição para consultar o número de funcionários em determinado projeto
+router.get('/monthemployees/', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let role = req.params['role']
+
+  var sql =
+    'SELECT COUNT(DISTINCT employee_id) AS employeeQty, month FROM EmployeeAssignment WHERE EmployeeAssignment.year = ' +
+    year +
+    ' GROUP BY month'
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    res.json(rows)
+  })
+})
+
+// faz uma requisição para consultar o número de funcionários em determinado mês
+router.get('/monthemployees/:type/', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
   let type = req.params['type']
 
   var sql =
-    'SELECT COUNT(employee_id) FROM EmployeeAssignment WHERE month = ? AND type = ?'
-  db.all(sql, [role, type], (err, rows) => {
+    'SELECT COUNT(DISTINCT employee_id) AS employeeQty, month FROM EmployeeAssignment WHERE EmployeeAssignment.year = ' +
+    year +
+    ` AND EmployeeAssignment.employee_id IN 
+      ( 
+        SELECT Employee.id FROM Employee WHERE Employee.type = ?
+      ) GROUP BY month
+    `
+  db.all(sql, [type], (err, rows) => {
     if (err) {
       throw err
     }
