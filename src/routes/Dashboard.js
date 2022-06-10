@@ -101,7 +101,7 @@ router.get('/hoursavailablefiltred/:role/:type', (req, res) => {
   })
 })
 
-// filtra a consulta do número de funcionários em um projeto, filtrando se são CLT ou TERCEIROS
+// filtra a consulta do número de funcionários em um projeto se são CLT ou TERCEIROS
 router.get('/projectemployees/:project_id/:type', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -144,7 +144,7 @@ router.get('/monthemployees/', (req, res) => {
 router.get('/monthemployees/:type/', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let type = req.params['type']
+  let type = req.params['type'] // define o tipo (CLT ou TERCEIRO) como parâmetro para a requisição
 
   var sql =
     'SELECT COUNT(DISTINCT employee_id) AS employeeQty, month FROM EmployeeAssignment WHERE EmployeeAssignment.year = ' +
@@ -155,6 +155,20 @@ router.get('/monthemployees/:type/', (req, res) => {
       ) GROUP BY month
     `
   db.all(sql, [type], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    res.json(rows)
+  })
+})
+
+router.get('/roleworkload', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  var sql =
+    'SELECT SUM(hours_assigned), role_name FROM EmployeeAssignment INNER JOIN Employee ON EmployeeAssignment.employee_id = Employee.id GROUP BY role_name'
+  db.all(sql, [], (err, rows) => {
     if (err) {
       throw err
     }
