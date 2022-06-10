@@ -33,6 +33,22 @@ router.get('/:id', (req, res) => {
   })
 })
 
+router.get('/projects/:employee_id', (req, res) => {
+  res.statusCode = 200 // retorna que executou sem erros
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com cors
+  let employee_id = req.params["employee_id"];
+  
+  var sql = 'SELECT COUNT(DISTINCT project_id) AS projectsQty FROM EmployeeAssignment WHERE employee_id = ?' // seleciona da tabela employee todos as informações do employee que tiver o id requisitado
+
+  db.get(sql, [employee_id], (err, rows) => {
+    if (err) {
+      throw err // se houver algum erro
+    }
+    console.log|(rows)
+    res.json(rows) // retorno da linha da tabela com o id que foi requisitado
+  })
+})
+
 router.post('/', urlencodedParser, (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -43,7 +59,7 @@ router.post('/', urlencodedParser, (req, res) => {
     "', '" +
     req.body.location +
     "', '" +
-    req.body.role +
+    req.body.role_name +
     "', '" +
     req.body.projects_workload +
     "', '" +
@@ -89,7 +105,6 @@ router.patch('/', urlencodedParser,  (req, res) => {
     }
     res.end()
   })
-  xhttp.addEventListener("load", getEmployeeList)
 })
 
 router.delete('/:id', urlencodedParser, (req, res) => {

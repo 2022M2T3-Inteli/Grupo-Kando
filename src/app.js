@@ -41,5 +41,5 @@ app.get("/projects", function(req, res) {
 app.use(express.json())
 
 const server = app.listen(port, () => {
-	console.log("Servidor executando na porta " + server.address().port)
+	console.log(`Servidor executando em http://127.0.1:${port}`)
 })

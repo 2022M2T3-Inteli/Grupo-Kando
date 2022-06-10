@@ -83,8 +83,8 @@
                     <thead>
                       <tr>
                       <th data-field="name" data-sortable="true">Funcionário</th>
-                      <th data-field="role" data-sortable="true">Função</th>
-                      <th data-field="allocation" class="employee-allocation">Alocação</th>
+                      <th data-field="role_name" data-sortable="true">Função</th>
+                      <th data-field="projects_workload" class="employee-allocation">Alocação</th>
                       <th data-field="projectsQty">N° de projetos</th>
                       <th data-field="tools">Ações</th>
                       </tr>
@@ -119,7 +119,7 @@
       </div>
 
       <!-- Modal Add Employee -->
-      <form action ='/employees/' method ='POST'>
+      <form action ='/employees' method ='POST'>
         <div class="parent-modal">
           <div
             class="modal fade"
@@ -162,10 +162,10 @@
                         <label for="employee-function">Função: </label>
                       </div>
                       <div class="col">
-                        <select name="role" id="employee-function">
+                        <select name="role_name" id="employee-function">
                           <option value="dev">Desenvolvedor</option>
-                          <option value="analist">Analista</option>
-                          <option value="project-manager">
+                          <option value="Analista">Analista</option>
+                          <option value="DBA-manager">
                             Gerente de Projetos
                           </option>
                         </select>
