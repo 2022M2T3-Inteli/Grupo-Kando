@@ -18,6 +18,7 @@
 //   hoursAvailableETW: 0
 // }
 
+// Define os meses do ano para ser utilizado nos gráficos
 const yearMounths = [
   'Janeiro',
   'Fevereiro',
@@ -33,22 +34,28 @@ const yearMounths = [
   'Dezembro'
 ]
 
-// Gráfico de Horas Totais (Primeiro Gráfico)
+// Função que faz a requisição para gerar um dos dados do Gráfico de Horas Totais (Primeiro Gráfico)
 function getHoursNeeded(role) {
   let url
+
+  // Verifica se está filtrando ou não por funções
   if (role != 'all') {
     url = 'dashboard/totalhours/' + role
   } else {
     url = 'dashboard/totalhours'
   }
 
+  // Instancia o objeto que será responsável por fazer as requisições
   let xhttp = new XMLHttpRequest()
-  xhttp.open('get', url, false)
-  xhttp.send()
+  xhttp.open('get', url, false) // Abre a requisição com o método get, passando a URL do endpoint e fazendo-a de forma síncrona
+  xhttp.send() // Envia a requisição
 
-  let data = JSON.parse(xhttp.responseText)
+  let data = JSON.parse(xhttp.responseText) // Pega os dados da resposta da requisição e os transforma para o formato JSON
 
+  // Define as horas necessárias mês a mês
   let hoursNeededPeerMounth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  // Percorre cada índice do array de objetos que retornou do banco e define as horas mensais de acordo com cada mês.
   data.forEach(row => {
     switch (row.month) {
       case 1:
@@ -92,59 +99,72 @@ function getHoursNeeded(role) {
         break
     }
   })
+
+  // Retorna as horas necessárias
   return hoursNeededPeerMounth
 }
 
+// Função que faz a requisição para gerar um dos dados do Gráfico de Horas Totais (Primeiro Gráfico)
 function getHoursAvailable(role) {
   let url
+
+  // Verifica se está com filtro de função aplicado ou não
   if (role != 'all') {
     url = 'dashboard/hoursavailablefiltred/' + role
   } else {
     url = 'dashboard/hoursavailable'
   }
 
-  let xhttp = new XMLHttpRequest()
-  xhttp.open('get', url, false)
-  xhttp.send()
+  let xhttp = new XMLHttpRequest() // Instancia o objeto javascript que será responsável pela requisição
+  xhttp.open('get', url, false) // Abre uma requisição no método Get de forma Síncrona
+  xhttp.send() // Envia a requisição
 
-  let data = JSON.parse(xhttp.responseText)
-  let hoursMonth = data.projects_workload
+  let data = JSON.parse(xhttp.responseText) // Guarda a resposta da requisição em formato JSON
+  let hoursMonth = data.projects_workload // Define as horas disponíveis por mês
 
+  // Define as horas mês a mês percorrendo o número de meses (formato do gráfico)
   let totalHours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   if (hoursMonth) {
     for (i = 0; i < 12; i++) {
       totalHours[i] = hoursMonth
     }
   }
+  // Retorna as horas totais mensais
   return totalHours
 }
 
+// Função que gera os dados de horas totais por tipo (CLT e Terceiro) para o Gráfico de Horas Totais
 function getHoursAvailableByType(role, type) {
   let url
   if (role != 'all') {
+    // Caso seja com filtro de função, passará o tipo de funcionário na requisição para pegar o dado filtrado
     url = `dashboard/hoursavailablefiltred/${role}/${type}`
   } else {
     url = `dashboard/hoursavailable/${type}`
   }
 
+  // Faz a requisição
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
   xhttp.send()
 
+  // Converte o dado retornado da requisição e define as horas mês a mês
   let data = JSON.parse(xhttp.responseText)
-
   let hoursMonth = data.projects_workload
-
   let totalHours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   if (hoursMonth) {
     for (i = 0; i < 12; i++) {
       totalHours[i] = hoursMonth
     }
   }
+  // Retorna as horas por mês
   return totalHours
 }
 
+// Define o array que será responsável por guardar os dados do primeiro Gráfico (Horas Totais)
 let generalChartData = []
+
+// Função que gera todos os dados do primeiro Gráfico, chamando as funções que geram cada tipo de dado dos gráficos   
 function generateHoursChartData(role) {
   generalChartData = [
     {
@@ -192,10 +212,13 @@ function generateHoursChartData(role) {
       ]
     }
   ]
+  // Chama a Função que gera o Gráfico
   return generateHoursChart()
 }
 
+// Define o gráfico de horas totais
 let generalChart
+// Define a função que irá gerar o gráfico de horas totais (Chart.js)
 function generateHoursChart(role) {
   generalChart = new Chart($(`#general-hours-chart`), {
     type: 'line',
@@ -222,7 +245,9 @@ function generateHoursChart(role) {
   })
 }
 
+// Define o gráfico de employees
 let employeesChart
+// Define a função que irá gerar o gráfico de employees
 function generateEmployeesChart() {
   employeesChart = new Chart($('#general-employees-chart'), {
     type: 'line',
@@ -242,6 +267,7 @@ function generateEmployeesChart() {
   })
 }
 
+// Definida a função que irá fazer a requisição para coletar o número de funcionários alocados a projetos
 function getEmployeesAllocation() {
   let url = 'dashboard/monthemployees'
 
@@ -251,6 +277,7 @@ function getEmployeesAllocation() {
 
   let data = JSON.parse(xhttp.responseText)
 
+  // Percorre o dado de alocação de cada mês retornado na requisição e define o total de employees alocados por mês  
   let employeesPerMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   data.forEach(row => {
     switch (row.month) {
@@ -295,10 +322,11 @@ function getEmployeesAllocation() {
         break
     }
   })
-  console.log(employeesPerMonth)
+  // Retorna o array de employees separados por mês
   return employeesPerMonth
 }
 
+// Mesma função que faz a requisição para gerar os dados para o gráfico de alocação, porém com filtro de tipo (CLT ou Terceiro)
 function getEmployeesAllocationByType(type) {
   let url = 'dashboard/monthemployees/' + type
 
@@ -308,6 +336,7 @@ function getEmployeesAllocationByType(type) {
 
   let data = JSON.parse(xhttp.responseText)
 
+  // Percorre e define a quantidade de funcionários mês a mês
   let employeesPerMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   data.forEach(row => {
     switch (row.month) {
@@ -352,11 +381,13 @@ function getEmployeesAllocationByType(type) {
         break
     }
   })
-  console.log(employeesPerMonth)
+  // Retorna o array com a quantidade de funcionários alocados mês a mês
   return employeesPerMonth
 }
 
+// Define o arrya de dados do gráfico de alocação de funcionários
 let employeesChartData = []
+// Define a função que irá gerar os dados do gráfico de alocação de funcionários, chamando as funções que farão a requisição dos dados dos funcionários
 function generateEmployeesChartData() {
   employeesChartData = {
     labels: yearMounths,
@@ -393,10 +424,14 @@ function generateEmployeesChartData() {
       }
     ]
   }
+  // Retorna o chamamento da função que irá gerar o gráfico de alocação de funcionários
   return generateEmployeesChart()
 }
+// Chama a função que irá gerar os dados
 generateEmployeesChartData()
 
+
+// ######## Início dos gráficos estáticos
 const generalChart3 = {
   labels: [
     'Analista',
@@ -464,7 +499,6 @@ const generalChart4Config = {
     }
   }
 }
-//########################################################
 
 const generalChart5 = {
   labels: [
@@ -495,7 +529,6 @@ const generalChart5Config = {
     }
   }
 }
-//###########################################################
 
 //  Gráficos da tela Geral do Dashboard
 const generalCtx3 = document.getElementById('general-role-chart')
@@ -507,8 +540,9 @@ const generalDashChart4 = new Chart(generalCtx4, generalChart4Config)
 const generalCtx5 = document.getElementById('general-employee-chart2')
 const generalDashChart5 = new Chart(generalCtx5, generalChart5Config)
 
-// Gráficos da tela de Projeto 1 do Dashboard
+// ############### Fim dos gráficos estáticos
 
+// Função que faz a requisição para gerar os dados do gráfico de projetos (Aba de projetos do Dashboard)
 function getProjectEmployees(id, type) {
   let url = `dashboard/projectemployees/${id}/${type}`
 
@@ -517,6 +551,7 @@ function getProjectEmployees(id, type) {
   xhttp.send()
 
   let data = JSON.parse(xhttp.responseText)[0]
+  // Retorna os dados de quantidade de funcionários
   if (data) {
     return data.employee_qty
   } else {
@@ -524,6 +559,7 @@ function getProjectEmployees(id, type) {
   }
 }
 
+// Define a estrutura do gráfico
 const project1Chart1 = {
   labels: [
     'Nº de Funcionários Terceirizado no Projeto',
@@ -532,8 +568,8 @@ const project1Chart1 = {
   datasets: [
     {
       data: [
-        getProjectEmployees(14, 'CLT'),
-        getProjectEmployees(14, 'TERCEIRO')
+        getProjectEmployees(14, 'CLT'), // Chama a função que irá retornar a quantidade de funcionários CLTs alocados ao projeto
+        getProjectEmployees(14, 'TERCEIRO') // Chama a função que irá retornar a quantidade de funcionários Terceiros alocados ao projeto
       ],
       backgroundColor: [
         'rgb(255, 205, 86)',
@@ -544,6 +580,7 @@ const project1Chart1 = {
   ]
 }
 
+// Define a configuração do gráfico
 const project1Chart1Config = {
   type: 'pie',
   data: project1Chart1,
@@ -556,6 +593,7 @@ const project1Chart1Config = {
   }
 }
 
+// ############# Início do gráfico estático de projetos
 const project1Chart2 = {
   labels: ['data inicial', 'data final'],
   datasets: [
@@ -628,7 +666,11 @@ function generateProjectAllocationChart() {
 const project1Ctx3 = document.getElementById('project-role-chart')
 const project1DashChart3 = new Chart(project1Ctx3, project1Chart3Config)
 
+// ############ Fim do gráfico estático de projetos
+
+// Chama a função para gerar os primeiros gráficos de horas da tela
 generateHoursChartData('all')
+// Define a função que irá ser responsável por excluir o gráfico de horas antigo e gerar o novo de acordo com o filtro de função escolhido
 function chartChange(value) {
   if (generalChart) {
     generalChart.destroy()
@@ -636,7 +678,7 @@ function chartChange(value) {
   generateHoursChartData(value)
 }
 
-let lastSection
+// Define a função que irá esconder e mostrar os gráficos de acordo com a aba do dashboard escolhido (Geral ou Projeto)
 function changeDashSection(dashSection) {
   if (dashSection == 'general') {
     document.getElementById('project').hidden = true
@@ -645,9 +687,11 @@ function changeDashSection(dashSection) {
     document.getElementById('general').hidden = true
     document.getElementById('project').hidden = false
 
+    // Destrói o gráfico antigo caso exista algum
     if (projectChartAllocation) {
       projectChartAllocation.destroy()
     }
+    // Gera um novo gráfico
     generateProjectAllocationChart()
   }
 }
