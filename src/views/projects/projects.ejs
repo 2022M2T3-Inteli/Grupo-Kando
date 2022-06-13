@@ -96,233 +96,259 @@
 
 
   <!-- modal add project -->
-  <div class="parent-modal">
-    <div class="modal fade" id="add-project-modal" tabindex="-1" aria-labelledby="add-project-modal-label"
-      aria-hidden="true">
-      <div class="modal-dialog modal-dialog-container">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="add-project-modal-label">
-              <strong>Adicionar Projeto</strong>
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row container">
-              <div class="row form-group">
-                <div class="col-4">
-                  <label for="project-name">Nome do Projeto: </label>
-                </div>
-                <div class="col-8">
-                  <input type="text" class="form-control" name="project-name" id="project-name"
-                    placeholder="Nome do Projeto" />
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-4">
-                  <label for="project-conclusion-date">Data de Inicio:
-                  </label>
-                </div>
-                <div class="col">
-                  <input type="date" name="project-conclusion-date" id="conclusion-date" />
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-4">
-                  <label for="project-conclusion-date">Data de Conclusão:
-                  </label>
-                </div>
-                <div class="col">
-                  <input type="date" name="project-conclusion-date" id="conclusion-date" />
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-4">
-                  <label for="project-local">Região: </label>
-                </div>
-                <div class="col">
-                  <select name="project-local" id="local">
-                    <option value="AM">Manaus</option>
-                    <option value="SP">Guarulhos</option>
-                    <option value="">Ambos</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-4">
-                  <label for="project-description">Descrição do Projeto:
-                  </label>
-                </div>
-                <div class="col-8">
-                  <textarea class="form-control" name="project-description" id="project-description"
-                    rows="6"></textarea>
-                </div>
-                <div class="row" id="div-add-role">
-                  <div class="col-1">
-                    <label for="tags">Funções: </label>
+  <form action="/projects" method="POST">
+    <div class="parent-modal">
+      <div class="modal fade" 
+        id="add-project-modal" 
+        tabindex="-1" 
+        aria-labelledby="add-project-modal-label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-container">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="add-project-modal-label">
+                <strong>Adicionar Projeto</strong>
+              </h5>
+              <button 
+                type="button" 
+                class="btn-close" 
+                data-bs-dismiss="modal" 
+                aria-label="Close">
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row container">
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="name">Nome do Projeto: </label>
                   </div>
-                  <div class="col" id="add-employee-role">
-                    <div class="row">
-                      <div class="col-10">
-                        <select class="form-control" id="new-employee-role">
-                          <option value="dev" id="developer-role-name">
-                            Desenvolvedor
-                          </option>
-                          <option value="analyst" id="analist-role-name">
-                            Analista
-                          </option>
-                          <option value="tester" id="tester-role-name">
-                            Tester
-                          </option>
-                          <option value="mannager" id="tester-role-name">
-                            Gestor de Projeto
-                          </option>
-                        </select>
-                      </div>
-                      <div id="new-role-add" class="col-2">
-                        <button type="button" onclick="newRoleName()">
-                          +
-                        </button>
-                      </div>
-                    </div>
+                  <div class="col-8">
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="name" 
+                      id="name"
+                      placeholder="Nome do Projeto" 
+                    />
                   </div>
                 </div>
-                <div class="row" id="roles-added">
-                  <div class="accordion" id="accordionExample">
-                    <div id="analyst" class="accordion-item" hidden>
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          Analistas
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <div class="row">
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Hugo Tavares
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="start_date">Data de Inicio: </label>
+                  </div>
+                  <div class="col">
+                    <input 
+                      type="date" 
+                      name="start_date" 
+                      id="start_date" 
+                    />
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="end_date">Data de Conclusão: </label>
+                  </div>
+                  <div class="col">
+                    <input 
+                      type="date" 
+                      name="end_date" 
+                      id="end_date" 
+                    />
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="location">Região: </label>
+                  </div>
+                  <div class="col">
+                    <select name="location" id="location">
+                      <option value="AM">Manaus</option>
+                      <option value="SP">Guarulhos</option>
+                      <option value="">Ambos</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="description">Descrição do Projeto:
+                    </label>
+                  </div>
+                  <div class="col-8">
+                    <textarea 
+                      class="form-control" 
+                      name="description" 
+                      id="description"
+                      rows="6">
+                    </textarea>
+                  </div>
+                  <div class="row" id="div-add-role">
+                    <div class="col-1">
+                      <label for="tags">Funções: </label>
+                    </div>
+                    <div class="col" id="add-employee-role">
+                      <div class="row">
+                        <div class="col-10">
+                          <select class="form-control" id="new-employee-role">
+                            <option value="dev" id="developer-role-name">
+                              Desenvolvedor
+                            </option>
+                            <option value="analyst" id="analist-role-name">
+                              Analista
+                            </option>
+                            <option value="tester" id="tester-role-name">
+                              Tester
+                            </option>
+                            <option value="mannager" id="tester-role-name">
+                              Gestor de Projeto
+                            </option>
+                          </select>
+                        </div>
+                        <div id="new-role-add" class="col-2">
+                          <button type="button" onclick="newRoleName()">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" id="roles-added">
+                    <div class="accordion" id="accordionExample">
+                      <div id="analyst" class="accordion-item" hidden>
+                        <h2 class="accordion-header" id="headingOne">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Analistas
+                          </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                          data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <div class="row">
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Hugo Tavares
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 25H</div>
+                                </div>
                               </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 25H</div>
-                              </div>
-                            </div>
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Nicole Queiroz
-                              </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 14H</div>
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Nicole Queiroz
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 14H</div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div id="dev" class="accordion-item" hidden>
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Desenvolvedores
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <div class="row">
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Fernando Paiva
+                      <div id="dev" class="accordion-item" hidden>
+                        <h2 class="accordion-header" id="headingTwo">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Desenvolvedores
+                          </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                          data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <div class="row">
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Fernando Paiva
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 120H</div>
+                                </div>
                               </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 120H</div>
-                              </div>
-                            </div>
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Thaís Araujo
-                              </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 140H</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="tester" class="accordion-item" hidden>
-                      <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          Testers
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <div class="row">
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Beatriz Trindade
-                              </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 110H</div>
-                              </div>
-                            </div>
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Ronaldo Freitas
-                              </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 67H</div>
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Thaís Araujo
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 140H</div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div id="mannager" class="accordion-item" hidden>
-                      <h2 class="accordion-header" id="headingFour">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                          Gestores de Projetos
-                        </button>
-                      </h2>
-                      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <div class="row">
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Raquel Farias
+                      <div id="tester" class="accordion-item" hidden>
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Testers
+                          </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                          data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <div class="row">
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Beatriz Trindade
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 110H</div>
+                                </div>
                               </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 32H</div>
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Ronaldo Freitas
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 67H</div>
+                                </div>
                               </div>
                             </div>
-                            <div class="employee">
-                              <div class="col employee-name">
-                                Cláudio Pimentel
+                          </div>
+                        </div>
+                      </div>
+                      <div id="mannager" class="accordion-item" hidden>
+                        <h2 class="accordion-header" id="headingFour">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Gestores de Projetos
+                          </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                          data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <div class="row">
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Raquel Farias
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 32H</div>
+                                </div>
                               </div>
-                              <div class="col employee-allocation">
-                                <label for="">Alocar: </label>
-                                <input type="text" class="employee-allocation-input" />
-                                <div>Disponível 79H</div>
+                              <div class="employee">
+                                <div class="col employee-name">
+                                  Cláudio Pimentel
+                                </div>
+                                <div class="col employee-allocation">
+                                  <label for="">Alocar: </label>
+                                  <input type="text" class="employee-allocation-input" />
+                                  <div>Disponível 79H</div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -333,18 +359,17 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <div class="buttons-container">
-              <button type="button" class="btn-primary" id="liveToastBtn" data-bs-dismiss="modal" aria-label="Close">
-                Criar Projeto
-              </button>
+            <div class="modal-footer">
+              <div class="buttons-container">
+                <button type="submit" class="btn-primary" id="liveToastBtn" data-bs-dismiss="modal" aria-label="Close">
+                  Criar Projeto
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </form>
 
   <!-- modal view project -->
   <div class="parent-modal parent-modal-project">
