@@ -47,7 +47,7 @@ router.post('/', urlencodedParser, (req, res) => {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
   })
-  res.end()
+  res.render('projects/projects')
 })
 
 // bloco que atualiza od dados de um projeto já existente no banco de dados
