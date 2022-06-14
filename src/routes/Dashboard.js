@@ -46,6 +46,84 @@ router.get('/totalhours/:role', (req, res) => {
   })
 })
 
+// bloco que mostra a soma do número de horas alocadas por função
+router.get('/sumhoursassigned/:role', (req, res) => {
+  res.statusCode = 200 // status de que os comandos foram executados sem erro
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o cors
+  let role = req.params['role'] // a variável role armazena o parâmetro para ser usado no sql abaixo
+
+  var sql =
+    'SELECT SUM(hours_assigned) AS hours_assigned FROM EmployeeAssignment WHERE role_name = ?' // código sql que soma as horas alocadas na tabela employee assignment, filtrando por função
+
+  db.all(sql, [role], (err, rows) => {
+    // executa o código acima
+    if (err) {
+      throw err // se ocorrer erro, ele será mostrado no terminal
+    }
+    // Retorna os dados em forma de linha
+    res.json(rows)
+  })
+})
+
+// bloco que mostra o número de linhas de horas alocadas, filtrando por função
+router.get('/counthoursassigned/:role', (req, res) => {
+  res.statusCode = 200 // status de que os comandos foram executados sem erro
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o cors
+  let role = req.params['role'] // a variável role armazena o parâmetro para ser usado no sql abaixo
+
+  var sql =
+    'SELECT COUNT(hours_assigned) AS hours_assigned FROM EmployeeAssignment WHERE role_name = ?' // código sql que faz a contagem do número de linhas que contém horas alocadas na tabela employee assignment, filtrando por função
+
+  db.all(sql, [role], (err, rows) => {
+    // executa o código acima no banco
+    if (err) {
+      throw err // se ocorrer erro, ele será mostrado no terminal
+    }
+    // Retorna os dados em forma de linha
+    res.json(rows)
+  })
+})
+
+// bloco que mostra a soma do número de horas alocadas por função e por projeto
+router.get('/sumhoursassigned/:role/:project', (req, res) => {
+  res.statusCode = 200 // status de que os comandos foram executados sem erro
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o cors
+  let role = req.params['role'] // a variável role armazena o parâmetro para ser usado no sql abaixo
+  let project = req.params['project'] // a variável project armazena o parâmetro para ser usado no sql abaixo
+
+  var sql =
+    'SELECT SUM(hours_assigned) AS hours_assigned FROM EmployeeAssignment WHERE role_name = ? AND project_id = ?' // código sql que soma as horas alocadas na tabela employee assignment, filtrando por função e por projeto
+
+  db.all(sql, [role, project], (err, rows) => {
+    // executa o código acima
+    if (err) {
+      throw err // se ocorrer erro, ele será mostrado no terminal
+    }
+    // Retorna os dados em forma de linha
+    res.json(rows)
+  })
+})
+
+// bloco que mostra o número de linhas de horas alocadas, filtrando por função e por projeto
+router.get('/counthoursassigned/:role/:project', (req, res) => {
+  res.statusCode = 200 // status de que os comandos foram executados sem erro
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o cors
+  let role = req.params['role'] // a variável role armazena o parâmetro para ser usado no sql abaixo
+  let project = req.params['project'] // a variável project armazena o parâmetro para ser usado no sql abaixo
+
+  var sql =
+    'SELECT COUNT(hours_assigned) AS hours_assigned FROM EmployeeAssignment WHERE role_name = ? AND project_id = ?' // código sql que faz a contagem do número de linhas que contém horas alocadas na tabela employee assignment, filtrando por função e por projeto
+
+  db.all(sql, [role, project], (err, rows) => {
+    // executa o código acima no banco
+    if (err) {
+      throw err // se ocorrer erro, ele será mostrado no terminal
+    }
+    // Retorna os dados em forma de linha
+    res.json(rows)
+  })
+})
+
 // Endpoint que retorna as horas disponíveis para projetos dos funcionários
 router.get('/hoursavailable', (req, res) => {
   res.statusCode = 200
