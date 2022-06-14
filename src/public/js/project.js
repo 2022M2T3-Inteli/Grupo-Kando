@@ -1,3 +1,18 @@
+if(sessionStorage.getItem('message')) {
+	if (sessionStorage.getItem('message') == 'created project') {
+		toastShow("add")
+		sessionStorage.removeItem('message')
+	}
+	else if (sessionStorage.getItem('message') == 'edited project') {
+		toastShow("edit")
+		sessionStorage.removeItem('message')
+	}
+	else if (sessionStorage.getItem('message') == 'deleted project') {
+		toastShow("delete")
+		sessionStorage.removeItem('message')
+	}
+}
+
 function abrir() {
 	//animação para abrir o modal
 	var modal = document.querySelector('.modal')
@@ -16,15 +31,38 @@ function newRoleName() {
 }
 
 //toast de feedback "projeto criado com sucesso"
-const toastTrigger = document.getElementById('liveToastBtn')
-const toastLiveExample = document.getElementById('liveToast')
-if (toastTrigger) {
-	toastTrigger.addEventListener('click', () => {
-		setTimeout(function showToast() {
-			const toast = new bootstrap.Toast(toastLiveExample)
-			toast.show()
-		}, 300)
-	})
+// const toastTrigger = document.getElementById('liveToastBtn')
+// const toastLiveExample = document.getElementById('liveToast')
+// if (toastTrigger) {
+// 	toastTrigger.addEventListener('click', () => {
+// 		setTimeout(function showToast() {
+// 			const toast = new bootstrap.Toast(toastLiveExample)
+// 			toast.show()
+// 		}, 300)
+// 	})
+// }
+
+function toastShow(type) {
+	setTimeout(function showToast() {
+		let toastElement
+		if(type == "add") {
+			toastElement = $('#addToast')[0]
+		}
+		else if(type == "edit") {
+			toastElement = $('#editToast')[0]
+		}
+		else {
+			toastElement = $('#deleteToast')[0]
+		}
+		const toast = new bootstrap.Toast(toastElement)
+		toast.show()	
+	}, 300)	
+}
+
+
+
+function toastTrigger () {
+	sessionStorage.setItem('message', 'created project')
 }
 
 let projectsTable = $("#projects-table")
@@ -166,3 +204,10 @@ $(searchInput).keyup(function () {
 		}
 	})
 })
+
+function Teste() {
+	console.log('aeeeeeeeeeeeee')
+}
+
+
+// export function toastTrigger()

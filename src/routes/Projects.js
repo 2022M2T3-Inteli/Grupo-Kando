@@ -47,7 +47,9 @@ router.post('/', urlencodedParser, (req, res) => {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
   })
+  // req.flash('message','created project')
   res.render('projects/projects')
+  // res.redirect('/projects/?message=Projeto adicionado com sucesso!')
 })
 
 // bloco que atualiza od dados de um projeto já existente no banco de dados
