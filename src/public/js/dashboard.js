@@ -430,46 +430,66 @@ function generateEmployeesChartData() {
 // Chama a função que irá gerar os dados
 generateEmployeesChartData()
 
+// Função que faz a requisição para obter a média de horas dos funcionários por função
+function getRolesWorkload() {
+  let url = "dashboard/rolesworkload"
 
-// ######## Início dos gráficos estáticos
-const generalChart3 = {
-  labels: [
-    'Analista',
-    'DBA',
-    'Gestor de Projetos',
-    'Tester',
-    'Suporte',
-    'Desenvolvedor'
-  ],
-  datasets: [
-    {
-      backgroundColor: 'rgb(200, 0, 0)',
-      borderColor: 'rgb(200, 0, 0)',
+  let xhttp = new XMLHttpRequest()
+  xhttp.open("get", url, false)
+  xhttp.send()
 
-      fill: {
-        target: 'origin',
-        above: 'rgb(200, 0, 0, 15%)' // Area will be red above the origin
-      },
-      data: [180, 100, 160, 130, 220, 150],
-      backgroundColor: ['red', 'blue', 'green', 'grey', 'pink']
-    }
-  ]
+  let data = JSON.parse(xhttp.responseText)
+  console.log(data)
+
+  // Percorre as linhas retornadas do banco e define as funções e seus valores de horas por mês
+  let roles = []
+  let monthWorkload = []
+  data.forEach(row => {
+    roles.push(row.role_name)
+    monthWorkload.push(row.hours_assigned)
+  })
+
+  console.log(roles, monthWorkload)
+
+  // Retorna a função que cria o gráfico de horas alocação por função
+  return generateRolesWorkloadChart(roles, monthWorkload)
 }
+getRolesWorkload()
 
-const generalDash3Config = {
-  type: 'bar',
-  data: generalChart3,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false
+// Define a função que irá gerar o gráfico de horas por função
+function generateRolesWorkloadChart(roles, monthWorkload) {
+  new Chart($("#general-roles-chart"), {
+    type: 'bar',
+    data: {
+      labels: roles,
+      datasets: [
+        {
+          data: monthWorkload,
+          backgroundColor: ['red', 'blue', 'green', 'grey', 'pink']
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: function() {
+            return monthWorkload[0] + 20
+          }
+        }
       }
     }
-  }
+  })
 }
 
+// ######## Início dos gráficos estáticos
 const generalChart4 = {
   labels: [
     'Nº de Projetos Atrasados',
@@ -531,9 +551,6 @@ const generalChart5Config = {
 }
 
 //  Gráficos da tela Geral do Dashboard
-const generalCtx3 = document.getElementById('general-role-chart')
-const generalDashChart3 = new Chart(generalCtx3, generalDash3Config)
-
 const generalCtx4 = document.getElementById('general-projects-status-chart')
 const generalDashChart4 = new Chart(generalCtx4, generalChart4Config)
 

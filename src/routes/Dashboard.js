@@ -267,13 +267,13 @@ router.get('/monthemployees/:type/', (req, res) => {
 })
 
 // Endpoint responsável por consultar a quantidade de horas de projetos alocadas por função
-router.get('/roleworkload', (req, res) => {
+router.get('/rolesworkload', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
   // Soma as horas de cada função, fazendo um agrupamento
   var sql =
-    'SELECT SUM(hours_assigned), role_name FROM EmployeeAssignment INNER JOIN Employee ON EmployeeAssignment.employee_id = Employee.id GROUP BY role_name'
+    'SELECT SUM(hours_assigned) as hours_assigned, role_name FROM EmployeeAssignment INNER JOIN Employee ON EmployeeAssignment.employee_id = Employee.id GROUP BY role_name ORDER BY hours_assigned DESC'
   db.all(sql, [], (err, rows) => {
     if (err) {
       throw err
