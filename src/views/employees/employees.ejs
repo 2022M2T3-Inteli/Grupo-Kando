@@ -118,9 +118,9 @@
         </div>
       </div>
 
-          <!-- toast - employee added succesfully -->
+    <!-- toast - employee added succesfully -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div id="addToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <strong class="me-auto">Mensagem</strong>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -129,6 +129,30 @@
       </div>
     </div>
   </div>
+
+  <!-- toast - employee edited succesfully -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="editToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Mensagem</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">Colaborador alterado com sucesso.</div>
+    </div>
+  </div>
+</div>
+
+  <!-- toast - employee deleted succesfully -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Mensagem</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">Colaborador excluído com sucesso.</div>
+    </div>
+  </div>
+</div>
 
 
       <!-- Modal Add Employee -->
@@ -233,7 +257,7 @@
               </div>
               <div class="modal-footer">
                 <div class="buttons-container">
-                  <button type="submit" class="btn-primary" id="liveToastBtn"
+                  <button type="submit" onclick="toastTriggerAdd()" class="btn-primary" id="liveToastBtn"
                   data-bs-dismiss="modal"
                   aria-label="Close">
                     Adicionar Funcionário
@@ -514,7 +538,9 @@
             </div>
             <div class="modal-footer">
               <div id="buttons-container">
-                <button type="button" class="btn-primary"
+                <button type="button" 
+                onclick="toastTriggerEdit()"
+                class="btn-primary"
                 data-bs-dismiss="modal"
                 aria-label="Close">
                   Salvar

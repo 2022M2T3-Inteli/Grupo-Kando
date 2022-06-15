@@ -1,15 +1,15 @@
-if(sessionStorage.getItem('message')) {
-	if (sessionStorage.getItem('message') == 'created project') {
+if(localStorage.getItem('message')) {
+	if (localStorage.getItem('message') == 'created project') {
 		toastShow("add")
-		sessionStorage.removeItem('message')
+		localStorage.removeItem('message')
 	}
-	else if (sessionStorage.getItem('message') == 'edited project') {
+	else if (localStorage.getItem('message') == 'edited project') {
 		toastShow("edit")
-		sessionStorage.removeItem('message')
+		localStorage.removeItem('message')
 	}
-	else if (sessionStorage.getItem('message') == 'deleted project') {
+	else if (localStorage.getItem('message') == 'deleted project') {
 		toastShow("delete")
-		sessionStorage.removeItem('message')
+		localStorage.removeItem('message')
 	}
 }
 
@@ -42,6 +42,7 @@ function newRoleName() {
 // 	})
 // }
 
+//toast de feedback "projeto criado com sucesso"
 function toastShow(type) {
 	setTimeout(function showToast() {
 		let toastElement
@@ -51,9 +52,9 @@ function toastShow(type) {
 		else if(type == "edit") {
 			toastElement = $('#editToast')[0]
 		}
-		else {
-			toastElement = $('#deleteToast')[0]
-		}
+		// else {
+		// 	toastElement = $('#deleteToast')[0]
+		// }
 		const toast = new bootstrap.Toast(toastElement)
 		toast.show()	
 	}, 300)	
@@ -61,8 +62,11 @@ function toastShow(type) {
 
 
 
-function toastTrigger () {
-	sessionStorage.setItem('message', 'created project')
+function toastTriggerAdd () {
+	localStorage.setItem('message', 'created project')
+}
+function toastTriggerEdit () {
+	localStorage.setItem('message', 'edited project')
 }
 
 let projectsTable = $("#projects-table")
@@ -143,6 +147,12 @@ function modalDelete(id) {
 
 
 function deleteProject() {
+	// localStorage.setItem('message', 'deleted project')
+	setTimeout(function showToast() {
+		const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
+		toast.show()
+	}, 300)
+
 	let url = "projects/"+projectId
 
 	let xhttp = new XMLHttpRequest()

@@ -93,6 +93,30 @@
     </div>
   </div>
 
+    <!-- toast - project edited succesfully -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="editToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Mensagem</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">Projeto alterado com sucesso.</div>
+      </div>
+    </div>
+  </div>
+
+    <!-- toast - project deleted succesfully -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Mensagem</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">Projeto excluído com sucesso.</div>
+      </div>
+    </div>
+  </div>
+
 
 
   <!-- modal add project -->
@@ -539,7 +563,7 @@
               <button type="button" class="btn-primary close">
                 Salvar
               </button>
-              <button type="button" class="btn-primary close">
+              <button type="submit" onclick="triggerToastEdit()" class="btn-primary close">
                 Cancelar
               </button>
             </div>

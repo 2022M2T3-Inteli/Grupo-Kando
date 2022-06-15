@@ -1,3 +1,18 @@
+if(localStorage.getItem('message')) {
+	if (localStorage.getItem('message') == 'created employee') {
+		toastShow("add")
+		localStorage.removeItem('message')
+	}
+	else if (localStorage.getItem('message') == 'edited employee') {
+		toastShow("edit")
+		localStorage.removeItem('message')
+	}
+	// else if (localStorage.getItem('message') == 'deleted project') {
+	// 	toastShow("delete")
+	// 	localStorage.removeItem('message')
+	// }
+}
+
 var tagList = document.body.querySelector('.employee-tag-list')
 var tagName
 
@@ -22,6 +37,30 @@ function addTagElement() {
 function removeTagElement(el) {
   document.getElementById(el.name).remove()
   el.remove()
+}
+//toast de feedback "funcionario criado/editado com sucesso"
+function toastShow(type) {
+	setTimeout(function showToast() {
+		let toastElement
+		if(type == "add") {
+			toastElement = $('#addToast')[0]
+		}
+		else if(type == "edit") {
+			toastElement = $('#editToast')[0]
+		}
+		// else {
+		// 	toastElement = $('#deleteToast')[0]
+		// }
+		const toast = new bootstrap.Toast(toastElement)
+		toast.show()	
+	}, 300)	
+}
+
+function toastTriggerAdd () {
+	localStorage.setItem('message', 'created employee')
+}
+function toastTriggerEdit () {
+	localStorage.setItem('message', 'edited employee')
 }
 
 // Dados da tabela de funcionários
@@ -164,6 +203,11 @@ function modalDelete(id) {
 }
 
 function deleteEmployee() {
+  setTimeout(function showToast() {
+		const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
+		toast.show()
+	}, 300)
+
 	let url = "employees/"+employeeId
 
 	let xhttp = new XMLHttpRequest()
