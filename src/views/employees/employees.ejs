@@ -449,6 +449,7 @@
           aria-labelledby="edit-employee-modal-label"
           aria-hidden="true"
         >
+        <form action = "/employees/edit" method = "post">
           <div class="modal-dialog modal-dialog-container">
             <div class="modal-content">
               <div class="modal-header">
@@ -473,11 +474,15 @@
                         <input
                           type="text"
                           class="form-control"
-                          name="employee-name"
-                          id="employee-name"
+                          name="nameEdit"
+                          id="employee_name"
                           placeholder="Nome do Funcionário"
+                          value = ""
                         />
                       </div>
+                      <form action="page2">
+                        <input style = "display: hidden;" type = "number" name = "id" id = "employee_id" value = ""></input>
+                       </form>
                     </div>
                   </div>
                   <div class="row form-group">
@@ -485,13 +490,14 @@
                       <label for="employee-function">Função: </label>
                     </div>
                     <div class="col">
-                      <select name="employee-function" id="employee-function">
-                        <option value="dev">Desenvolvedor</option>
-                        <option value="analist">Analista</option>
-                        <option value="project-manager">
-                          Gerente de Projetos
-                        </option>
-                      </select>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="role_nameEdit"
+                      id="employee_function"
+                      placeholder="Função"
+                      value = ""
+                    />
                     </div>
                   </div>
                   <div class="row form-group">
@@ -499,10 +505,14 @@
                       <label for="employee-local">Região: </label>
                     </div>
                     <div class="col">
-                      <select name="employee-local" id="local">
-                        <option value="AM">Manaus</option>
-                        <option value="SP">Guarulhos</option>
-                      </select>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="locationEdit"
+                      id="employee-location"
+                      placeholder="Região"
+                      value = ""
+                    />
                     </div>
                   </div>
                   <div class="row form-group">
@@ -514,14 +524,26 @@
                     <div class="col">
                       <input
                         type="number"
-                        name="employee-worktime"
-                        id="employee-worktime"
+                        name="projects_workloadEdit"
+                        id="employee_workload"
+                        value = ""
                       />
                     </div>
                   </div>
                   <div class="row form-group">
-                    <div class="col-4"><label for="">Funcionário Interno (CLT)</label></div>
-                    <div class="col"><input type="checkbox" class="form-check-input" id="employee-type"></div>
+                    <div class="col-4">
+                      <label for=""
+                      >Tipo (CLT ou Terceirizado)
+                    </label>
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        name="typeEdit"
+                        id="employee-type"
+                        value = ""
+                    />
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-1"><label for="tags">Tags: </label></div>
@@ -534,18 +556,18 @@
                     </div>
                   </div>
                 </div>
+                <div class="modal-footer">
+                  <div id="buttons-container">
+                    <button type="submit" 
+                    class="btn-primary"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                      Salvar
+                    </button>
+                  </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <div id="buttons-container">
-                <button type="button" 
-                onclick="toastTriggerEdit()"
-                class="btn-primary"
-                data-bs-dismiss="modal"
-                aria-label="Close">
-                  Salvar
-                </button>
-              </div>
+          </form>
               <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
               <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
             </div>

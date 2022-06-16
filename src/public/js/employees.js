@@ -151,7 +151,7 @@ function getEmployeeList() {
 					data-bs-toggle="modal"
 					data-bs-target="#view-employee-modal"
 					id="${row.id}"
-					onclick="editProject(this.id)"
+					onclick="setEditEmployeeId(this.id)"
 				>
 					<span class="material-symbols-outlined">
 						edit
@@ -181,11 +181,63 @@ function getEmployeeList() {
   }, 0)
 
 }
+
 getEmployeeList()
 
 
+function setEditEmployeeId(id) {
+  employeeId = id
+  let employeeData = showEmployee(id)  
+
+  $("#employee_id")[0].value = employeeId
+  $("#employee_name")[0].value = employeeData.name
+  $("#employee_function")[0].value = employeeData.role_name
+  $("#employee-location")[0].value = employeeData.location
+  $("#employee_workload")[0].value = employeeData.projects_workload
+  $("#employee-type")[0].value = employeeData.type
+  // $("#employee-tags")[0].value = employeeData.tags
+  console.log($("#employee_id")[0].value)
+}
+
+
+// function editEmployee() {
+//   let api = 'http://127.0.0.1:8080'
+
+
+// 	// let url = "/employees/edit"
+
+// 	// let xhttp = new XMLHttpRequest()
+	
+// 	// xhttp.addEventListener("load", getEmployeeList)
+
+// 	// xhttp.open("post", url, false)
+// 	// xhttp.send()
+
+//   $.ajax({
+//     type: 'POST',
+//     url: api + '/employees/edit',
+//     data: {
+//       name: req.body.nameEdit,
+//       tags: req.body.tagsEdit,
+//       location: req.body.locationEdit,
+//       role_name: req.body.role_nameEdit,
+//       projects_workload: req.body.projects_workloadEdit,
+//       available_projects_workload: req.body.available_projects_workloadEdit,
+//       type: req.body.typeEdit,
+//       id: req.body.id
+// //     },
+// }).done(function () {
+//     users.list();
+// }).fail(function (msg) {
+//     //console.log('FAIL');
+// }).always(function (msg) {
+//     //console.log('ALWAYS');
+// });
+// }
+
+
 function showEmployee(id) {
-  let url = '/employee/' + id
+  let url = '/employees/' + id
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
@@ -193,6 +245,7 @@ function showEmployee(id) {
 
   let data = JSON.parse(xhttp.responseText)
   console.log(data)
+  return data
 }
 
 

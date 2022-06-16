@@ -89,25 +89,25 @@ router.post('/', urlencodedParser, (req, res) => {
 })
 
 // bloco que atualiza dados de funcionário já existente no banco de dados
-router.patch('/', urlencodedParser, (req, res) => {
+router.post('/edit', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
   sql =
     "UPDATE Employee SET name = '" +
-    req.body.name +
+    req.body.nameEdit +
     "', tags = '" +
-    req.body.tags +
+    req.body.tagsEdit +
     "',  location = '" +
-    req.body.location +
-    "', role_id = '" +
-    req.body.role_id +
+    req.body.locationEdit +
+    "', role_name = '" +
+    req.body.role_nameEdit +
     "', projects_workload = '" +
-    req.body.projects_workload +
+    req.body.projects_workloadEdit +
     "', available_projects_workload = '" +
-    req.body.available_projects_workload +
+    req.body.available_projects_workloadEdit +
     "', type = '" +
-    req.body.type +
+    req.body.typeEdit +
     "' WHERE id = " +
     req.body.id // código sql que faz um update de um funcionário já existente no banco de dados, requisitando nome, tags, localização, função, carga horária já usada para projetos, carga horária disponível para projetos e tipo (CLT ou TERCEIRO)
   db.run(sql, [], err => {
@@ -115,8 +115,10 @@ router.patch('/', urlencodedParser, (req, res) => {
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
-    res.end()
+    // res.end()
+    res.render('employees/employees')
   })
+  
 })
 
 // bloco que apaga um funcionário do banco de dados

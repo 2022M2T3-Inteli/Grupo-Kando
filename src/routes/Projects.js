@@ -82,6 +82,7 @@ router.patch('/', urlencodedParser, (req, res) => {
     }
     res.end()
   })
+
 })
 
 // bloco que apaga um projeto do banco de dados
