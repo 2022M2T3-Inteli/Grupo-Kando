@@ -199,6 +199,12 @@ function setEditEmployeeId(id) {
   console.log($("#employee_id")[0].value)
 }
 
+function reload() {
+  let cont = alert("oi")
+    setTimeout(cont, 2000000)
+    // window.location.reload()
+}
+
 
 // function editEmployee() {
 //   let api = 'http://127.0.0.1:8080'

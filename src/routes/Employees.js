@@ -5,6 +5,7 @@ const db = require('../data/db') // faz uma requisição do arquivo js que abre 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+
 // bloco que seleciona todos os funcionários registrados no banco de dados
 router.get('/all', (req, res) => {
   // define /all como o endereço que exibirá o retorno dos comandos abaixo
@@ -115,10 +116,10 @@ router.post('/edit', urlencodedParser, (req, res) => {
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
-    // res.end()
-    res.render('employees/employees')
+    res.redirect('back')
+
   })
-  
+  // res.location('employees/employees')
 })
 
 // bloco que apaga um funcionário do banco de dados

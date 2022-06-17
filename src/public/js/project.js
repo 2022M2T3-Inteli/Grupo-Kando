@@ -92,7 +92,7 @@ function getProjectsList() {
 				<div
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
-					data-bs-target="#view-employee-modal"
+					data-bs-target="#view-project-modal"
 					id="${row.id}"
 					onclick="viewProject(this.id)"
 				>
@@ -102,7 +102,7 @@ function getProjectsList() {
 				<div
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
-					data-bs-target="#view-employee-modal"
+					data-bs-target="#view-project-modal"
 					id="${row.id}"
 					onclick="editProject(this.id)"
 				>
@@ -114,7 +114,7 @@ function getProjectsList() {
 				<div
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
-					data-bs-target="#remove-project-modal"
+					data-bs-target="#remove-employee-modal"
 					id="${row.id}"
 					onclick="modalDelete(this.id)"
 					
