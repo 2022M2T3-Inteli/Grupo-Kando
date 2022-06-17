@@ -104,7 +104,7 @@ function getProjectsList() {
 					data-bs-toggle="modal"
 					data-bs-target="#view-project-modal"
 					id="${row.id}"
-					onclick="editProject(this.id)"
+					onclick="setEditProjectId(this.id)"
 				>
 					<span class="material-symbols-outlined">
 						edit
@@ -136,11 +136,36 @@ function getProjectsList() {
 }
 getProjectsList()
 
+function setEditProjectId(id) {
+	projectId = id
+	let projectData = showProject(id) 
+	console.log(projectData) 
+  
+	$("#project_id")[0].value = projectId
+	$("#project-name")[0].value = projectData.name
+	$("#project-location")[0].value = projectData.location
+	$("#project-start-date")[0].value = projectData.start_date
+	$("#project-end-date")[0].value = projectData.end_date
+	$("#project-description")[0].value = projectData.description
+	$("#department-id")[0].value = projectData.department_id
+	console.log($("#employee_id")[0].value)
+}
+
+function showProject(id) {
+	let url = '/projects/' + id
+  
+	let xhttp = new XMLHttpRequest()
+	xhttp.open('get', url, false)
+	xhttp.send()
+  
+	let data = JSON.parse(xhttp.responseText)
+	console.log(data)
+	return data
+}
 
 let projectId = 0
 function modalDelete(id) {
  projectId = id
-
 
 }
 

@@ -502,74 +502,101 @@
   <div class="parent-modal">
     <div class="modal fade" id="edit-project-modal" tabindex="-1" aria-labelledby="edit-project-modal-label"
       aria-hidden="true">
-      <div class="modal-dialog modal-dialog-container">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="edit-project-modal-label">
-              Editar Projeto
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row container">
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-4">
-                    <label for="project-name">Nome do Projeto: </label>
-                  </div>
-                  <div class="col-8">
-                    <input type="text" class="form-control" name="project-name" id="project-name"
-                      placeholder="Nome do Projeto" />
-                  </div>
-                </div>
-              </div>
-              <div class="row form-group">
-                <div class="col-4">
-                  <label for="project-local">Região: </label>
-                </div>
-                <div class="col">
-                  <select name="project-local" id="local">
-                    <option value="AM">Manaus</option>
-                    <option value="SP">Guarulhos</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-4">
-                    <label for="project-start-date">Início: </label>
-                  </div>
-                  <div class="col-8">
-                    <input type="text" class="form-control" name="project-start-date" id="project-start-date"
-                      placeholder="Data de Início" />
+      <form action = "/projects/edit" method = "post">
+        <div class="modal-dialog modal-dialog-container">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="edit-project-modal-label">
+                Editar Projeto
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row container">
+                <form action="page2">
+                  <input style = "display: hidden;" type = "hidden" name = "id" id = "project_id" value = ""></input>
+                </form>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-4">
+                      <label for="project-name">Nome do Projeto: </label>
+                    </div>
+                    <div class="col-8">
+                      <input type="text" class="form-control" name="project_name" id="project-name" value = ""
+                        placeholder="Nome do Projeto" />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-4">
-                    <label for="project-end-date">Fim: </label>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-4">
+                      <label for="project-local">Região: </label>
+                    </div>
+                    <div class="col-8">
+                      <input type="text" class="form-control" name="project_location" id="project-location"
+                        placeholder="Região" value = "" />
+                    </div>
                   </div>
-                  <div class="col-8">
-                    <input type="text" class="form-control" name="project-end-date" id="project-end-date"
-                      placeholder="Data de Fim" />
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-4">
+                      <label for="project-start-date">Início: </label>
+                    </div>
+                    <div class="col-8">
+                      <input type="text" class="form-control" name="project_start_date" id="project-start-date" value = ""
+                        placeholder="Data de Início" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-4">
+                      <label for="project-end-date">Fim: </label>
+                    </div>
+                    <div class="col-8">
+                      <input type="text" class="form-control" name="project_end_date" id="project-end-date" value = ""
+                        placeholder="Data de Fim" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-4">
+                      <label for="project-start-date">Descrição: </label>
+                    </div>
+                    <div class="col-8">
+                      <input type="text" class="form-control" name="project_description" id="project_description" value = ""
+                        placeholder="Descrição" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-4">
+                      <label for="project-start-date">ID do Departamento: </label>
+                    </div>
+                    <div class="col-8">
+                      <input type="text" class="form-control" name="department_id" id="department-id" value = ""
+                        placeholder="ID do Departamento" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <div id="buttons-container">
-              <button type="button" class="btn-primary close">
-                Salvar
-              </button>
-              <button type="submit" onclick="triggerToastEdit()" class="btn-primary close">
-                Cancelar
-              </button>
+            <div class="modal-footer">
+              <div id="buttons-container">
+                <button type="submit" class="btn-primary close">
+                  Salvar
+                </button>
+                <button type="submit" onclick="triggerToastEdit()" class="btn-primary close">
+                  Cancelar
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
   </div>

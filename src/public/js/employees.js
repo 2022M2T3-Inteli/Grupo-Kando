@@ -199,47 +199,47 @@ function setEditEmployeeId(id) {
   console.log($("#employee_id")[0].value)
 }
 
-function reload() {
-  let cont = alert("oi")
-    setTimeout(cont, 2000000)
-    // window.location.reload()
-}
-
-
-// function editEmployee() {
-//   let api = 'http://127.0.0.1:8080'
-
-
-// 	// let url = "/employees/edit"
-
-// 	// let xhttp = new XMLHttpRequest()
-	
-// 	// xhttp.addEventListener("load", getEmployeeList)
-
-// 	// xhttp.open("post", url, false)
-// 	// xhttp.send()
-
-//   $.ajax({
-//     type: 'POST',
-//     url: api + '/employees/edit',
-//     data: {
-//       name: req.body.nameEdit,
-//       tags: req.body.tagsEdit,
-//       location: req.body.locationEdit,
-//       role_name: req.body.role_nameEdit,
-//       projects_workload: req.body.projects_workloadEdit,
-//       available_projects_workload: req.body.available_projects_workloadEdit,
-//       type: req.body.typeEdit,
-//       id: req.body.id
-// //     },
-// }).done(function () {
-//     users.list();
-// }).fail(function (msg) {
-//     //console.log('FAIL');
-// }).always(function (msg) {
-//     //console.log('ALWAYS');
-// });
+// function reload() {
+//   let cont = alert("oi")
+//     setTimeout(cont, 2000000)
+//     // window.location.reload()
 // }
+
+
+// // function editEmployee() {
+// //   let api = 'http://127.0.0.1:8080'
+
+
+// // 	// let url = "/employees/edit"
+
+// // 	// let xhttp = new XMLHttpRequest()
+	
+// // 	// xhttp.addEventListener("load", getEmployeeList)
+
+// // 	// xhttp.open("post", url, false)
+// // 	// xhttp.send()
+
+// //   $.ajax({
+// //     type: 'POST',
+// //     url: api + '/employees/edit',
+// //     data: {
+// //       name: req.body.nameEdit,
+// //       tags: req.body.tagsEdit,
+// //       location: req.body.locationEdit,
+// //       role_name: req.body.role_nameEdit,
+// //       projects_workload: req.body.projects_workloadEdit,
+// //       available_projects_workload: req.body.available_projects_workloadEdit,
+// //       type: req.body.typeEdit,
+// //       id: req.body.id
+// // //     },
+// // }).done(function () {
+// //     users.list();
+// // }).fail(function (msg) {
+// //     //console.log('FAIL');
+// // }).always(function (msg) {
+// //     //console.log('ALWAYS');
+// // });
+// // }
 
 
 function showEmployee(id) {

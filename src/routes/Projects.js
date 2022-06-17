@@ -20,6 +20,22 @@ router.get('/all', (req, res) => {
   })
 })
 
+router.get('/:id', (req, res) => {
+  let id = req.params['id']
+  res.statusCode = 200 // código de status de que o comando foi executado sem erros
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+
+  var sql = 'SELECT * FROM Project WHERE id = ?' // seleciona da tabela employee todos as informações do employee que tiver o id requisitado
+
+  db.get(sql, [id], (err, row) => {
+    // executa o código sql no banco de dados
+    if (err) {
+      throw err // caso ocorra erro, ele será mostrado no terminal
+    }
+    res.json(row) // retorno da linha da tabela com o id que foi requisitado
+  })
+})
+
 // bloco que insere um novo projeto no banco de dados
 router.post('/', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
@@ -47,43 +63,70 @@ router.post('/', urlencodedParser, (req, res) => {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
   })
-  // req.flash('message','created project')
   res.render('projects/projects')
-  // res.redirect('/projects/?message=Projeto adicionado com sucesso!')
 })
 
-// bloco que atualiza od dados de um projeto já existente no banco de dados
-router.patch('/', urlencodedParser, (req, res) => {
+router.post('/edit', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
   sql =
     "UPDATE Project SET name = '" +
-    req.body.name +
+    req.body.project_name +
     "', location = '" +
-    req.body.location +
+    req.body.project_location +
     "',  start_date = '" +
-    req.body.start_date +
+    req.body.project_start_date +
     "', end_date = '" +
-    req.body.end_date +
+    req.body.project_end_date +
     "', description = '" +
-    req.body.description +
+    req.body.project_description +
     "', department_id = '" +
     req.body.department_id +
-    "', roles_id = '" +
-    req.body.roles_id +
     "' WHERE id = " +
-    req.body.id // código sql que faz um update em um projeto já existente no banco de dados, requisitando nome, localização, data de início, de final, descrição, departamento, funções e id
-
+    req.body.id // código sql que faz um update de um funcionário já existente no banco de dados, requisitando nome, tags, localização, função, carga horária já usada para projetos, carga horária disponível para projetos e tipo (CLT ou TERCEIRO)
   db.run(sql, [], err => {
     // executa o código sql no banco de dados
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
-    res.end()
-  })
+    res.redirect('back')
 
+  })
 })
+
+// // bloco que atualiza od dados de um projeto já existente no banco de dados
+// router.patch('/', urlencodedParser, (req, res) => {
+//   res.statusCode = 200 // código de status de que o comando foi executado sem erros
+//   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+
+//   sql =
+//     "UPDATE Project SET name = '" +
+//     req.body.name +
+//     "', location = '" +
+//     req.body.location +
+//     "',  start_date = '" +
+//     req.body.start_date +
+//     "', end_date = '" +
+//     req.body.end_date +
+//     "', description = '" +
+//     req.body.description +
+//     "', department_id = '" +
+//     req.body.department_id +
+//     "', roles_id = '" +
+//     req.body.roles_id +
+//     "' WHERE id = " +
+//     req.body.id // código sql que faz um update em um projeto já existente no banco de dados, requisitando nome, localização, data de início, de final, descrição, departamento, funções e id
+
+//   db.run(sql, [], err => {
+//     // executa o código sql no banco de dados
+//     if (err) {
+//       throw err // caso ocorra erro, ele será mostrado no terminal
+//     }
+//     res.end()
+//   })
+
+// })
 
 // bloco que apaga um projeto do banco de dados
 router.delete('/:id', urlencodedParser, (req, res) => {
