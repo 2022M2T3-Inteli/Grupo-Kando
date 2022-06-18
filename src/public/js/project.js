@@ -30,6 +30,7 @@ function newRoleName() {
 	document.getElementById(newRole).hidden = false
 }
 
+
 //toast de feedback "projeto criado com sucesso"
 // const toastTrigger = document.getElementById('liveToastBtn')
 // const toastLiveExample = document.getElementById('liveToast')
@@ -137,11 +138,11 @@ function getProjectsList() {
 getProjectsList()
 
 function setEditProjectId(id) {
-	projectId = id
-	let projectData = showProject(id) 
+
+	let projectData = getProject(id) 
 	console.log(projectData) 
   
-	$("#project_id")[0].value = projectId
+	$("#project_id")[0].value = projectData.id
 	$("#project-name")[0].value = projectData.name
 	$("#project-location")[0].value = projectData.location
 	$("#project-start-date")[0].value = projectData.start_date
@@ -151,7 +152,7 @@ function setEditProjectId(id) {
 	console.log($("#employee_id")[0].value)
 }
 
-function showProject(id) {
+function getProject(id) {
 	let url = '/projects/' + id
   
 	let xhttp = new XMLHttpRequest()
@@ -245,4 +246,35 @@ function Teste() {
 }
 
 
+
 // export function toastTrigger()
+
+function viewProject(id){
+	let projectData = getProject(id);
+	
+
+	$("#project-info-section")[0].innerHTML =
+ 	`
+		<table class="table">
+			<tbody>
+				<tr>
+					<th scope="row">Nome:</th>
+					<td>${projectData.name}</td>
+				</tr>
+				<tr>
+					<th scope="row">Região:</th>
+					<td>${projectData.location}</td>
+				</tr>
+				<tr>
+					<th scope="row">Início:</th>
+					<td>${projectData.start_date}</td>
+				</tr>
+				<tr>
+					<th scope="row">Fim:</th>
+					<td>${projectData.end_date}</td>
+				</tr>
+			</tbody>
+		</table>
+	`
+			
+}
