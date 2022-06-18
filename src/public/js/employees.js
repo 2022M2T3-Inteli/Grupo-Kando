@@ -141,7 +141,7 @@ function getEmployeeList() {
 				<div class="material-symbols-outlined employee-view-button" 
 					data-bs-toggle="modal"
 					data-bs-target="#view-employee-modal"
-					onclick="viewEmployee(row)">
+					onclick="viewEmployee(${row})">
 						visibility
 				</div>
 
@@ -149,7 +149,7 @@ function getEmployeeList() {
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#edit-employee-modal"
-					onclick="setEditEmployeeId(row)"
+					onclick="setEditEmployeeId(${row})"
 				>
 					<span class="material-symbols-outlined">
 						edit
@@ -160,7 +160,7 @@ function getEmployeeList() {
 					class="material-symbols-outlined employee-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#remove-employee-modal"
-					onclick="deleteEmployee(row.id)"
+					onclick="deleteEmployee(${row.id})"
 					
 				>
 					delete
