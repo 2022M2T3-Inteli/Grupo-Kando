@@ -138,4 +138,22 @@ router.delete('/:id', urlencodedParser, (req, res) => {
   })
 })
 
+router.get('/all', (req, res) => {
+  // define /all como o endereço que exibirá o retorno dos comandos abaixo
+  res.statusCode = 200 // código de status de que o comando foi executado sem erros
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+
+  var sql = 'SELECT hours_assigned FROM EmployeeAssignment WHERE employee_id = ?' // código sql que seleciona os funcionários, ordenando por id
+  db.all(sql, [], (err, rows) => {
+    // executa o código sql no banco de dados
+    if (err) {
+      throw err // caso ocorra erro, ele será mostrado no terminal
+    }
+    res.json(rows) // retorna a lista de funcionários no formato json
+  })
+})
+
+
+
+
 module.exports = router // exporta as rotas criadas para serem usadas na aplicação

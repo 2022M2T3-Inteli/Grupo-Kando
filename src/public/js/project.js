@@ -183,6 +183,7 @@ function deleteProject() {
 
 	let xhttp = new XMLHttpRequest()
 	
+	
 	xhttp.addEventListener("load", getProjectsList)
 
 	xhttp.open("delete", url, false)

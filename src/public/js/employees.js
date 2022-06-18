@@ -141,17 +141,15 @@ function getEmployeeList() {
 				<div class="material-symbols-outlined employee-view-button" 
 					data-bs-toggle="modal"
 					data-bs-target="#view-employee-modal"
-					id="${row.id}"
-					onclick="showEmployee(this.id)">
+					onclick="viewEmployee(row)">
 						visibility
 				</div>
 
         <div
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
-					data-bs-target="#view-employee-modal"
-					id="${row.id}"
-					onclick="setEditEmployeeId(this.id)"
+					data-bs-target="#edit-employee-modal"
+					onclick="setEditEmployeeId(row)"
 				>
 					<span class="material-symbols-outlined">
 						edit
@@ -162,8 +160,7 @@ function getEmployeeList() {
 					class="material-symbols-outlined employee-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#remove-employee-modal"
-					id="${row.id}"
-					onclick="modalDelete(this.id)"
+					onclick="deleteEmployee(row.id)"
 					
 				>
 					delete
@@ -185,18 +182,17 @@ function getEmployeeList() {
 getEmployeeList()
 
 
-function setEditEmployeeId(id) {
-  employeeId = id
-  let employeeData = showEmployee(id)  
+function setEditEmployeeId(data) {
+  let employeeData = data
 
-  $("#employee_id")[0].value = employeeId
+  $("#employee_id")[0].value = employeeData.id
   $("#employee_name")[0].value = employeeData.name
   $("#employee_function")[0].value = employeeData.role_name
   $("#employee-location")[0].value = employeeData.location
   $("#employee_workload")[0].value = employeeData.projects_workload
   $("#employee-type")[0].value = employeeData.type
   // $("#employee-tags")[0].value = employeeData.tags
-  console.log($("#employee_id")[0].value)
+  
 }
 
 // function reload() {
@@ -255,19 +251,15 @@ function showEmployee(id) {
 }
 
 
-let employeeId = 0
-function modalDelete(id) {
- employeeId = id
 
-}
 
-function deleteEmployee() {
+function deleteEmployee(id) {
   setTimeout(function showToast() {
 		const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
 		toast.show()
 	}, 300)
 
-	let url = "employees/"+employeeId
+	let url = "employees/"+id
 
 	let xhttp = new XMLHttpRequest()
 	
@@ -356,3 +348,42 @@ employeeRows.each(function (index) {
     })
   }
 })
+
+
+function viewEmployee(data){
+	let employeeData = data;
+	
+
+	$("#employee-info-section")[0].innerHTML =
+ 	`
+		<table class="table">
+			<tbody>
+				<tr>
+					<th scope="row">Nome:</th>
+					<td>${employeeData.name}</td>
+				</tr>
+				<tr>
+					<th scope="row">Região:</th>
+					<td>${employeeData.location}</td>
+				</tr>
+				<tr>
+					<th scope="row">Função:</th>
+					<td>${employeeData.role_name}</td>
+				</tr>
+				<tr>
+					<th scope="row">Tempo Alocado/Mês:</th>
+					<td>${employeeData.projects_workload - employeeData.available_projects_workload}/${employeeData.projects_workload}/176h</td>
+				</tr>
+        <tr>
+					<th scope="row">Tipo:</th>
+					<td>${employeeData.type}</td>
+				</tr>
+        <tr>
+					<th scope="row">Tags:</th>
+					<td>${employeeData.tags}</td>
+				</tr>
+			</tbody>
+		</table>
+	`
+			
+}
