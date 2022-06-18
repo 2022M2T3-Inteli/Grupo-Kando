@@ -432,10 +432,7 @@
               <div class="modal-body">
                 <p>Deseja Remover o Funcionario?</p>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee()">Remover</button>
-              </div>
+              <div class="modal-footer" id="delete-modal"></div>
             </div>
           </div>
         </div>
@@ -508,14 +505,11 @@
                         <label for="employee-local">Região: </label>
                       </div>
                       <div class="col">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="locationEdit"
-                          id="employee-location"
-                          placeholder="Região"
-                          value = ""
-                        />
+                        <select name="locationEdit" id="employee-location">
+                          <option value="Ambos">Ambos</option>
+                          <option value="SP">SP</option>
+                          <option value="AM">AM</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -545,13 +539,10 @@
                       </label>
                       </div>
                       <div class="col">
-                        <input
-                          type="text"
-                          name="typeEdit"
-                          class="form-control"
-                          id="employee-type"
-                          value = ""
-                        />
+                        <select name="typeEdit" id="employee-type">
+                          <option value="CLT">CLT</option>
+                          <option value="TERCEIRO">Terceiro</option>
+                        </select>
                       </div>
                     </div>
                   </div>

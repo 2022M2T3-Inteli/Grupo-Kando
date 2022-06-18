@@ -1,16 +1,16 @@
-if(localStorage.getItem('message')) {
-	if (localStorage.getItem('message') == 'created employee') {
-		toastShow("add")
-		localStorage.removeItem('message')
-	}
-	else if (localStorage.getItem('message') == 'edited employee') {
-		toastShow("edit")
-		localStorage.removeItem('message')
-	}
-	// else if (localStorage.getItem('message') == 'deleted project') {
-	// 	toastShow("delete")
-	// 	localStorage.removeItem('message')
-	// }
+if (localStorage.getItem('message')) {
+  if (localStorage.getItem('message') == 'created employee') {
+    toastShow("add")
+    localStorage.removeItem('message')
+  }
+  else if (localStorage.getItem('message') == 'edited employee') {
+    toastShow("edit")
+    localStorage.removeItem('message')
+  }
+  // else if (localStorage.getItem('message') == 'deleted project') {
+  // 	toastShow("delete")
+  // 	localStorage.removeItem('message')
+  // }
 }
 
 var tagList = document.body.querySelector('.employee-tag-list')
@@ -40,63 +40,30 @@ function removeTagElement(el) {
 }
 //toast de feedback "funcionario criado/editado com sucesso"
 function toastShow(type) {
-	setTimeout(function showToast() {
-		let toastElement
-		if(type == "add") {
-			toastElement = $('#addToast')[0]
-		}
-		else if(type == "edit") {
-			toastElement = $('#editToast')[0]
-		}
-		// else {
-		// 	toastElement = $('#deleteToast')[0]
-		// }
-		const toast = new bootstrap.Toast(toastElement)
-		toast.show()	
-	}, 300)	
+  setTimeout(function showToast() {
+    let toastElement
+    if (type == "add") {
+      toastElement = $('#addToast')[0]
+    }
+    else if (type == "edit") {
+      toastElement = $('#editToast')[0]
+    }
+    // else {
+    // 	toastElement = $('#deleteToast')[0]
+    // }
+    const toast = new bootstrap.Toast(toastElement)
+    toast.show()
+  }, 300)
 }
 
-function toastTriggerAdd () {
-	localStorage.setItem('message', 'created employee')
+function toastTriggerAdd() {
+  localStorage.setItem('message', 'created employee')
 }
-function toastTriggerEdit () {
-	localStorage.setItem('message', 'edited employee')
+function toastTriggerEdit() {
+  localStorage.setItem('message', 'edited employee')
 }
-
-// Dados da tabela de funcionários
-let employeeTools = `
-!-- button trigger modal view employee -->
-      <div class="employee-tools">
-      <!-- button trigger view employee -->
-      <div
-        class="material-symbols-outlined employee-view-button"
-        data-bs-toggle="modal"
-        data-bs-target="#view-employee-modal"
-      >
-        visibility
-      </div>
-      <! -- button trigger edit modal -->
-      <div
-      class="material-symbols-outlined employee-view-button"
-      data-bs-toggle="modal"
-      data-bs-target="#edit-employee-modal"
-      >
-      edit
-        </div>
-        <! -- button modal remove -->
-      <div
-      class="material-symbols-outlined employee-view-button"
-      data-bs-toggle="modal"
-      data-bs-target="#remove-employee-modal"
-    >
-      delete
-    </div>
-      </div>
-
-`
 
 let employeeMaxHours = 176
-
 let employeesData = [
   {
     allocation: 95,
@@ -121,7 +88,7 @@ let employeesData = [
 ]
 
 let employeeTable = $("#employees-table")
-// let tableData = []
+let tableData = []
 function getEmployeeList() {
   let url = 'employees/all'
 
@@ -135,13 +102,15 @@ function getEmployeeList() {
   tableData = []
   data.forEach((row, index) => {
     tableData.push(row)
+    tableData.available_projects_workload = getEmployeeWorkload(row.id)
+    // console.log(tableData.available_projects_workload)
     tableData[index].tools = `
 			<div class="employee-tools">
 				<!-- button trigger view employee -->
 				<div class="material-symbols-outlined employee-view-button" 
 					data-bs-toggle="modal"
 					data-bs-target="#view-employee-modal"
-					onclick="viewEmployee(${row})">
+					onclick="viewEmployee(${index})">
 						visibility
 				</div>
 
@@ -149,7 +118,7 @@ function getEmployeeList() {
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#edit-employee-modal"
-					onclick="setEditEmployeeId(${row})"
+					onclick="setEditEmployeeId(${index})"
 				>
 					<span class="material-symbols-outlined">
 						edit
@@ -160,7 +129,7 @@ function getEmployeeList() {
 					class="material-symbols-outlined employee-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#remove-employee-modal"
-					onclick="deleteEmployee(${row.id})"
+					onclick="openModalDelete(${row.id})"
 					
 				>
 					delete
@@ -170,7 +139,7 @@ function getEmployeeList() {
   })
 
   $(employeeTable).bootstrapTable("destroy")
-  setInterval(function() {
+  setInterval(function () {
     $(employeeTable).bootstrapTable({
       data: tableData
     })
@@ -178,12 +147,93 @@ function getEmployeeList() {
   }, 0)
 
 }
-
 getEmployeeList()
 
+function getEmployeeWorkload(id) {
+  let url = '/employees/employeeworkload/' + id
 
-function setEditEmployeeId(data) {
-  let employeeData = data
+  let xhtpp = new XMLHttpRequest()
+  xhtpp.open("get", url, false)
+  xhtpp.send()
+
+  let employeeWorkload = {}
+  let data = JSON.parse(xhtpp.responseText)
+
+  data.forEach(assignment => {
+    // if(!employeeWorkload[assignment.year]) {
+    //   employeeWorkload[assignment.year] = []
+    //   employeeWorkload[assignment.year].push(
+    //     {
+    //       [assignment.month]: assignment.hours_assigned,
+    //     } 
+    //   )
+    // }
+    // else {
+    //   employeeWorkload[assignment.year].push(
+    //     {
+    //       [assignment.month]: assignment.hours_assigned,
+    //     } 
+    //   ) 
+    // }
+
+    if (!employeeWorkload[assignment.year]) {
+      employeeWorkload[assignment.year] =
+      {
+        [assignment.month]: assignment.hours_assigned,
+      }
+    }
+    else {
+      employeeWorkload[assignment.year] = Object.assign(
+        employeeWorkload[assignment.year], {
+          [assignment.month]: assignment.hours_assigned
+        }
+      ) 
+    }
+  })
+  console.log(employeeWorkload)
+  return employeeWorkload
+}
+
+function viewEmployee(index) {
+  let employeeData = tableData[index];
+
+  $("#employee-info-section")[0].innerHTML =
+    `
+		<table class="table">
+			<tbody>
+				<tr>
+					<th scope="row">Nome:</th>
+					<td>${employeeData.name}</td>
+				</tr>
+				<tr>
+					<th scope="row">Região:</th>
+					<td>${employeeData.location}</td>
+				</tr>
+				<tr>
+					<th scope="row">Função:</th>
+					<td>${employeeData.role_name}</td>
+				</tr>
+				<tr>
+					<th scope="row">Tempo Alocado/Mês:</th>
+					<td>${employeeData.projects_workload - employeeData.available_projects_workload}/${employeeData.projects_workload}/176h</td>
+				</tr>
+        <tr>
+					<th scope="row">Tipo:</th>
+					<td>${employeeData.type}</td>
+				</tr>
+        <tr>
+					<th scope="row">Tags:</th>
+					<td>${employeeData.tags}</td>
+				</tr>
+			</tbody>
+		</table>
+	`
+}
+
+function setEditEmployeeId(index) {
+  let employeeData = tableData[index]
+  console.log(employeeData.name)
+  console.log(employeeData.location)
 
   $("#employee_id")[0].value = employeeData.id
   $("#employee_name")[0].value = employeeData.name
@@ -192,81 +242,30 @@ function setEditEmployeeId(data) {
   $("#employee_workload")[0].value = employeeData.projects_workload
   $("#employee-type")[0].value = employeeData.type
   // $("#employee-tags")[0].value = employeeData.tags
-  
+
 }
 
-// function reload() {
-//   let cont = alert("oi")
-//     setTimeout(cont, 2000000)
-//     // window.location.reload()
-// }
-
-
-// // function editEmployee() {
-// //   let api = 'http://127.0.0.1:8080'
-
-
-// // 	// let url = "/employees/edit"
-
-// // 	// let xhttp = new XMLHttpRequest()
-	
-// // 	// xhttp.addEventListener("load", getEmployeeList)
-
-// // 	// xhttp.open("post", url, false)
-// // 	// xhttp.send()
-
-// //   $.ajax({
-// //     type: 'POST',
-// //     url: api + '/employees/edit',
-// //     data: {
-// //       name: req.body.nameEdit,
-// //       tags: req.body.tagsEdit,
-// //       location: req.body.locationEdit,
-// //       role_name: req.body.role_nameEdit,
-// //       projects_workload: req.body.projects_workloadEdit,
-// //       available_projects_workload: req.body.available_projects_workloadEdit,
-// //       type: req.body.typeEdit,
-// //       id: req.body.id
-// // //     },
-// // }).done(function () {
-// //     users.list();
-// // }).fail(function (msg) {
-// //     //console.log('FAIL');
-// // }).always(function (msg) {
-// //     //console.log('ALWAYS');
-// // });
-// // }
-
-
-function showEmployee(id) {
-  let url = '/employees/' + id
-
-  let xhttp = new XMLHttpRequest()
-  xhttp.open('get', url, false)
-  xhttp.send()
-
-  let data = JSON.parse(xhttp.responseText)
-  console.log(data)
-  return data
+function openModalDelete(id) {
+  $("#delete-modal")[0].innerHTML = `
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee(${id})">Remover</button>
+  `
 }
-
-
-
 
 function deleteEmployee(id) {
   setTimeout(function showToast() {
-		const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
-		toast.show()
-	}, 300)
+    const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
+    toast.show()
+  }, 300)
 
-	let url = "employees/"+id
+  let url = "employees/" + id
 
-	let xhttp = new XMLHttpRequest()
-	
-	xhttp.addEventListener("load", getEmployeeList)
+  let xhttp = new XMLHttpRequest()
 
-	xhttp.open("delete", url, false)
-	xhttp.send()
+  xhttp.addEventListener("load", getEmployeeList)
+
+  xhttp.open("delete", url, false)
+  xhttp.send()
 
 }
 
@@ -274,7 +273,7 @@ $(employeeTable).bootstrapTable({
   data: tableData
 })
 
-$(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
+// $(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
 
 $(employeeTable).on('sort.bs.table', function () {
   setTimeout(function () {
@@ -348,42 +347,3 @@ employeeRows.each(function (index) {
     })
   }
 })
-
-
-function viewEmployee(data){
-	let employeeData = data;
-	
-
-	$("#employee-info-section")[0].innerHTML =
- 	`
-		<table class="table">
-			<tbody>
-				<tr>
-					<th scope="row">Nome:</th>
-					<td>${employeeData.name}</td>
-				</tr>
-				<tr>
-					<th scope="row">Região:</th>
-					<td>${employeeData.location}</td>
-				</tr>
-				<tr>
-					<th scope="row">Função:</th>
-					<td>${employeeData.role_name}</td>
-				</tr>
-				<tr>
-					<th scope="row">Tempo Alocado/Mês:</th>
-					<td>${employeeData.projects_workload - employeeData.available_projects_workload}/${employeeData.projects_workload}/176h</td>
-				</tr>
-        <tr>
-					<th scope="row">Tipo:</th>
-					<td>${employeeData.type}</td>
-				</tr>
-        <tr>
-					<th scope="row">Tags:</th>
-					<td>${employeeData.tags}</td>
-				</tr>
-			</tbody>
-		</table>
-	`
-			
-}

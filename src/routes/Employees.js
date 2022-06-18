@@ -2,6 +2,10 @@ const express = require('express') // faz uma requisição do módulo express
 const router = express.Router() // define a variável router como o método Router() do express
 const db = require('../data/db') // faz uma requisição do arquivo js que abre o banco de dados
 
+const today = new Date() // função para requisitar a data atual do sistema
+const month = today.getMonth() + 1 // função para requisitar o mês atual do sistema
+const year = today.getFullYear() // função para requisitar o ano atual do sistema
+
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -99,7 +103,7 @@ router.post('/edit', urlencodedParser, (req, res) => {
     req.body.nameEdit +
     "', tags = '" +
     req.body.tagsEdit +
-    "',  location = '" +
+    "', location = '" +
     req.body.locationEdit +
     "', role_name = '" +
     req.body.role_nameEdit +
@@ -138,13 +142,13 @@ router.delete('/:id', urlencodedParser, (req, res) => {
   })
 })
 
-router.get('/all', (req, res) => {
-  // define /all como o endereço que exibirá o retorno dos comandos abaixo
+router.get('/employeeworkload/:id', (req, res) => {
+  let id = req.params['id'] // define /all como o endereço que exibirá o retorno dos comandos abaixo
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
-  var sql = 'SELECT hours_assigned FROM EmployeeAssignment WHERE employee_id = ?' // código sql que seleciona os funcionários, ordenando por id
-  db.all(sql, [], (err, rows) => {
+  var sql = `SELECT SUM(hours_assigned) AS hours_assigned, month, year FROM EmployeeAssignment WHERE employee_id = ? AND month >= ${month} AND year >= ${year} GROUP BY month, year` // código sql que seleciona os funcionários, ordenando por id
+  db.all(sql, [id], (err, rows) => {
     // executa o código sql no banco de dados
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
