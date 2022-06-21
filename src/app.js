@@ -53,6 +53,12 @@ app.get("/projects", function(req, res) {
 	res.render("projects/projects")
 })
 
+// Acessa a página de Funções
+app.get("/roles", function(req, res) {
+	// Renderiza a página Funções, contida dentro da pasta de Views
+	res.render("roles/roles")
+})
+
 // Define o uso do Express.json, para retornar os dados das requisições em formato JSON
 app.use(express.json())
 

@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Funcionários</title>
+    <title>Funções</title>
 
-    <link rel="stylesheet" href="css/employees.css" />
+    <!-- <link rel="stylesheet" href="css/cadastro_projeto.css" /> -->
+    <!-- <link rel="stylesheet" href="css/projects2.css" /> -->
+    <link rel="stylesheet" href="css/roles.css" />
     <link rel="stylesheet" href="css/style.css" />
     <!-- Bootstrap -->
     <link
@@ -27,113 +29,72 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-
-    <!-- Bootstrap Table -->
     <link
       href="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.css"
       rel="stylesheet"
     />
   </head>
+
   <body>
     <div class="container-fluid">
       <div class="row">
         <%- include("../partials/sidebar.ejs") %>
         <div id="page" class="col">
-          <%- include("../partials/header.ejs", {page: "Funcionários"}) %>
-          <div class="row">
-            <div id="main">
-              <div class="container" id="main-container">
-                <div class="row">
-                  <div class="col-3" id="search-project">
-                    <form autocomplete="off" onsubmit="return false;">
-                      <div id="search-group">
-                        <input
-                          type="text"
-                          id="search"
-                          placeholder="Search"
-                          name="search"
-                          autocomplete="off"
-                        />
-                        <div class="input-group-btn">
-                          <img src="img/lupa.png" alt="" />
-                        </div>
+          <%- include("../partials/header.ejs", {page: "Funções" }) %>
+          <div id="main">
+            <div class="container" id="main-container">
+              <div class="row">
+                <div class="col-3" id="search-roles">
+                  <form autocomplete="off" onsubmit="return false;">
+                    <div id="search-group">
+                      <input
+                        type="text"
+                        id="search"
+                        placeholder="Search"
+                        name="search"
+                        autocomplete="off"
+                      />
+                      <div class="input-group-btn">
+                        <img src="img/lupa.png" alt="" />
                       </div>
-                    </form>
-                  </div>
-
-                  <!-- Button trigger modal add employee -->
-                  <div
-                    class="col add-element-button main-buttons-container"
-                    id="add-employee-button"
-                  >
-                    <button
-                      type="button"
-                      class="btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#add-employee-modal"
-                    >
-                      Adicionar novo
-                    </button>
-                  </div>
+                    </div>
+                  </form>
                 </div>
-                <div class="table-container">
-                  <table
-                    id="employees-table"
-                    class="table table-hover table-style"
-                    data-show-multi-sort="true"
-                    data-sort-priority='[
+                <!-- Button trigger modal -->
+                <div class="col add-element-button main-buttons-container">
+                  <button
+                    type="button"
+                    class="btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add-role-modal"
+                  >
+                    Adicionar novo
+                  </button>
+                </div>
+              </div>
+              <div class="row table-container">
+                <table
+                  id="roles-table"
+                  class="table table-hover table-style"
+                  data-show-multi-sort="true"
+                  data-sort-priority='[
                       {"sortName": "name","sortOrder":"desc"},
-                      {"sortName": "job","sortOrder":"desc"}, 
                     ]'
-                  >
-                    <thead>
-                      <tr>
-                        <th data-field="name" data-sortable="true">
-                          Funcionário
-                        </th>
-                        <th data-field="role_name" data-sortable="true">
-                          Função
-                        </th>
-                        <th
-                          data-field="projects_workload"
-                          class="employee-allocation"
-                        >
-                          Alocação
-                        </th>
-                        <th data-field="projectsQty">N° de projetos</th>
-                        <th data-field="tools">Ações</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
+                >
+                  <thead class="table-head-custom">
+                    <tr>
+                      <th data-field="name" data-sortable="true">Função</th>
+                      <th data-field="tools">Ações</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
             </div>
           </div>
         </div>
-        <!-- toast - employee succesfully added -->
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-          <div
-            id="liveToast"
-            class="toast"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-          >
-            <div class="toast-header">
-              <strong class="me-auto">Mensagem</strong>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="toast"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="toast-body">Funcionário criado com sucesso.</div>
-          </div>
-        </div>
       </div>
 
-      <!-- toast - employee added succesfully -->
+      <!-- toast - role added succesfully -->
       <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div
           id="addToast"
@@ -151,12 +112,12 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="toast-body">Colaborador cadastrado com sucesso.</div>
+          <div class="toast-body">Função criada com sucesso.</div>
         </div>
       </div>
     </div>
 
-    <!-- toast - employee edited succesfully -->
+    <!-- toast - role edited succesfully -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div
         id="editToast"
@@ -174,11 +135,11 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="toast-body">Colaborador alterado com sucesso.</div>
+        <div class="toast-body">Função alterada com sucesso.</div>
       </div>
     </div>
 
-    <!-- toast - employee deleted succesfully -->
+    <!-- toast - role deleted succesfully -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div
         id="deleteToast"
@@ -196,24 +157,24 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="toast-body">Colaborador excluído com sucesso.</div>
+        <div class="toast-body">Função excluída com sucesso.</div>
       </div>
     </div>
 
     <!-- Modal Add Employee -->
-    <form action="/employees" method="POST">
+    <form action="/roles" method="POST">
       <div class="parent-modal">
         <div
           class="modal fade"
-          id="add-employee-modal"
+          id="add-role-modal"
           tabindex="-1"
-          aria-labelledby="add-employee-modal-label"
+          aria-labelledby="add-role-modal-label"
           aria-hidden="true"
         >
           <div class="modal-dialog modal-dialog-container">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="add-employee-modal-label">
+                <h5 class="modal-title" id="add-role-modal-label">
                   Adicionar Funcionário
                 </h5>
                 <button
@@ -227,24 +188,24 @@
                 <div class="row container">
                   <div class="row form-group">
                     <div class="col-4">
-                      <label for="employee-name">Nome do Funcionário: </label>
+                      <label for="role-name">Nome do Funcionário: </label>
                     </div>
                     <div class="col">
                       <input
                         type="text"
                         class="form-control"
                         name="name"
-                        id="employee-name"
+                        id="role-name"
                         placeholder="Nome do Funcionário"
                       />
                     </div>
                   </div>
                   <div class="row form-group">
                     <div class="col-4">
-                      <label for="employee-function">Função: </label>
+                      <label for="role-function">Função: </label>
                     </div>
                     <div class="col">
-                      <select name="role_name" id="employee-function">
+                      <select name="role_name" id="role-function">
                         <option value="dev">Desenvolvedor</option>
                         <option value="Analista">Analista</option>
                         <option value="DBA-manager">Gerente de Projetos</option>
@@ -253,7 +214,7 @@
                   </div>
                   <div class="row form-group">
                     <div class="col-4">
-                      <label for="employee-local">Região: </label>
+                      <label for="role-local">Região: </label>
                     </div>
                     <div class="col">
                       <select name="location" id="local">
@@ -265,7 +226,7 @@
                   </div>
                   <div class="row form-group">
                     <div class="col-4">
-                      <label for="employee-worktime"
+                      <label for="role-worktime"
                         >Tempo alocado para projetos no mês:
                       </label>
                     </div>
@@ -273,7 +234,7 @@
                       <input
                         type="number"
                         name="projects_workload"
-                        id="employee-worktime"
+                        id="role-worktime"
                       />
                     </div>
                   </div>
@@ -284,15 +245,15 @@
                     <div class="col">
                       <select name="type" id="">
                         <option value="clt">CLT</option>
-                        <option value="third-employee">Terceiro</option>
+                        <option value="third-role">Terceiro</option>
                       </select>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col employee-tag-list">
-                      <div class="employee-tag-element"></div>
-                      <div class="employee-add-tag">
+                    <div class="col role-tag-list">
+                      <div class="role-tag-element"></div>
+                      <div class="role-add-tag">
                         <button type="button" onclick="newTagName()">+</button>
                       </div>
                     </div>
@@ -322,12 +283,12 @@
     </form>
 
     <!-- Modal View Employee -->
-    <div class="parent-modal parent-modal-employee">
+    <div class="parent-modal parent-modal-role">
       <div
         class="modal fade"
-        id="view-employee-modal"
+        id="view-role-modal"
         tabindex="-1"
-        aria-labelledby="view-employee-modal-label"
+        aria-labelledby="view-role-modal-label"
         aria-hidden="true"
       >
         <div class="modal-dialog modal-dialog-container">
@@ -335,7 +296,7 @@
             <div class="modal-header">
               <div class="col"></div>
               <div class="col">
-                <h5 class="modal-title" id="view-employee-modal-label">
+                <h5 class="modal-title" id="view-role-modal-label">
                   Colaborador
                 </h5>
               </div>
@@ -348,11 +309,11 @@
             </div>
             <div class="modal-body">
               <div class="row container">
-                <div class="row" id="employee-info-section"></div>
+                <div class="row" id="role-info-section"></div>
                 <div class="row">
                   <table
-                    id="employee-project-list"
-                    class="table table-sm employee-view-tables"
+                    id="role-project-list"
+                    class="table table-sm role-view-tables"
                   >
                     <thead>
                       <tr class="table-head">
@@ -431,12 +392,12 @@
       </div>
     </div>
 
-    <!-- modal remove employee -->
+    <!-- modal remove role -->
     <div
       class="modal fade"
-      id="remove-employee-modal"
+      id="remove-role-modal"
       tabindex="-1"
-      aria-labelledby="view-employee-modal-label"
+      aria-labelledby="view-role-modal-label"
       aria-hidden="true"
     >
       <div class="modal-dialog">
@@ -462,16 +423,16 @@
     <div class="parent-modal">
       <div
         class="modal fade"
-        id="edit-employee-modal"
+        id="edit-role-modal"
         tabindex="-1"
-        aria-labelledby="edit-employee-modal-label"
+        aria-labelledby="edit-role-modal-label"
         aria-hidden="true"
       >
-        <form action="/employees/edit" method="post">
+        <form action="/roles/edit" method="post">
           <div class="modal-dialog modal-dialog-container">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="edit-employee-modal-label">
+                <h5 class="modal-title" id="edit-role-modal-label">
                   Editar Funcionário
                 </h5>
                 <button
@@ -487,20 +448,20 @@
                     style="display: hidden"
                     type="hidden"
                     name="id"
-                    id="employee_id"
+                    id="role_id"
                     value=""
                   />
                   <div class="form-group">
                     <div class="row">
                       <div class="col-4">
-                        <label for="employee-name">Nome do Funcionário: </label>
+                        <label for="role-name">Nome do Funcionário: </label>
                       </div>
                       <div class="col-8">
                         <input
                           type="text"
                           class="form-control"
                           name="nameEdit"
-                          id="employee_name"
+                          id="role_name"
                           placeholder="Nome do Funcionário"
                           value=""
                         />
@@ -510,14 +471,14 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-4">
-                        <label for="employee-function">Função: </label>
+                        <label for="role-function">Função: </label>
                       </div>
                       <div class="col">
                         <input
                           type="text"
                           class="form-control"
                           name="role_nameEdit"
-                          id="employee_function"
+                          id="role_function"
                           placeholder="Função"
                           value=""
                         />
@@ -527,10 +488,10 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-4">
-                        <label for="employee-local">Região: </label>
+                        <label for="role-local">Região: </label>
                       </div>
                       <div class="col">
-                        <select name="locationEdit" id="employee-location">
+                        <select name="locationEdit" id="role-location">
                           <option value="Ambos">Ambos</option>
                           <option value="SP">SP</option>
                           <option value="AM">AM</option>
@@ -541,7 +502,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-4">
-                        <label for="employee-worktime"
+                        <label for="role-worktime"
                           >Tempo alocado para projetos no mês:
                         </label>
                       </div>
@@ -550,7 +511,7 @@
                           type="number"
                           name="projects_workloadEdit"
                           class="form-control"
-                          id="employee_workload"
+                          id="role_workload"
                           value=""
                         />
                       </div>
@@ -562,7 +523,7 @@
                         <label for="">Tipo (CLT ou Terceirizado) </label>
                       </div>
                       <div class="col">
-                        <select name="typeEdit" id="employee-type">
+                        <select name="typeEdit" id="role-type">
                           <option value="CLT">CLT</option>
                           <option value="TERCEIRO">Terceiro</option>
                         </select>
@@ -571,9 +532,9 @@
                   </div>
                   <div class="row">
                     <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col employee-tag-list">
-                      <div id="employee-tag-element"></div>
-                      <div id="employee-add-tag">
+                    <div class="col role-tag-list">
+                      <div id="role-tag-element"></div>
+                      <div id="role-add-tag">
                         <button type="button" onclick="newTagName()">+</button>
                       </div>
                     </div>
@@ -615,6 +576,6 @@
     <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.js"></script>
     <!-- Latest compiled and minified Locales -->
     <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="js/employees.js"></script>
+    <script src="js/roles.js"></script>
   </body>
 </html>
