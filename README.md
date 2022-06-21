@@ -30,10 +30,7 @@ Yamaha Planning System é uma aplicação web de gestão de capacidade ("capacit
 Seu principal objetivo é facilitar o processo de análise de disponibilidade de horas dos recursos humanos da Yamaha para projetos e otimizar a alocação dos funcionários em projetos existentes. O sistema Web pode ser utilizado por um gerente para cadastrar funções, funcionários, projetos e alocações. Também pode ser usado para visualizar de forma analítica a situação atual da empresa, em relação aos projetos e as alocação de funcionários, para assim embasar a tomada de decisões.
 <br><br>
 
-<p align="center">
-<img src="https://cdn.discordapp.com/attachments/937463646181785633/979812643260989520/unknown.png" border="0">
-  <a href="https://github.com/2022M2T3/Projeto1">Yamaha Planning System by Kando</a>
-</p>
+
 
 ## 📂 Estrutura de pastas
 
