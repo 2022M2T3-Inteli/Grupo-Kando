@@ -282,7 +282,7 @@
       </div>
     </form>
 
-    <!-- Modal View Employee -->
+    <!-- Modal Edit Roles -->
     <div class="parent-modal parent-modal-role">
       <div
         class="modal fade"
@@ -297,7 +297,7 @@
               <div class="col"></div>
               <div class="col">
                 <h5 class="modal-title" id="view-role-modal-label">
-                  Colaborador
+                  Função
                 </h5>
               </div>
               <button
@@ -419,7 +419,7 @@
       </div>
     </div>
 
-    <!-- Modal Edit Employee -->
+    <!-- Modal Edit Role -->
     <div class="parent-modal">
       <div
         class="modal fade"
@@ -433,7 +433,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="edit-role-modal-label">
-                  Editar Funcionário
+                  Editar Função
                 </h5>
                 <button
                   type="button"
@@ -454,7 +454,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-4">
-                        <label for="role-name">Nome do Funcionário: </label>
+                        <label for="role-name">Nome da Função: </label>
                       </div>
                       <div class="col-8">
                         <input
@@ -462,80 +462,9 @@
                           class="form-control"
                           name="nameEdit"
                           id="role_name"
-                          placeholder="Nome do Funcionário"
+                          placeholder="Nome da Função"
                           value=""
                         />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="role-function">Função: </label>
-                      </div>
-                      <div class="col">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="role_nameEdit"
-                          id="role_function"
-                          placeholder="Função"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="role-local">Região: </label>
-                      </div>
-                      <div class="col">
-                        <select name="locationEdit" id="role-location">
-                          <option value="Ambos">Ambos</option>
-                          <option value="SP">SP</option>
-                          <option value="AM">AM</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="role-worktime"
-                          >Tempo alocado para projetos no mês:
-                        </label>
-                      </div>
-                      <div class="col">
-                        <input
-                          type="number"
-                          name="projects_workloadEdit"
-                          class="form-control"
-                          id="role_workload"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="">Tipo (CLT ou Terceirizado) </label>
-                      </div>
-                      <div class="col">
-                        <select name="typeEdit" id="role-type">
-                          <option value="CLT">CLT</option>
-                          <option value="TERCEIRO">Terceiro</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col role-tag-list">
-                      <div id="role-tag-element"></div>
-                      <div id="role-add-tag">
-                        <button type="button" onclick="newTagName()">+</button>
                       </div>
                     </div>
                   </div>
