@@ -101,6 +101,14 @@ function getEmployeeList() {
 
   tableData = []
   data.forEach((row, index) => {
+    let employees = [
+      {
+        nome: 'sahudas'
+      },
+      {
+
+      }
+    ]
     tableData.push(row)
     tableData.available_projects_workload = getEmployeeWorkload(row.id)
     // console.log(tableData.available_projects_workload)
@@ -185,9 +193,9 @@ function getEmployeeWorkload(id) {
     else {
       employeeWorkload[assignment.year] = Object.assign(
         employeeWorkload[assignment.year], {
-          [assignment.month]: assignment.hours_assigned
-        }
-      ) 
+        [assignment.month]: assignment.hours_assigned
+      }
+      )
     }
   })
   console.log(employeeWorkload)
@@ -281,18 +289,18 @@ $(employeeTable).on('sort.bs.table', function () {
   }, 0)
 })
 
-let employeeRows = $('.table-body-row')
-let employeeReversedRows = []
 let searchInput = $('#search')
-
-employeeRows.each(function (index, row) {
-  employeeReversedRows.push(row)
-})
-employeeReversedRows = employeeReversedRows.reverse()
-
 $(searchInput).keyup(function () {
   let delay = 100
   let value = searchInput[0].value
+
+  let employeeRows = $('.table-body-row')
+  let employeeReversedRows = []
+
+  employeeRows.each(function (index, row) {
+    employeeReversedRows.push(row)
+  })
+  employeeReversedRows = employeeReversedRows.reverse()
 
   employeeReversedRows.forEach(function (row) {
     let employeeName = row.firstChild.innerText.toUpperCase()

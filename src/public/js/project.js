@@ -1,4 +1,4 @@
-if(localStorage.getItem('message')) {
+if (localStorage.getItem('message')) {
 	if (localStorage.getItem('message') == 'created project') {
 		toastShow("add")
 		localStorage.removeItem('message')
@@ -47,26 +47,26 @@ function newRoleName() {
 function toastShow(type) {
 	setTimeout(function showToast() {
 		let toastElement
-		if(type == "add") {
+		if (type == "add") {
 			toastElement = $('#addToast')[0]
 		}
-		else if(type == "edit") {
+		else if (type == "edit") {
 			toastElement = $('#editToast')[0]
 		}
 		// else {
 		// 	toastElement = $('#deleteToast')[0]
 		// }
 		const toast = new bootstrap.Toast(toastElement)
-		toast.show()	
-	}, 300)	
+		toast.show()
+	}, 300)
 }
 
 
 
-function toastTriggerAdd () {
+function toastTriggerAdd() {
 	localStorage.setItem('message', 'created project')
 }
-function toastTriggerEdit () {
+function toastTriggerEdit() {
 	localStorage.setItem('message', 'edited project')
 }
 
@@ -76,7 +76,7 @@ function getProjectsList() {
 	let url = "projects/all"
 
 	let xhttp = new XMLHttpRequest()
-	
+
 	xhttp.open("get", url, false)
 	xhttp.send()
 
@@ -127,7 +127,7 @@ function getProjectsList() {
 	})
 
 	$(projectsTable).bootstrapTable("destroy")
-	setInterval(function() {
+	setInterval(function () {
 		$(projectsTable).bootstrapTable({
 			data: projectsData
 		})
@@ -139,9 +139,9 @@ getProjectsList()
 
 function setEditProjectId(id) {
 
-	let projectData = getProject(id) 
-	console.log(projectData) 
-  
+	let projectData = getProject(id)
+	console.log(projectData)
+
 	$("#project_id")[0].value = projectData.id
 	$("#project-name")[0].value = projectData.name
 	$("#project-location")[0].value = projectData.location
@@ -154,11 +154,11 @@ function setEditProjectId(id) {
 
 function getProject(id) {
 	let url = '/projects/' + id
-  
+
 	let xhttp = new XMLHttpRequest()
 	xhttp.open('get', url, false)
 	xhttp.send()
-  
+
 	let data = JSON.parse(xhttp.responseText)
 	console.log(data)
 	return data
@@ -166,7 +166,7 @@ function getProject(id) {
 
 let projectId = 0
 function modalDelete(id) {
- projectId = id
+	projectId = id
 
 }
 
@@ -179,11 +179,11 @@ function deleteProject() {
 		toast.show()
 	}, 300)
 
-	let url = "projects/"+projectId
+	let url = "projects/" + projectId
 
 	let xhttp = new XMLHttpRequest()
-	
-	
+
+
 	xhttp.addEventListener("load", getProjectsList)
 
 	xhttp.open("delete", url, false)
@@ -191,15 +191,8 @@ function deleteProject() {
 
 }
 
-let projectRows = $(".table-body-row")
-let projectReversedRows = []
+
 let searchInput = $("#search")
-
-
-projectRows.each(function (index, row) {
-	projectReversedRows.push(row)
-})
-projectReversedRows = projectReversedRows.reverse()
 
 $(projectsTable).on("sort.bs.table", function () {
 	setTimeout(function () {
@@ -210,6 +203,15 @@ $(projectsTable).on("sort.bs.table", function () {
 $(searchInput).keyup(function () {
 	let delay = 100
 	let value = searchInput[0].value
+
+	let projectRows = $(".table-body-row")
+	let projectReversedRows = []
+
+	projectRows.each(function (index, row) {
+		projectReversedRows.push(row)
+	})
+	projectReversedRows = projectReversedRows.reverse()
+
 	projectReversedRows.forEach(function (row) {
 		let projectName = row.firstChild.innerText.toUpperCase()
 		value = value.toUpperCase()
@@ -250,12 +252,12 @@ function Teste() {
 
 // export function toastTrigger()
 
-function viewProject(id){
+function viewProject(id) {
 	let projectData = getProject(id);
-	
+
 
 	$("#project-info-section")[0].innerHTML =
- 	`
+		`
 		<table class="table">
 			<tbody>
 				<tr>
@@ -277,5 +279,5 @@ function viewProject(id){
 			</tbody>
 		</table>
 	`
-			
+
 }
