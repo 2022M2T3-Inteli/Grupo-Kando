@@ -161,7 +161,7 @@
       </div>
     </div>
 
-    <!-- Modal Add Employee -->
+    <!-- Modal Add Role -->
     <form action="/roles" method="POST">
       <div class="parent-modal">
         <div
@@ -175,7 +175,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="add-role-modal-label">
-                  Adicionar Funcionário
+                  Adicionar Função
                 </h5>
                 <button
                   type="button"
@@ -188,7 +188,7 @@
                 <div class="row container">
                   <div class="row form-group">
                     <div class="col-4">
-                      <label for="role-name">Nome do Funcionário: </label>
+                      <label for="role-name">Nome da Função: </label>
                     </div>
                     <div class="col">
                       <input
@@ -196,70 +196,10 @@
                         class="form-control"
                         name="name"
                         id="role-name"
-                        placeholder="Nome do Funcionário"
+                        placeholder="Nome da Função"
                       />
                     </div>
                   </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="role-function">Função: </label>
-                    </div>
-                    <div class="col">
-                      <select name="role_name" id="role-function">
-                        <option value="dev">Desenvolvedor</option>
-                        <option value="Analista">Analista</option>
-                        <option value="DBA-manager">Gerente de Projetos</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="role-local">Região: </label>
-                    </div>
-                    <div class="col">
-                      <select name="location" id="local">
-                        <option value="AM">Manaus</option>
-                        <option value="SP">Guarulhos</option>
-                        <option value="">Ambos</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="role-worktime"
-                        >Tempo alocado para projetos no mês:
-                      </label>
-                    </div>
-                    <div class="col">
-                      <input
-                        type="number"
-                        name="projects_workload"
-                        id="role-worktime"
-                      />
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <div class="col-4">
-                      <label for="">Funcionário Interno (CLT)</label>
-                    </div>
-                    <div class="col">
-                      <select name="type" id="">
-                        <option value="clt">CLT</option>
-                        <option value="third-role">Terceiro</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col role-tag-list">
-                      <div class="role-tag-element"></div>
-                      <div class="role-add-tag">
-                        <button type="button" onclick="newTagName()">+</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div class="modal-footer">
                 <div class="buttons-container">
                   <button
@@ -415,17 +355,28 @@
             <p>Deseja Remover o Funcionario?</p>
           </div>
           <div class="modal-footer" id="delete-modal"></div>
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Remover Funcionário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <p>Deseja Remover o Funcionario?</p>
+        </div>
+        <div class="modal-footer" id="delete-modal"></div>
       </div>
     </div>
+  </div>
 
     <!-- Modal Edit Role -->
     <div class="parent-modal">
       <div
         class="modal fade"
-        id="edit-role-modal"
+        id="edit-employee-modal"
         tabindex="-1"
-        aria-labelledby="edit-role-modal-label"
+        aria-labelledby="edit-employee-modal-label"
         aria-hidden="true"
       >
         <form action="/roles/edit" method="post">

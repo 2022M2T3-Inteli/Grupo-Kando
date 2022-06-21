@@ -2,6 +2,9 @@ const express = require('express') // faz uma requisição do módulo express
 const router = express.Router() // define a variável router como o método Router() do express
 const db = require('../data/db') // faz uma requisição do arquivo js que abre o banco de dados
 
+const bodyParser = require('body-parser')
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 // bloco que seleciona todos as funções registrados no banco de dados
 router.get('/all', (req, res) => {
   // define /role como o endereço que exibirá o retorno dos comandos abaixo
@@ -35,7 +38,7 @@ router.get('/:id', (req, res) => {
 })
 
 // bloco que insere uma nova função no banco de dados
-router.post('/', (req, res) => {
+router.post('/', urlencodedParser, (req, res) => {
   // define /roleinsert como o endereço que executará os comandos abaixo
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
@@ -52,7 +55,7 @@ router.post('/', (req, res) => {
 })
 
 // bloco que atualiza dados de uma fnção no banco de dados
-router.post('/edit', (req, res) => {
+router.post('/edit', urlencodedParser, (req, res) => {
   // define /roleupdate como o endereço que executará os comandos abaixo
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
@@ -69,7 +72,7 @@ router.post('/edit', (req, res) => {
 })
 
 // bloco que apaga uma função do banco de dados
-router.delete('/:id', (req, res) => {
+router.delete('/:id', urlencodedParser, (req, res) => {
   // define /roledelete como o endereço que executará os comandos abaixo
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
