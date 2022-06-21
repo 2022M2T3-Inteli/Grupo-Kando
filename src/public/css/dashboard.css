@@ -67,9 +67,23 @@
 #general-chart1 .chart-title {
     justify-content: space-around;
 }
-.chart-selection {
-    width: 30%
+.select-wrapper {
+    width: 30%;
+    min-height: 30px;
+    overflow-y: visible;
 }
+.chart-select {
+    width: 100%;
+    /* make it min-height*/
+    min-height: 30px;
+    font-size: 18px;
+    /* font-weight: bold; */
+}
+
+.chart-select option {
+    /* font-weight: bold; */
+}
+
 #hours-dash {
     width: 25%;
     height: 25%;

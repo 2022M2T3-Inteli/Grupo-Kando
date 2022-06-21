@@ -8,7 +8,7 @@ router.get('/all', (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
-  var sql = 'SELECT * FROM Role ORDER BY id COLLATE NOCASE' // código sql que seleciona as funções, ordenando por id
+  var sql = 'SELECT * FROM Role ORDER BY name COLLATE NOCASE' // código sql que seleciona as funções, ordenando por nome
   db.all(sql, [], (err, rows) => {
     // executa o código sql no banco de dados
     if (err) {
@@ -83,7 +83,4 @@ router.delete('/:id', (req, res) => {
     res.end()
   })
 })
-
-
-
 module.exports = router // exporta as rotas criadas para serem usadas na aplicação

@@ -161,6 +161,23 @@ function getHoursAvailableByType(role, type) {
   return totalHours
 }
 
+function getRoles() {
+  let url = "roles/all"
+
+  let xhtpp = new XMLHttpRequest()
+  xhtpp.open("get", url, false)
+  xhtpp.send()
+
+  let data = JSON.parse(xhtpp.responseText)
+
+  let selectRoles = $("#hours-chart-select")[0]
+  console.log(data)
+  data.forEach(role => {
+    selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
+  })
+}
+getRoles()
+
 // Define o array que será responsável por guardar os dados do primeiro Gráfico (Horas Totais)
 let generalChartData = []
 

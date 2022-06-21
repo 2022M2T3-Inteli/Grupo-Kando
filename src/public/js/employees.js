@@ -157,6 +157,23 @@ function getEmployeeList() {
 }
 getEmployeeList()
 
+function getRoles() {
+  let url = "roles/all"
+
+  let xhtpp = new XMLHttpRequest()
+  xhtpp.open("get", url, false)
+  xhtpp.send()
+
+  let data = JSON.parse(xhtpp.responseText)
+
+  let selectRoles = $("#employee-roles")[0]
+  console.log(data)
+  data.forEach(role => {
+    selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
+  })
+}
+getRoles()
+
 function getEmployeeWorkload(id) {
   let url = '/employees/employeeworkload/' + id
 
