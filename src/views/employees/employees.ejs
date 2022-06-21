@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="filter">
-                      <select name="role-filter" id="role-filter">
+                      <select name="role-filter" id="roles-filter">
                         <option value="all" selected>Todos</option>
                       </select>
                     </div>
@@ -155,10 +155,11 @@
                 </div>
                 <div class="row form-group">
                   <div class="col-4">
-                    <label for="employee-function">Função: </label>
+                    <label for="employee-roles">Função: </label>
                   </div>
                   <div class="col">
-                    <select name="role_name" id="employee-function">
+                    <select name="role_name" id="employee-roles">
+                      <option value="null" hidden>Escolher Função</option>
                     </select>
                   </div>
                 </div>
@@ -365,7 +366,7 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-4">
-                      <label for="employee-function">Função: </label>
+                      <label for="employee-roles">Função: </label>
                     </div>
                     <div class="col">
                       <input type="text" class="form-control" name="role_nameEdit" id="employee_function"

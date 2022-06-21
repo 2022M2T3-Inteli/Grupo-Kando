@@ -101,14 +101,6 @@ function getEmployeeList() {
 
   tableData = []
   data.forEach((row, index) => {
-    let employees = [
-      {
-        nome: 'sahudas'
-      },
-      {
-
-      }
-    ]
     tableData.push(row)
     tableData.available_projects_workload = getEmployeeWorkload(row.id)
     // console.log(tableData.available_projects_workload)
@@ -144,6 +136,25 @@ function getEmployeeList() {
 				</div>
 			</div>
 		`
+
+    // if (tableData[index].allocation > 176) {
+    //   $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+    //     color: '#020202',
+    //     'font-weight': 800
+    //   })
+    // } else if (
+    //   tableData[index].allocation > tableData[index].totalHours
+    // ) {
+    //   $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+    //     color: '#D30000',
+    //     'font-weight': 600
+    //   })
+    // } else {
+    //   $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+    //     color: 'green',
+    //     'font-weight': 600
+    //   })
+    // }
   })
 
   $(employeeTable).bootstrapTable("destroy")
@@ -167,9 +178,11 @@ function getRoles() {
   let data = JSON.parse(xhtpp.responseText)
 
   let selectRoles = $("#employee-roles")[0]
-  console.log(data)
+  let rolesFilter = $("#roles-filter")[0]
+
   data.forEach(role => {
     selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
+    rolesFilter.innerHTML += `<option value="${role.name}">${role.name}</option>`
   })
 }
 getRoles()
@@ -350,25 +363,4 @@ $(searchInput).keyup(function () {
 
     delay += 0
   })
-})
-
-employeeRows.each(function (index) {
-  if (employeesData[index].allocation > 176) {
-    $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
-      color: '#020202',
-      'font-weight': 800
-    })
-  } else if (
-    employeesData[index].allocation > employeesData[index].totalHours
-  ) {
-    $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
-      color: '#D30000',
-      'font-weight': 600
-    })
-  } else {
-    $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
-      color: 'green',
-      'font-weight': 600
-    })
-  }
 })
