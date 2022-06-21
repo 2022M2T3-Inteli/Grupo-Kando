@@ -25,8 +25,7 @@ function fechar() {
 }
 
 function newRoleName() {
-	let newRole = document.getElementById('new-employee-role').value
-	console.log(newRole)
+	let newRole = document.getElementById('employee-roles').value
 	document.getElementById(newRole).hidden = false
 }
 
@@ -101,9 +100,9 @@ function getProjectsList() {
 				</div>
 
 				<div
-					class="material-symbols-outlined project-view-button"
+					class="material-symbols-outlined project-edit-button"
 					data-bs-toggle="modal"
-					data-bs-target="#view-project-modal"
+					data-bs-target="#edit-project-modal"
 					id="${row.id}"
 					onclick="setEditProjectId(this.id)"
 				>
@@ -136,6 +135,64 @@ function getProjectsList() {
 
 }
 getProjectsList()
+
+function getRoles() {
+	let url = "roles/all"
+
+	let xhtpp = new XMLHttpRequest()
+	xhtpp.open("get", url, false)
+	xhtpp.send()
+
+	let data = JSON.parse(xhtpp.responseText)
+
+	let selectRoles = $("#employee-roles")[0]
+	let rolesList = $("#roles-list")[0]
+	console.log(data)
+	data.forEach(role => {
+		selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
+
+		rolesList.innerHTML += `
+			<div id="${role.name}" class="accordion-item" hidden>
+				<h2 class="accordion-header" id="role-${role.id}-title">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse"
+					data-bs-target="#collapse${role.id}" aria-expanded="true" aria-controls="collapse${role.id}">
+					${role.name}
+				</button>
+				</h2>
+				<div id="collapse${role.id}" class="accordion-collapse collapse show" aria-labelledby="heading${role.id}"
+				data-bs-parent="#roles-list">
+				<div class="accordion-body">
+					<div class="row">
+					<div class="employee">
+						<div class="col employee-name">
+						Hugo Tavares
+						</div>
+
+						<div class="col employee-allocation">
+						<label for="">Alocar: </label>
+						<input type="text" class="employee-allocation-input" />
+						<div>Disponível 25H</div>
+						</div>
+					</div>
+					<div class="employee">
+						<div class="col employee-name">
+						Nicole Queiroz
+						</div>
+						
+						<div class="col employee-allocation">
+						<label for="">Alocar: </label>
+						<input type="text" class="employee-allocation-input" />
+						<div>Disponível 14H</div>
+						</div>
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		`
+	})
+}
+getRoles()
 
 function setEditProjectId(id) {
 

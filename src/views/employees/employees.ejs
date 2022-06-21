@@ -1,626 +1,456 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Funcionários</title>
 
-    <link rel="stylesheet" href="css/employees.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <!-- Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Funcionários</title>
 
-    <!-- Bootstrap Table -->
-    <link
-      href="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <%- include("../partials/sidebar.ejs") %>
+  <link rel="stylesheet" href="css/employees.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- Bootstrap Table -->
+  <link href="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <%- include("../partials/sidebar.ejs") %>
         <div id="page" class="col">
-          <%- include("../partials/header.ejs", {page: "Funcionários"}) %>
-          <div class="row">
-            <div id="main">
-              <div class="container" id="main-container">
-                <div class="row">
-                  <div class="col-3" id="search-project">
-                    <form autocomplete="off" onsubmit="return false;">
-                      <div id="search-group">
-                        <input
-                          type="text"
-                          id="search"
-                          placeholder="Search"
-                          name="search"
-                          autocomplete="off"
-                        />
-                        <div class="input-group-btn">
-                          <img src="img/lupa.png" alt="" />
+          <%- include("../partials/header.ejs", {page: "Funcionários" }) %>
+            <div class="row">
+              <div id="main">
+                <div class="container" id="main-container">
+                  <div class="row">
+                    <div class="col-3" id="search-project">
+                      <form autocomplete="off" onsubmit="return false;">
+                        <div id="search-group">
+                          <input type="text" id="search" placeholder="Search" name="search" autocomplete="off" />
+                          <div class="input-group-btn">
+                            <img src="img/lupa.png" alt="" />
+                          </div>
                         </div>
-                      </div>
-                    </form>
-                  </div>
+                      </form>
+                    </div>
 
-                  <div class="filter">
-                    <select name="role-filter" id="role-filter">
-                      <option value="all" selected>Todos</option>
-                    </select>
-                  </div>
+                    <div class="filter">
+                      <select name="role-filter" id="role-filter">
+                        <option value="all" selected>Todos</option>
+                      </select>
+                    </div>
 
-                  <!-- Button trigger modal add employee -->
-                  <div
-                    class="col add-element-button main-buttons-container"
-                    id="add-employee-button"
-                  >
-                    <button
-                      type="button"
-                      class="btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#add-employee-modal"
-                    >
-                      Adicionar novo
-                    </button>
+                    <!-- Button trigger modal add employee -->
+                    <div class="col add-element-button main-buttons-container" id="add-employee-button">
+                      <button type="button" class="btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#add-employee-modal">
+                        Adicionar novo
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="table-container">
-                  <table
-                    id="employees-table"
-                    class="table table-hover table-style"
-                    data-show-multi-sort="true"
-                    data-sort-priority='[
+                  <div class="table-container">
+                    <table id="employees-table" class="table table-hover table-style" data-show-multi-sort="true"
+                      data-sort-priority='[
                       {"sortName": "name","sortOrder":"desc"},
                       {"sortName": "job","sortOrder":"desc"}, 
-                    ]'
-                  >
-                    <thead>
-                      <tr>
-                        <th data-field="name" data-sortable="true">
-                          Funcionário
-                        </th>
-                        <th data-field="role_name" data-sortable="true">
-                          Função
-                        </th>
-                        <th
-                          data-field="projects_workload"
-                          class="employee-allocation"
-                        >
-                          Alocação
-                        </th>
-                        <th data-field="projectsQty">N° de projetos</th>
-                        <th data-field="tools">Ações</th>
-                      </tr>
-                    </thead>
-                  </table>
+                    ]'>
+                      <thead>
+                        <tr>
+                          <th data-field="name" data-sortable="true">
+                            Funcionário
+                          </th>
+                          <th data-field="role_name" data-sortable="true">
+                            Função
+                          </th>
+                          <th data-field="projects_workload" class="employee-allocation">
+                            Alocação
+                          </th>
+                          <th data-field="projectsQty">N° de projetos</th>
+                          <th data-field="tools">Ações</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
         <!-- toast - employee succesfully added -->
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
-          <div
-            id="liveToast"
-            class="toast"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-          >
+          <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
               <strong class="me-auto">Mensagem</strong>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="toast"
-                aria-label="Close"
-              ></button>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">Funcionário criado com sucesso.</div>
           </div>
         </div>
-      </div>
-
-      <!-- toast - employee added succesfully -->
-      <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div
-          id="addToast"
-          class="toast"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div class="toast-header">
-            <strong class="me-auto">Mensagem</strong>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="toast"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="toast-body">Colaborador cadastrado com sucesso.</div>
-        </div>
-      </div>
     </div>
 
-    <!-- toast - employee edited succesfully -->
+    <!-- toast - employee added succesfully -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        id="editToast"
-        class="toast"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
+      <div id="addToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <strong class="me-auto">Mensagem</strong>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body">Colaborador alterado com sucesso.</div>
+        <div class="toast-body">Colaborador cadastrado com sucesso.</div>
       </div>
     </div>
+  </div>
 
-    <!-- toast - employee deleted succesfully -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        id="deleteToast"
-        class="toast"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="toast-header">
-          <strong class="me-auto">Mensagem</strong>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body">Colaborador excluído com sucesso.</div>
+  <!-- toast - employee edited succesfully -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="editToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Mensagem</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
+      <div class="toast-body">Colaborador alterado com sucesso.</div>
     </div>
+  </div>
 
-    <!-- Modal Add Employee -->
-    <form action="/employees" method="POST">
-      <div class="parent-modal">
-        <div
-          class="modal fade"
-          id="add-employee-modal"
-          tabindex="-1"
-          aria-labelledby="add-employee-modal-label"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-container">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="add-employee-modal-label">
-                  Adicionar Funcionário
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+  <!-- toast - employee deleted succesfully -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Mensagem</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">Colaborador excluído com sucesso.</div>
+    </div>
+  </div>
+
+  <!-- Modal Add Employee -->
+  <form action="/employees" method="POST">
+    <div class="parent-modal">
+      <div class="modal fade" id="add-employee-modal" tabindex="-1" aria-labelledby="add-employee-modal-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-container">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="add-employee-modal-label">
+                Adicionar Funcionário
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row container">
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="employee-name">Nome do Funcionário: </label>
+                  </div>
+                  <div class="col">
+                    <input type="text" class="form-control" name="name" id="employee-name"
+                      placeholder="Nome do Funcionário" />
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="employee-function">Função: </label>
+                  </div>
+                  <div class="col">
+                    <select name="role_name" id="employee-function">
+                    </select>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="employee-local">Região: </label>
+                  </div>
+                  <div class="col">
+                    <select name="location" id="local">
+                      <option value="AM">Manaus</option>
+                      <option value="SP">Guarulhos</option>
+                      <option value="">Ambos</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="employee-worktime">Tempo alocado para projetos no mês:
+                    </label>
+                  </div>
+                  <div class="col">
+                    <input type="number" name="projects_workload" id="employee-worktime" />
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-4">
+                    <label for="">Funcionário Interno (CLT)</label>
+                  </div>
+                  <div class="col">
+                    <select name="type" id="">
+                      <option value="clt">CLT</option>
+                      <option value="third-employee">Terceiro</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-1"><label for="tags">Tags: </label></div>
+                  <div class="col employee-tag-list">
+                    <div class="employee-tag-element"></div>
+                    <div class="employee-add-tag">
+                      <button type="button" onclick="newTagName()">+</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="modal-body">
-                <div class="row container">
-                  <div class="row form-group">
+            </div>
+            <div class="modal-footer">
+              <div class="buttons-container">
+                <button type="submit" onclick="toastTriggerAdd()" class="btn-primary" id="liveToastBtn"
+                  data-bs-dismiss="modal" aria-label="Close">
+                  Adicionar Funcionário
+                </button>
+              </div>
+              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+              <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Modal View Employee -->
+  <div class="parent-modal parent-modal-employee">
+    <div class="modal fade" id="view-employee-modal" tabindex="-1" aria-labelledby="view-employee-modal-label"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-container">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col"></div>
+            <div class="col">
+              <h5 class="modal-title" id="view-employee-modal-label">
+                Colaborador
+              </h5>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row container">
+              <div class="row" id="employee-info-section"></div>
+              <div class="row">
+                <table id="employee-project-list" class="table table-sm employee-view-tables">
+                  <thead>
+                    <tr class="table-head">
+                      <th scope="col">Projeto</th>
+                      <th scope="col">Andamento</th>
+                      <th scope="col">Horas / Dia</th>
+                      <th scope="col">Horas / Mês</th>
+                      <th scope="col">Início</th>
+                      <th scope="col">Fim</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Projeto 1</td>
+                      <td>80%</td>
+                      <td>1H</td>
+                      <td>10h</td>
+                      <td>01/02/22</td>
+                      <td>08/08/22</td>
+                    </tr>
+                    <tr>
+                      <td>Projeto 4</td>
+                      <td>40%</td>
+                      <td>2H</td>
+                      <td>10H</td>
+                      <td>14/04/22</td>
+                      <td>03/12/22</td>
+                    </tr>
+                    <tr>
+                      <td>Projeto 5</td>
+                      <td>60%</td>
+                      <td>3h</td>
+                      <td>15H</td>
+                      <td>23/05/22</td>
+                      <td>17/11/22</td>
+                    </tr>
+                    <tr>
+                      <td>Projeto 8</td>
+                      <td>60%</td>
+                      <td>1H</td>
+                      <td>35H</td>
+                      <td>23/05/22</td>
+                      <td>17/11/22</td>
+                    </tr>
+                    <tr>
+                      <td>Projeto 4</td>
+                      <td>40%</td>
+                      <td>2H</td>
+                      <td>18H</td>
+                      <td>14/04/22</td>
+                      <td>03/12/22</td>
+                    </tr>
+                    <tr>
+                      <td>Projeto 5</td>
+                      <td>60%</td>
+                      <td>2 H</td>
+                      <td>22H</td>
+                      <td>23/05/22</td>
+                      <td>17/11/22</td>
+                    </tr>
+                    <tr>
+                      <td>Projeto 8</td>
+                      <td>60%</td>
+                      <td>1H</td>
+                      <td>59H</td>
+                      <td>23/05/22</td>
+                      <td>17/11/22</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal remove employee -->
+  <div class="modal fade" id="remove-employee-modal" tabindex="-1" aria-labelledby="view-employee-modal-label"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Remover Funcionário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Deseja Remover o Funcionario?</p>
+        </div>
+        <div class="modal-footer" id="delete-modal"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Employee -->
+  <div class="parent-modal">
+    <div class="modal fade" id="edit-employee-modal" tabindex="-1" aria-labelledby="edit-employee-modal-label"
+      aria-hidden="true">
+      <form action="/employees/edit" method="post">
+        <div class="modal-dialog modal-dialog-container">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="edit-employee-modal-label">
+                Editar Funcionário
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row container">
+                <input style="display: hidden" type="hidden" name="id" id="employee_id" value="" />
+                <div class="form-group">
+                  <div class="row">
                     <div class="col-4">
                       <label for="employee-name">Nome do Funcionário: </label>
                     </div>
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="name"
-                        id="employee-name"
-                        placeholder="Nome do Funcionário"
-                      />
+                    <div class="col-8">
+                      <input type="text" class="form-control" name="nameEdit" id="employee_name"
+                        placeholder="Nome do Funcionário" value="" />
                     </div>
                   </div>
-                  <div class="row form-group">
+                </div>
+                <div class="form-group">
+                  <div class="row">
                     <div class="col-4">
                       <label for="employee-function">Função: </label>
                     </div>
                     <div class="col">
-                      <select name="role_name" id="employee-function">
-                        <option value="dev">Desenvolvedor</option>
-                        <option value="Analista">Analista</option>
-                        <option value="DBA-manager">Gerente de Projetos</option>
-                      </select>
+                      <input type="text" class="form-control" name="role_nameEdit" id="employee_function"
+                        placeholder="Função" value="" />
                     </div>
                   </div>
-                  <div class="row form-group">
+                </div>
+                <div class="form-group">
+                  <div class="row">
                     <div class="col-4">
                       <label for="employee-local">Região: </label>
                     </div>
                     <div class="col">
-                      <select name="location" id="local">
-                        <option value="AM">Manaus</option>
-                        <option value="SP">Guarulhos</option>
-                        <option value="">Ambos</option>
+                      <select name="locationEdit" id="employee-location">
+                        <option value="Ambos">Ambos</option>
+                        <option value="SP">SP</option>
+                        <option value="AM">AM</option>
                       </select>
                     </div>
                   </div>
-                  <div class="row form-group">
+                </div>
+                <div class="form-group">
+                  <div class="row">
                     <div class="col-4">
-                      <label for="employee-worktime"
-                        >Tempo alocado para projetos no mês:
+                      <label for="employee-worktime">Tempo alocado para projetos no mês:
                       </label>
                     </div>
                     <div class="col">
-                      <input
-                        type="number"
-                        name="projects_workload"
-                        id="employee-worktime"
-                      />
+                      <input type="number" name="projects_workloadEdit" class="form-control" id="employee_workload"
+                        value="" />
                     </div>
                   </div>
-                  <div class="row form-group">
+                </div>
+                <div class="form-group">
+                  <div class="row">
                     <div class="col-4">
-                      <label for="">Funcionário Interno (CLT)</label>
+                      <label for="">Tipo (CLT ou Terceirizado) </label>
                     </div>
                     <div class="col">
-                      <select name="type" id="">
-                        <option value="clt">CLT</option>
-                        <option value="third-employee">Terceiro</option>
+                      <select name="typeEdit" id="employee-type">
+                        <option value="CLT">CLT</option>
+                        <option value="TERCEIRO">Terceiro</option>
                       </select>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col employee-tag-list">
-                      <div class="employee-tag-element"></div>
-                      <div class="employee-add-tag">
-                        <button type="button" onclick="newTagName()">+</button>
-                      </div>
+                </div>
+                <div class="row">
+                  <div class="col-1"><label for="tags">Tags: </label></div>
+                  <div class="col employee-tag-list">
+                    <div id="employee-tag-element"></div>
+                    <div id="employee-add-tag">
+                      <button type="button" onclick="newTagName()">+</button>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <div class="buttons-container">
-                  <button
-                    type="submit"
-                    onclick="toastTriggerAdd()"
-                    class="btn-primary"
-                    id="liveToastBtn"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    Adicionar Funcionário
+                <div id="buttons-container">
+                  <button type="submit" id="button" class="btn-primary" data-bs-dismiss="modal" aria-label="Close">
+                    Salvar
                   </button>
                 </div>
-                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
-
-    <!-- Modal View Employee -->
-    <div class="parent-modal parent-modal-employee">
-      <div
-        class="modal fade"
-        id="view-employee-modal"
-        tabindex="-1"
-        aria-labelledby="view-employee-modal-label"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-container">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="col"></div>
-              <div class="col">
-                <h5 class="modal-title" id="view-employee-modal-label">
-                  Colaborador
-                </h5>
-              </div>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="row container">
-                <div class="row" id="employee-info-section"></div>
-                <div class="row">
-                  <table
-                    id="employee-project-list"
-                    class="table table-sm employee-view-tables"
-                  >
-                    <thead>
-                      <tr class="table-head">
-                        <th scope="col">Projeto</th>
-                        <th scope="col">Andamento</th>
-                        <th scope="col">Horas / Dia</th>
-                        <th scope="col">Horas / Mês</th>
-                        <th scope="col">Início</th>
-                        <th scope="col">Fim</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Projeto 1</td>
-                        <td>80%</td>
-                        <td>1H</td>
-                        <td>10h</td>
-                        <td>01/02/22</td>
-                        <td>08/08/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 4</td>
-                        <td>40%</td>
-                        <td>2H</td>
-                        <td>10H</td>
-                        <td>14/04/22</td>
-                        <td>03/12/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 5</td>
-                        <td>60%</td>
-                        <td>3h</td>
-                        <td>15H</td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 8</td>
-                        <td>60%</td>
-                        <td>1H</td>
-                        <td>35H</td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 4</td>
-                        <td>40%</td>
-                        <td>2H</td>
-                        <td>18H</td>
-                        <td>14/04/22</td>
-                        <td>03/12/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 5</td>
-                        <td>60%</td>
-                        <td>2 H</td>
-                        <td>22H</td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                      <tr>
-                        <td>Projeto 8</td>
-                        <td>60%</td>
-                        <td>1H</td>
-                        <td>59H</td>
-                        <td>23/05/22</td>
-                        <td>17/11/22</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </form>
+      <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+      <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
     </div>
+  </div>
 
-    <!-- modal remove employee -->
-    <div
-      class="modal fade"
-      id="remove-employee-modal"
-      tabindex="-1"
-      aria-labelledby="view-employee-modal-label"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Remover Funcionário</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>Deseja Remover o Funcionario?</p>
-          </div>
-          <div class="modal-footer" id="delete-modal"></div>
-        </div>
-      </div>
-    </div>
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <!-- Modal Edit Employee -->
-    <div class="parent-modal">
-      <div
-        class="modal fade"
-        id="edit-employee-modal"
-        tabindex="-1"
-        aria-labelledby="edit-employee-modal-label"
-        aria-hidden="true"
-      >
-        <form action="/employees/edit" method="post">
-          <div class="modal-dialog modal-dialog-container">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="edit-employee-modal-label">
-                  Editar Funcionário
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <div class="row container">
-                  <input
-                    style="display: hidden"
-                    type="hidden"
-                    name="id"
-                    id="employee_id"
-                    value=""
-                  />
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="employee-name">Nome do Funcionário: </label>
-                      </div>
-                      <div class="col-8">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="nameEdit"
-                          id="employee_name"
-                          placeholder="Nome do Funcionário"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="employee-function">Função: </label>
-                      </div>
-                      <div class="col">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="role_nameEdit"
-                          id="employee_function"
-                          placeholder="Função"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="employee-local">Região: </label>
-                      </div>
-                      <div class="col">
-                        <select name="locationEdit" id="employee-location">
-                          <option value="Ambos">Ambos</option>
-                          <option value="SP">SP</option>
-                          <option value="AM">AM</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="employee-worktime"
-                          >Tempo alocado para projetos no mês:
-                        </label>
-                      </div>
-                      <div class="col">
-                        <input
-                          type="number"
-                          name="projects_workloadEdit"
-                          class="form-control"
-                          id="employee_workload"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-4">
-                        <label for="">Tipo (CLT ou Terceirizado) </label>
-                      </div>
-                      <div class="col">
-                        <select name="typeEdit" id="employee-type">
-                          <option value="CLT">CLT</option>
-                          <option value="TERCEIRO">Terceiro</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1"><label for="tags">Tags: </label></div>
-                    <div class="col employee-tag-list">
-                      <div id="employee-tag-element"></div>
-                      <div id="employee-add-tag">
-                        <button type="button" onclick="newTagName()">+</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <div id="buttons-container">
-                    <button
-                      type="submit"
-                      id="button"
-                      class="btn-primary"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      Salvar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-        <!-- <button type="button" class="btn btn-primary">PLACEHOLDER</button> -->
-      </div>
-    </div>
+  <!-- Bootstrap Table -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.js"></script>
+  <!-- Latest compiled and minified Locales -->
+  <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+  <script src="js/employees.js"></script>
+</body>
 
-    <!-- Bootstrap -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- Bootstrap Table -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/bootstrap-table.min.js"></script>
-    <!-- Latest compiled and minified Locales -->
-    <script src="https://unpkg.com/bootstrap-table@1.20.1/dist/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="js/employees.js"></script>
-  </body>
 </html>

@@ -93,48 +93,40 @@
     </div>
   </div>
 
-    <!-- toast - project edited succesfully -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div id="editToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <strong class="me-auto">Mensagem</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">Projeto alterado com sucesso.</div>
+  <!-- toast - project edited succesfully -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="editToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Mensagem</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
+      <div class="toast-body">Projeto alterado com sucesso.</div>
     </div>
+  </div>
 
-    <!-- toast - project deleted succesfully -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <strong class="me-auto">Mensagem</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">Projeto excluído com sucesso.</div>
+  <!-- toast - project deleted succesfully -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Mensagem</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
+      <div class="toast-body">Projeto excluído com sucesso.</div>
     </div>
+  </div>
 
   <!-- modal add project -->
   <form action="/projects" method="POST">
     <div class="parent-modal">
-      <div class="modal fade" 
-        id="add-project-modal" 
-        tabindex="-1" 
-        aria-labelledby="add-project-modal-label"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="add-project-modal" tabindex="-1" aria-labelledby="add-project-modal-label"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-container">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="add-project-modal-label">
                 <strong>Adicionar Projeto</strong>
               </h5>
-              <button 
-                type="button" 
-                class="btn-close" 
-                data-bs-dismiss="modal" 
-                aria-label="Close">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               </button>
             </div>
             <div class="modal-body">
@@ -144,13 +136,7 @@
                     <label for="name">Nome do Projeto: </label>
                   </div>
                   <div class="col-8">
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      name="name" 
-                      id="name"
-                      placeholder="Nome do Projeto" 
-                    />
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Nome do Projeto" />
                   </div>
                 </div>
                 <div class="row form-group">
@@ -158,11 +144,7 @@
                     <label for="start_date">Data de Inicio: </label>
                   </div>
                   <div class="col">
-                    <input 
-                      type="date" 
-                      name="start_date" 
-                      id="start_date" 
-                    />
+                    <input type="date" name="start_date" id="start_date" />
                   </div>
                 </div>
                 <div class="row form-group">
@@ -170,11 +152,7 @@
                     <label for="end_date">Data de Conclusão: </label>
                   </div>
                   <div class="col">
-                    <input 
-                      type="date" 
-                      name="end_date" 
-                      id="end_date" 
-                    />
+                    <input type="date" name="end_date" id="end_date" />
                   </div>
                 </div>
                 <div class="row form-group">
@@ -195,11 +173,7 @@
                     </label>
                   </div>
                   <div class="col-8">
-                    <textarea 
-                      class="form-control" 
-                      name="description" 
-                      id="description"
-                      rows="6">
+                    <textarea class="form-control" name="description" id="description" rows="6">
                     </textarea>
                   </div>
                   <div class="row" id="div-add-role">
@@ -209,8 +183,8 @@
                     <div class="col" id="add-employee-role">
                       <div class="row">
                         <div class="col-10">
-                          <select class="form-control" id="new-employee-role">
-                            <option value="dev" id="developer-role-name">
+                          <select class="form-control" id="employee-roles">
+                            <!-- <option value="dev" id="developer-role-name">
                               Desenvolvedor
                             </option>
                             <option value="analyst" id="analist-role-name">
@@ -221,7 +195,7 @@
                             </option>
                             <option value="mannager" id="tester-role-name">
                               Gestor de Projeto
-                            </option>
+                            </option> -->
                           </select>
                         </div>
                         <div id="new-role-add" class="col-2">
@@ -233,273 +207,7 @@
                     </div>
                   </div>
                   <div class="row" id="roles-added">
-                    <div class="accordion" id="accordionExample">
-                      <div id="analyst" class="accordion-item" hidden>
-                        <h2 class="accordion-header" id="headingOne">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Analistas
-                          </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                          data-bs-parent="#accordionExample">
-                          <div class="accordion-body">
-                            <div class="row">
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Hugo Tavares
-                                </div>
-
-                                 <!--Select mês para horas alocadas-->
-                                 <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 25H</div>
-                                </div>
-                              </div>
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Nicole Queiroz
-                                </div>
-
-                                 <!--Select mês para horas alocadas-->
-                                 <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-                                
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 14H</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div id="dev" class="accordion-item" hidden>
-                        <h2 class="accordion-header" id="headingTwo">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Desenvolvedores
-                          </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                          data-bs-parent="#accordionExample">
-                          <div class="accordion-body">
-                            <div class="row">
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Fernando Paiva
-                                </div>
-                                <!--Select mês para horas alocadas-->
-                                <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 120H</div>
-                                </div>
-                              </div>
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Thaís Araujo
-                                </div>
-                                 <!--Select mês para horas alocadas-->
-                                 <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 140H</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div id="tester" class="accordion-item" hidden>
-                        <h2 class="accordion-header" id="headingThree">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Testers
-                          </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                          data-bs-parent="#accordionExample">
-                          <div class="accordion-body">
-                            <div class="row">
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Beatriz Trindade
-                                </div>
-                                 <!--Select mês para horas alocadas-->
-                                 <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 110H</div>
-                                </div>
-                              </div>
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Ronaldo Freitas
-                                </div>
-                                 <!--Select mês para horas alocadas-->
-                                 <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 67H</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div id="mannager" class="accordion-item" hidden>
-                        <h2 class="accordion-header" id="headingFour">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            Gestores de Projetos
-                          </button>
-                        </h2>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                          data-bs-parent="#accordionExample">
-                          <div class="accordion-body">
-                            <div class="row">
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Raquel Farias
-                                </div>
-                                 <!--Select mês para horas alocadas-->
-                                 <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 32H</div>
-                                </div>
-                              </div>
-                              <div class="employee">
-                                <div class="col employee-name">
-                                  Cláudio Pimentel
-                                </div>
-                                 <!--Select mês para horas alocadas-->
-                                 <select name="hoursPermonth" id="hoursPermonth">
-                                  <option value="Janeiro">Janeiro</option>
-                                  <option value="Fevereiro">Fevereiro</option>
-                                  <option value="Março">Março</option>
-                                  <option value="Abril">Abril</option>
-                                  <option value="Maio">Maio</option>
-                                  <option value="Junho">Junho</option>
-                                  <option value="Julho">Julho</option>
-                                  <option value="Agosto">Agosto</option>
-                                  <option value="Setembro">Setembro</option>
-                                  <option value="Outubro">Outubro</option>
-                                  <option value="Novembro">Novembro</option>
-                                  <option value="Dezembro">Dezembro</option>
-                                </select>
-                                <div class="col employee-allocation">
-                                  <label for="">Alocar: </label>
-                                  <input type="text" class="employee-allocation-input" />
-                                  <div>Disponível 79H</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="accordion" id="roles-list">
                     </div>
                   </div>
                 </div>
@@ -507,7 +215,8 @@
             </div>
             <div class="modal-footer">
               <div class="buttons-container">
-                <button type="submit" onclick="toastTrigger()" class="btn-primary" id="liveToastBtn" data-bs-dismiss="modal" aria-label="Close">
+                <button type="submit" onclick="toastTrigger()" class="btn-primary" id="liveToastBtn"
+                  data-bs-dismiss="modal" aria-label="Close">
                   Criar Projeto
                 </button>
               </div>
@@ -516,7 +225,7 @@
         </div>
       </div>
     </div>
-    </form>
+  </form>
   <!-- modal view project -->
   <div class="parent-modal parent-modal-project">
     <div class="modal fade" id="view-project-modal" tabindex="-1" aria-labelledby="view-project-modal-label"
@@ -535,7 +244,7 @@
           </div>
           <div class="modal-body">
             <div class="row container" id="project-info-section">
-              
+
             </div>
 
             <div class="row container">
@@ -572,13 +281,8 @@
     </div>
   </div>
   <!-- modal remove project -->
-  <div
-  class="modal fade"
-  id="remove-project-modal"
-  tabindex="-1"
-  aria-labelledby="view-project-modal-label"
-  aria-hidden="true"
-  >
+  <div class="modal fade" id="remove-project-modal" tabindex="-1" aria-labelledby="view-project-modal-label"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -590,19 +294,20 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteProject()">Excluir</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            onclick="deleteProject()">Excluir</button>
         </div>
       </div>
     </div>
   </div>
 
-  
+
 
   <!-- modal edit project -->
   <div class="parent-modal">
     <div class="modal fade" id="edit-project-modal" tabindex="-1" aria-labelledby="edit-project-modal-label"
       aria-hidden="true">
-      <form action = "/projects/edit" method = "post">
+      <form action="/projects/edit" method="post">
         <div class="modal-dialog modal-dialog-container">
           <div class="modal-content">
             <div class="modal-header">
@@ -614,7 +319,7 @@
             <div class="modal-body">
               <div class="row container">
                 <form action="page2">
-                  <input style = "display: hidden;" type = "hidden" name = "id" id = "project_id" value = "">
+                  <input style="display: hidden;" type="hidden" name="id" id="project_id" value="">
                 </form>
                 <div class="form-group">
                   <div class="row">
@@ -622,7 +327,7 @@
                       <label for="project-name">Nome do Projeto: </label>
                     </div>
                     <div class="col-8">
-                      <input type="text" class="form-control" name="project_name" id="project-name" value = ""
+                      <input type="text" class="form-control" name="project_name" id="project-name" value=""
                         placeholder="Nome do Projeto" />
                     </div>
                   </div>
@@ -634,7 +339,7 @@
                     </div>
                     <div class="col-8">
                       <input type="text" class="form-control" name="project_location" id="project-location"
-                        placeholder="Região" value = "" />
+                        placeholder="Região" value="" />
                     </div>
                   </div>
                 </div>
@@ -644,7 +349,7 @@
                       <label for="project-start-date">Início: </label>
                     </div>
                     <div class="col-8">
-                      <input type="text" class="form-control" name="project_start_date" id="project-start-date" value = ""
+                      <input type="text" class="form-control" name="project_start_date" id="project-start-date" value=""
                         placeholder="Data de Início" />
                     </div>
                   </div>
@@ -655,7 +360,7 @@
                       <label for="project-end-date">Fim: </label>
                     </div>
                     <div class="col-8">
-                      <input type="text" class="form-control" name="project_end_date" id="project-end-date" value = ""
+                      <input type="text" class="form-control" name="project_end_date" id="project-end-date" value=""
                         placeholder="Data de Fim" />
                     </div>
                   </div>
@@ -666,19 +371,19 @@
                       <label for="project-start-date">Descrição: </label>
                     </div>
                     <div class="col-8">
-                      <input type="text" class="form-control" name="project_description" id="project_description" value = ""
-                        placeholder="Descrição" />
+                      <input type="text" class="form-control" name="project_description" id="project_description"
+                        value="" placeholder="Descrição" />
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-4">
-                      <label for="project-start-date">ID do Departamento: </label>
+                      <label for="project-start-date">Departamento: </label>
                     </div>
                     <div class="col-8">
-                      <input type="text" class="form-control" name="department_id" id="department-id" value = ""
-                        placeholder="ID do Departamento" />
+                      <input type="text" class="form-control" name="department" id="department" value=""
+                        placeholder="Departamento do Projeto" />
                     </div>
                   </div>
                 </div>

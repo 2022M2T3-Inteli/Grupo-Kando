@@ -1,5 +1,5 @@
 var rolesAdded = document.querySelector('#roles-added')
-var newEmployeeRole = document.querySelector('#new-employee-role')
+var newEmployeeRole = document.querySelector('#employee-roles')
 var newEmployeeRoleName = newEmployeeRole.options[select.selectedIndex].text
 
 // function que adiciona uma função na 

@@ -43,7 +43,7 @@ router.post('/', urlencodedParser, (req, res) => {
   // res.send(req.body)
 
   sql =
-    "INSERT INTO Project (name, location, start_date, end_date, description, department_id) VALUES ('" +
+    "INSERT INTO Project (name, location, start_date, end_date, description, department_name) VALUES ('" +
     req.body.name +
     "', '" +
     req.body.location +
@@ -54,7 +54,7 @@ router.post('/', urlencodedParser, (req, res) => {
     "','" +
     req.description +
     "', '" +
-    req.body.department_id +
+    req.body.department_name +
     "')" // código sql que insere um um novo projeto no banco de dados, requisitando nome, localização, data de início, de final, descrição e departamento
 
   db.run(sql, [], err => {
