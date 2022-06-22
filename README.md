@@ -32,33 +32,28 @@ Seu principal objetivo é facilitar o processo de análise de disponibilidade de
 <br><br>
 
 
-
 ## 📂 Estrutura de pastas
 
--Raiz<br>
-|<br>
-|-->documentos<br>
-  &emsp;|WAD - Yamaha Planning System.pdf<br>
-|-->src<br>
-  &emsp;|-->bin<br>
-    &emsp;&emsp;|www (arquivo usado pelo express para iniciar o app)<br>
-  &emsp;|-->config<br>
-    &emsp;&emsp;|config.json (configurações do banco de dados)<br>
-  &emsp;|-->controllers (pasta com os arquivos de controllers - C do MVC)<br>
-  &emsp;|-->migrations (migrações para criar a estrutura do banco de dados do zero)<br>
-  &emsp;|-->models (pasta com os arquivos de models - M do MVC)<br>
-  &emsp;|-->public<br>
-    &emsp;&emsp;|-->images (imagens usadas no frontend)<br>
-    &emsp;&emsp;|-->javascripts (scripts usados no frontend)<br>
-    &emsp;&emsp;|-->stylesheets (css usados no frontend)<br>
-  &emsp;|-->routes (pasta com os arquivos de rotas da aplicação)<br>
-  &emsp;|-->seeders (arquivos padrão para popular o banco de dados do zero)<br>
-  &emsp;|-->views (pasta com os arquivos EJS da aplicação - V do MVC)<br>
-  &emsp;|.eslintrc.json (arquivo de configuração do eslint)<br>
-  &emsp;|.prettierrc.json (arquivo de configuração do prettier)<br>
-  &emsp;|app.js (arquivo de configuração do express)<br>
-  &emsp;|package-lock.json (arquivo de configuração do npm)<br>
-  &emsp;|package.json (arquivo de configuração do npm)<br>
+⬛ Raiz<br>
+<br>
+◼ documentos<br>
+  &emsp;◾ WAD - Grupo 1 Kando - Documento Aplicação Web.pdf<br>
+◼ src<br>
+  &emsp;◾ controllers (pasta com os arquivos de controllers - C do MVC)<br>
+  &emsp;◾ data (banco de dados)<br>
+  &emsp;◾ public<br>
+    &emsp;&emsp;◾ images (imagens usadas no frontend)<br>
+    &emsp;&emsp;◾ javascripts (scripts usados no frontend)<br>
+    &emsp;&emsp;◾ stylesheets (css usados no frontend)<br>
+  &emsp;◾ routes (pasta com os arquivos de rotas da aplicação)<br>
+  &emsp;◾ views (pasta com os arquivos EJS da aplicação - V do MVC)<br>
+  <br>
+  <br>
+  &emsp;◾ eslintrc.json (arquivo de configuração do eslint)<br>
+  &emsp;◾ prettierrc.json (arquivo de configuração do prettier)<br>
+  &emsp;◾ app.js (arquivo de configuração do express)<br>
+  &emsp;◾ package-lock.json (arquivo de configuração do npm)<br>
+  &emsp;◾ package.json (arquivo de configuração do npm)<br>
 
 ##  🧑‍💻 Instalação
 
@@ -88,19 +83,19 @@ Disponibilizamos alguns arquivos de "seed" para popular o banco de dados com alg
 
 ## 🗃 Histórico de lançamentos (versões)
 
-- 6.0 - 18/06/2020
+- 6.0 - 20/06/2020
   - Preenchimento do README.md
   - Revisão dos itens preenchidos previamente no WAD
-- 5.0 - 13/06/2020
+- 5.0 - 11/06/2020
   - Preenchimento dos itens 7 e 8 do WAD
-- 4.0 - 31/05/2022
+- 4.0 - 30/05/2022
   - Preenchimento dos itens 4 e 6 do WAD
   - Conclusão do desenvolvimento do backend
-- 3.0 - 17/05/2022
+- 3.0 - 18/05/2022
   - Preenchimento do item 5 do WAD
   - Conclusão do desenvolvimento do frontend
   - Início do desenvolvimento do backend
-- 2.0 - 03/05/2022
+- 2.0 - 02/05/2022
   - Preenchimento dos itens 1 a 3 do WAD
   - Início do desenvolvimento do frontend
 - 1.0 - 26/04/2022
