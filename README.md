@@ -26,7 +26,7 @@
 
 ## 🏍 Descrição
 
-Yamaha Planning System é uma aplicação web de gestão de capacidade ("capacity planning") dos recursos humanos nos projetos da Yamaha.
+A Plataforma de Capacity Planning para Projetos é uma aplicação web de gestão de capacidade ("capacity planning") dos recursos humanos nos projetos da Yamaha.
 <br><br>
 Seu principal objetivo é facilitar o processo de análise de disponibilidade de horas dos recursos humanos da Yamaha para projetos e otimizar a alocação dos funcionários em projetos existentes. O sistema Web pode ser utilizado por um gerente para cadastrar funções, funcionários, projetos e alocações. Também pode ser usado para visualizar de forma analítica a situação atual da empresa, em relação aos projetos e as alocação de funcionários, para assim embasar a tomada de decisões.
 <br><br>
@@ -103,7 +103,7 @@ Disponibilizamos alguns arquivos de "seed" para popular o banco de dados com alg
 
 ## 🎯 Exemplos de uso
 
-O Yamaha Planning System pode ser usado pela Yamaha para gerenciar seus funcionários, especificamente para a alocação de capacidade horária disponível de trabalho dos funcionários nos diversos projetos existentes.
+O Plataforma de Capacity Planning para Projetos pode ser usado pela Yamaha para gerenciar seus funcionários, especificamente para a alocação de capacidade horária disponível de trabalho dos funcionários nos diversos projetos existentes.
 
 Para tanto, o sistema permite o cadastro e a manipulação de informações sobre funções, projetos, funcionários e horas de trabalho mensais alocadas.
 
@@ -113,7 +113,7 @@ O [Manual do Usuário]() elaborado por nós descreve de forma detalhada como rea
 
 ## 📋 Licença
 
-<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2022M2T3/Projeto1">Yamaha Planning System</a> by <span property="cc:attributionName">INTELI, Felipe Saadi, Fernando Paiva, Gabriel Pascoli, Iago Tavares, Mateus Almeida, Rodrigo Martins, Vinicius Santos</span> is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2022M2T3/Projeto1">Plataforma de Capacity Planning para Projetos</a> by <span property="cc:attributionName">INTELI, Felipe Saadi, Fernando Paiva, Gabriel Pascoli, Iago Tavares, Mateus Almeida, Rodrigo Martins, Vinicius Santos</span> is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
 
 
 ## 📚 Referências
