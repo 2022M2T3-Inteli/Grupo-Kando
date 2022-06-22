@@ -163,55 +163,79 @@ function getRoles() {
   })
 }
 
+// função que faz um get dos funcionários de uma determinada função
+function getEmployeesInRole() {
+  let url = '/employees/inrole/DBA' // link da rota para acesso dos dados carregados do banco
+
+  let xhtpp = new XMLHttpRequest() // realização de uma requisição xmlhttp
+  xhtpp.open('get', url, false) // seleciona as informações dos funcionários da função
+  xhtpp.send() // retorna os dados na rota
+
+  let data = JSON.parse(xhtpp.responseText) // transforma os dados em json
+  console.log(data)
+}
+
+getEmployeesInRole()
+
 let roleAllocationArea
-let monthName
-let monthNameBr
-var startMonth
-var startYear
-var endYear
-var endMonth
+let monthName // variável auxiliar para definir o nome dos meses (inglês)
+let monthNameBr // variável auxiliar para definir o nome dos meses (português)
+var startMonth // variável que guarda o valor do mês de início do projeto
+var startYear // variável que guarda valor do ano de início do projeto
+var endYear // variável que guarda valor do ano de fim do projeto
+var endMonth // variável que guarda o valor do mês de fim do projeto
 
 function registerDate() {
+  // caso exista uma área para alocar horas para as funções, o html dela será zerado
   if (roleAllocationArea) {
     roleAllocationArea.each((index, role) => {
       role.innerHTML = ''
     })
   }
 
-  var startDate = document.getElementById('start_date').value.split('-')
-  var endDate = document.getElementById('end_date').value.split('-')
-  startYear = Number(startDate[0])
-  endYear = Number(endDate[0])
-  startMonth = Number(startDate[1])
-  endMonth = Number(endDate[1])
+  var startDate = document.getElementById('start_date').value.split('-') // coleta o valor do input de data de início do projeto, separando dia, mês e ano em uma lista
+  var endDate = document.getElementById('end_date').value.split('-') // coleta o valor do input de data de fim do projeto, separando dia, mês e ano em uma lista
+  startYear = Number(startDate[0]) // armazena o valor do ano de início do projeto
+  endYear = Number(endDate[0]) // armazena o valor do ano de fim do projeto
+  startMonth = Number(startDate[1]) // armazena o valor do mês de início do projeto
+  endMonth = Number(endDate[1]) // armazena o valor do mês de fim do projeto
 
+  // caso o projeto esteja contido dentro o mesmo ano
   if (startYear == endYear) {
+    // estrutura de repetição que cria os inputs para cada mês do projeto
     for (i = startMonth; i <= endMonth; i++) {
-      defineMonthName(i)
-      roleAllocation()
+      defineMonthName(i) // cria uma label com o nome do mês
+      roleAllocation() // cria um input com id personalizado para as horas atribuídas
     }
-  } else {
+  }
+  // caso o projeto tenha uma duração que não esteja contida no mesmo ano
+  else {
+    // estrutura de repetição que cria os inputs para cada mês do projeto
     for (y = startYear; y <= endYear; y++) {
       roleAllocationArea = $('.role-allocation')
 
       roleAllocationArea.each((index, role) => {
+        // o ano correspondente aos meses de atribuição é mostrado acima deles
         role.innerHTML += `<div class=row>${y}</div>`
       })
 
       if (y == startYear) {
         for (i = startMonth; i <= 12; i++) {
-          defineMonthName(i)
-          roleAllocation()
+          // caso esteja no primeiro ano do projeto, os espaços de atribuição de horas por mês serão criados a partir do primeiro mês do projeto
+          defineMonthName(i) // cria uma label com o nome do mês
+          roleAllocation() // cria um input com id personalizado para as horas atribuídas
         }
       } else if (y == endYear) {
         for (i = 1; i <= endMonth; i++) {
-          defineMonthName(i)
-          roleAllocation()
+          // caso esteja no último ano do projeto, os espaços de atribuição de horas por mês serão criados até o último mês do projeto
+          defineMonthName(i) // cria uma label com o nome do mês
+          roleAllocation() // cria um input com id personalizado para as horas atribuídas
         }
       } else {
         for (i = 1; i <= 12; i++) {
-          defineMonthName(i)
-          roleAllocation()
+          // caso esteja em um ano intermediário de projeto, os espaços de atribuição de horas por mês serão criados de janeiro a dezembro
+          defineMonthName(i) // cria uma label com o nome do mês
+          roleAllocation() // cria um input com id personalizado para as horas atribuídas
         }
       }
     }
@@ -225,7 +249,10 @@ function registerDate() {
   }
 }
 
+// função que define o nome dos meses
 function defineMonthName(month) {
+  // no switch case abaixo, nome do mês - em inglês e português, respectivamente - é definido de acordo com o valor recebido no input
+  // 1 corresponde a janeiro, 2 a fevereiro, 3 a março e assim por diante
   switch (month) {
     case 1:
       monthName = 'january'
@@ -278,10 +305,12 @@ function defineMonthName(month) {
   }
 }
 
+// função que cria inputs personalizados para cada mês de atribuição de funções
 function roleAllocation() {
-  roleAllocationArea = $('.role-allocation')
+  roleAllocationArea = $('.role-allocation') // seleciona os elementos de classe role-allocation
 
   roleAllocationArea.each((index, role) => {
+    // define o html interno de cada elemento da classe role-allocation com uma label para o nome do mês e um input com name e id personalizado para cada mês do projeto
     role.innerHTML += `
       <div class="col-3"> 
         <label for="role-hours-${monthName}-${startYear}">${monthNameBr}: 
@@ -294,10 +323,12 @@ function roleAllocation() {
 
 var employeeAllocationArea
 
+// função que cria inputs personalizados para cada mês de atribuição de funcionários
 function employeeAllocation() {
-  employeeAllocationArea = $('.employee-allocation')
+  employeeAllocationArea = $('.employee-allocation') // seleciona os elementos de classe employee-allocation
 
   employeeAllocationArea.each((index, employee) => {
+    // define o html interno de cada elemento da classe employee-allocation com uma label para o nome do mês e um input com name e id personalizado para cada mês do projeto
     employee.innerHTML += `
       <div class="col-3"> 
         <label for="employee-hours-${monthName}-${startYear}">${monthNameBr}: 

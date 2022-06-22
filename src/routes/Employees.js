@@ -9,7 +9,6 @@ const year = today.getFullYear() // função para requisitar o ano atual do sist
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
 // bloco que seleciona todos os funcionários registrados no banco de dados
 router.get('/all', (req, res) => {
   // define /all como o endereço que exibirá o retorno dos comandos abaixo
@@ -40,6 +39,23 @@ router.get('/:id', (req, res) => {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
     res.json(row) // retorno da linha da tabela com o id que foi requisitado
+  })
+})
+
+// bloco que seleciona todos os funcionários de uma determinada função registrados no banco de dados
+router.get('/inrole/:role_name', (req, res) => {
+  // define /inrole/:role_name como o endereço que exibirá o retorno dos comandos abaixo
+  res.statusCode = 200 // código de status de que o comando foi executado sem erros
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+  let role_name = req.params['role_name']
+
+  var sql = 'SELECT * FROM Employee WHERE role_name = ?' // código sql que seleciona os funcionários de uma mesma função, ordenando por id
+  db.all(sql, [role_name], (err, rows) => {
+    // executa o código sql no banco de dados
+    if (err) {
+      throw err // caso ocorra erro, ele será mostrado no terminal
+    }
+    res.json(rows) // retorna a lista de funcionários no formato json
   })
 })
 
@@ -121,7 +137,6 @@ router.post('/edit', urlencodedParser, (req, res) => {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
     res.redirect('back')
-
   })
   // res.location('employees/employees')
 })
@@ -156,8 +171,5 @@ router.get('/employeeworkload/:id', (req, res) => {
     res.json(rows) // retorna a lista de funcionários no formato json
   })
 })
-
-
-
 
 module.exports = router // exporta as rotas criadas para serem usadas na aplicação
