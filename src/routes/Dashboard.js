@@ -273,8 +273,78 @@ router.get('/rolesworkload', (req, res) => {
 
   // Soma as horas de cada função, fazendo um agrupamento
   var sql =
-    'SELECT SUM(hours_assigned) as hours_assigned, role_name FROM EmployeeAssignment INNER JOIN Employee ON EmployeeAssignment.employee_id = Employee.id GROUP BY role_name ORDER BY hours_assigned DESC'
+    'SELECT SUM(hours_assigned) AS hours_assigned, role_name FROM EmployeeAssignment INNER JOIN Employee ON EmployeeAssignment.employee_id = Employee.id GROUP BY role_name ORDER BY hours_assigned DESC'
   db.all(sql, [], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    // Retorna os dados solicitados
+    res.json(rows)
+  })
+})
+
+// ### ROTAS PARA O GRÁFICO "CARGA HORÁRIA MÉDIA" - PROJETO
+
+// bloco que faz um get do número de alocações de cada função em um determinado projeto
+router.get('/rolesassignment/:role_name/:project_id', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let role_name = req.params['role_name']
+  let project_id = req.params['project_id']
+
+  var sql = `SELECT COUNT (hours_assigned) AS assignments FROM EmployeeAssignment WHERE employee_id IN (SELECT Employee.id FROM Employee WHERE Employee.role_name = ?) AND project_id = ?` // código sql que retorna a quantidade de alocações, filtrando por função e por projeto
+  db.all(sql, [role_name, project_id], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    // Retorna os dados solicitados
+    res.json(rows)
+  })
+})
+
+// bloco que faz a soma das horas alocadas de uma função em um determinado projeto
+router.get('/rolesworkloadfiltered/:role_name/:project_id', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let role_name = req.params['role_name']
+  let project_id = req.params['project_id']
+
+  var sql = `SELECT SUM (hours_assigned) FROM EmployeeAssignment WHERE employee_id IN (SELECT Employee.id FROM Employee WHERE Employee.role_name = ?) AND project_id = ?` // código sql que retorna a soma das horas alocadas, filtrando por função e por projeto
+  db.all(sql, [role_name, project_id], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    // Retorna os dados solicitados
+    res.json(rows)
+  })
+})
+
+// #### ROTAS PARA O GRÁFICO "STATUS DOS FUNCIONÁRIOS"
+
+// bloco que faz um get da quantidade de horas disponíveis de um determinado funcionário
+router.get('/availableworkload/:id', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let id = req.params['id']
+
+  var sql = `SELECT available_projects_workload FROM Employee WHERE id = ?` // código sql que retorna a quantidade de horas disponíveis de um determinado funcionário
+  db.all(sql, [id], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    // Retorna os dados solicitados
+    res.json(rows)
+  })
+})
+
+// bloco que faz um get da soma de horas de um determinado funcionário em um determinado mês
+router.get('/monthhoursassigned/:id', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let employee_id = req.params['employee_id']
+
+  var sql = `SELECT SUM(hours_assigned) FROM EmployeeAssignment WHERE employee_id = ? AND month = ${month} AND year = ${year}` // código sql que retorna a soma de horas de um determinado funcionário em um determinado mês
+  db.all(sql, [employee_id], (err, rows) => {
     if (err) {
       throw err
     }
