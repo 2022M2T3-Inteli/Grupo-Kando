@@ -11,113 +11,6 @@ if (localStorage.getItem('message')) {
   }
 }
 
-function clearInputs() {
-  let projectInputs = $("#add-project-modal input")
-  let projectTextAreas = $("#add-project-modal textarea")
-  let locationSelect = $("#location")[0]
-  let rolesList = $('#roles-list')[0]
-  rolesAdded = []
-
-  projectInputs.each((index, input) => {
-    input.value = ''
-  })
-  projectTextAreas.each((index, textArea) => {
-    textArea.value = ''
-  })
-  locationSelect.value = 'AM'
-  rolesList.innerHTML = ''
-}
-
-function abrir() {
-  //animação para abrir o modal
-  var modal = document.querySelector('.modal')
-  modal.style.display = 'block'
-}
-function fechar() {
-  //animação para fechar o modal
-  var modal = document.querySelector('.modal')
-  modal.style.display = 'none'
-}
-
-let rolesAdded = []
-function addRole() {
-  let rolesList = $("#roles-list")[0]
-  let newRole = document.getElementById('employee-roles').value
-
-  if (rolesAdded.indexOf(newRole) == -1) {
-    console.log("teste")
-    rolesAdded.push(newRole)
-    let roleIndex = rolesAdded.indexOf(newRole)
-    rolesList.innerHTML += `
-      <div id="${roleIndex}-accordion" class="accordion-item">
-        <h2 class="accordion-header" id="role-${roleIndex}-title">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapse${roleIndex}" aria-expanded="true" aria-controls="collapse${roleIndex}">
-          ${newRole}
-        </button>
-        </h2>
-        <div id="collapse${roleIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${roleIndex}"
-        data-bs-parent="#roles-list">
-          <div class="accordion-body">
-            <div class="role-allocation row"></div>
-          </>
-        </div>
-      </div>
-    `
-  }
-  updateDates()
-}
-
-let employeesAdded = []
-function addEmployee() {
-  let employeesList = $("#employees-list")[0]
-  let newEmployee = document.getElementById('employee-employees').value
-
-  if (employeesAdded.indexOf(newEmployee) == -1) {
-    console.log("teste")
-    employeesAdded.push(newEmployee)
-    let employeeIndex = employeesAdded.indexOf(newEmployee)
-    employeesList.innerHTML += `
-      <div id="${employeeIndex}-accordion" class="accordion-item">
-        <h2 class="accordion-header" id="role-${employeeIndex}-title">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapse${employeeIndex}" aria-expanded="true" aria-controls="collapse${employeeIndex}">
-          ${newEmployee}
-        </button>
-        </h2>
-        <div id="collapse${employeeIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${employeeIndex}"
-        data-bs-parent="#employees-list">
-          <div class="accordion-body">
-            <div class="employee-allocation row"></div>
-          </>
-        </div>
-      </div>
-    `
-  }
-  generateEmployeeAllocationArea()
-}
-
-function updateDates() {
-  let rolesList = $("#roles-list")
-
-  if(rolesList.length > 0) {
-    registerDate()
-  }
-}
-
-//toast de feedback "projeto criado com sucesso"
-// const toastTrigger = document.getElementById('liveToastBtn')
-// const toastLiveExample = document.getElementById('liveToast')
-// if (toastTrigger) {
-// 	toastTrigger.addEventListener('click', () => {
-// 		setTimeout(function showToast() {
-// 			const toast = new bootstrap.Toast(toastLiveExample)
-// 			toast.show()
-// 		}, 300)
-// 	})
-// }
-
-//toast de feedback "projeto criado com sucesso"
 function toastShow(type) {
   setTimeout(function showToast() {
     let toastElement
@@ -261,6 +154,114 @@ function getEmployees(index) {
     `
   })
 }
+
+function clearInputs() {
+  let projectInputs = $("#add-project-modal input")
+  let projectTextAreas = $("#add-project-modal textarea")
+  let locationSelect = $("#location")[0]
+  let rolesList = $('#roles-list')[0]
+  rolesAdded = []
+
+  projectInputs.each((index, input) => {
+    input.value = ''
+  })
+  projectTextAreas.each((index, textArea) => {
+    textArea.value = ''
+  })
+  locationSelect.value = 'AM'
+  rolesList.innerHTML = ''
+}
+
+// function abrir() {
+//   //animação para abrir o modal
+//   var modal = document.querySelector('.modal')
+//   modal.style.display = 'block'
+// }
+// function fechar() {
+//   //animação para fechar o modal
+//   var modal = document.querySelector('.modal')
+//   modal.style.display = 'none'
+// }
+
+let rolesAdded = []
+function addRole() {
+  let rolesList = $("#roles-list")[0]
+  let newRole = document.getElementById('employee-roles').value
+
+  if (rolesAdded.indexOf(newRole) == -1) {
+    console.log("teste")
+    rolesAdded.push(newRole)
+    let roleIndex = rolesAdded.indexOf(newRole)
+    rolesList.innerHTML += `
+      <div id="${roleIndex}-accordion" class="accordion-item">
+        <h2 class="accordion-header" id="role-${roleIndex}-title">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapse${roleIndex}" aria-expanded="true" aria-controls="collapse${roleIndex}">
+          ${newRole}
+        </button>
+        </h2>
+        <div id="collapse${roleIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${roleIndex}"
+        data-bs-parent="#roles-list">
+          <div class="accordion-body">
+            <div class="role-allocation row"></div>
+          </>
+        </div>
+      </div>
+    `
+  }
+  updateDates()
+}
+
+let employeesAdded = []
+function addEmployee() {
+  let employeesList = $("#employees-list")[0]
+  let newEmployee = document.getElementById('employee-employees').value
+
+  if (employeesAdded.indexOf(newEmployee) == -1) {
+    console.log("teste")
+    employeesAdded.push(newEmployee)
+    let employeeIndex = employeesAdded.indexOf(newEmployee)
+    employeesList.innerHTML += `
+      <div id="${employeeIndex}-accordion" class="accordion-item">
+        <h2 class="accordion-header" id="role-${employeeIndex}-title">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapse${employeeIndex}" aria-expanded="true" aria-controls="collapse${employeeIndex}">
+          ${newEmployee}
+        </button>
+        </h2>
+        <div id="collapse${employeeIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${employeeIndex}"
+        data-bs-parent="#employees-list">
+          <div class="accordion-body">
+            <div class="employee-allocation row"></div>
+          </>
+        </div>
+      </div>
+    `
+  }
+  generateEmployeeAllocationArea()
+}
+
+function updateDates() {
+  let rolesList = $("#roles-list")
+
+  if(rolesList.length > 0) {
+    registerDate()
+  }
+}
+
+//toast de feedback "projeto criado com sucesso"
+// const toastTrigger = document.getElementById('liveToastBtn')
+// const toastLiveExample = document.getElementById('liveToast')
+// if (toastTrigger) {
+// 	toastTrigger.addEventListener('click', () => {
+// 		setTimeout(function showToast() {
+// 			const toast = new bootstrap.Toast(toastLiveExample)
+// 			toast.show()
+// 		}, 300)
+// 	})
+// }
+
+//toast de feedback "projeto criado com sucesso"
 
 let roleAllocationArea
 let employeeAllocationArea
