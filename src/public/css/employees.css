@@ -74,3 +74,14 @@ body{
 .employee-view-tables {
     text-align: center;
 }
+
+.filter {
+  display: flex;
+  flex-direction: row;
+}
+.filter label {
+  margin-right: 10px;
+}
+#roles-filter {
+  height: 30px;
+}

@@ -62,15 +62,16 @@
                     </form>
                   </div>
 
-                  <div class="filter">
-                    <select name="role-filter" id="roles-filter">
-                      <option value="all" selected>Todos</option>
+                  <div class="filter col">
+                    <label for="role-filter">Filtrar por Função:</label>
+                    <select name="role-filter" id="roles-filter" onchange="filterEmployees()">
+                      <option value="" selected>Todas</option>
                     </select>
                   </div>
 
                   <!-- Button trigger modal add employee -->
                   <div
-                    class="col add-element-button main-buttons-container"
+                    class="col-3 add-element-button main-buttons-container"
                     id="add-employee-button"
                   >
                     <button

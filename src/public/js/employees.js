@@ -323,8 +323,13 @@ $(employeeTable).on('sort.bs.table', function () {
 
 let searchInput = $('#search')
 $(searchInput).keyup(function () {
+  filterEmployees()
+})
+
+function filterEmployees() {
   let delay = 100
-  let value = searchInput[0].value
+  let name = searchInput[0].value.toUpperCase()
+  let role = $("#roles-filter")[0].value.toUpperCase()
 
   let employeeRows = $('.table-body-row')
   let employeeReversedRows = []
@@ -336,9 +341,9 @@ $(searchInput).keyup(function () {
 
   employeeReversedRows.forEach(function (row) {
     let employeeName = row.firstChild.innerText.toUpperCase()
-    value = value.toUpperCase()
+    let employeeRole = row.children[1].innerText.toUpperCase()
 
-    if (employeeName.includes(value)) {
+    if (employeeName.includes(name) && employeeRole.includes(role)) {
       setTimeout(function () {
         $(row).css({
           display: 'table',
@@ -365,4 +370,4 @@ $(searchInput).keyup(function () {
 
     delay += 0
   })
-})
+}
