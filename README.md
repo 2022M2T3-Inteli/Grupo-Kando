@@ -114,11 +114,11 @@ Para tanto, o sistema permite o cadastro e a manipulação de informações sobr
 
 Também é possível visualizar a média de horas mensais alocadas para cada função, através de uma tabela. A carga horária alocada e disponível também pode ser vista através de um gráfico.
 
-O [Manual do Usuário](https://docs.google.com/document/d/1wsE33X7ziTOQ9d7AV2s6R8l3oCvOwEv40MZUTXFaiPI/edit#heading=h.28h4qwu) elaborado por nós descreve de forma detalhada como realizar esssas operações.
+O [Manual do Usuário]() elaborado por nós descreve de forma detalhada como realizar esssas operações.
 
 ## 📋 Licença
 
-<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2022M2T3/Projeto4">Yamaha Planning System</a> by <span property="cc:attributionName">INTELI, Felipe Saadi, Fernando Paiva, Gabriel Pascoli, Iago Tavares, Mateus Almeida, Rodrigo Martins, Vinicius Santos</span> is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2022M2T3/Projeto1">Yamaha Planning System</a> by <span property="cc:attributionName">INTELI, Felipe Saadi, Fernando Paiva, Gabriel Pascoli, Iago Tavares, Mateus Almeida, Rodrigo Martins, Vinicius Santos</span> is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
 
 
 ## 📚 Referências
