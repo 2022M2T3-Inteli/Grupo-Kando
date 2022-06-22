@@ -11,6 +11,23 @@ if (localStorage.getItem('message')) {
   }
 }
 
+function clearInputs() {
+  let projectInputs = $("#add-project-modal input")
+  let projectTextAreas = $("#add-project-modal textarea")
+  let locationSelect = $("#location")[0]
+  let rolesList = $('#roles-list')[0]
+  rolesAdded = []
+
+  projectInputs.each((index, input) => {
+    input.value = ''
+  })
+  projectTextAreas.each((index, textArea) => {
+    textArea.value = ''
+  })
+  locationSelect.value = 'AM'
+  rolesList.innerHTML = ''
+}
+
 function abrir() {
   //animação para abrir o modal
   var modal = document.querySelector('.modal')
@@ -22,10 +39,70 @@ function fechar() {
   modal.style.display = 'none'
 }
 
-function newRoleName() {
+let rolesAdded = []
+function addRole() {
+  let rolesList = $("#roles-list")[0]
   let newRole = document.getElementById('employee-roles').value
-  registerDate()
-  document.getElementById(newRole).hidden = false
+
+  if (rolesAdded.indexOf(newRole) == -1) {
+    console.log("teste")
+    rolesAdded.push(newRole)
+    let roleIndex = rolesAdded.indexOf(newRole)
+    rolesList.innerHTML += `
+      <div id="${roleIndex}-accordion" class="accordion-item">
+        <h2 class="accordion-header" id="role-${roleIndex}-title">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapse${roleIndex}" aria-expanded="true" aria-controls="collapse${roleIndex}">
+          ${newRole}
+        </button>
+        </h2>
+        <div id="collapse${roleIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${roleIndex}"
+        data-bs-parent="#roles-list">
+          <div class="accordion-body">
+            <div class="role-allocation row"></div>
+          </>
+        </div>
+      </div>
+    `
+  }
+  updateDates()
+}
+
+let employeesAdded = []
+function addEmployee() {
+  let employeesList = $("#employees-list")[0]
+  let newEmployee = document.getElementById('employee-employees').value
+
+  if (employeesAdded.indexOf(newEmployee) == -1) {
+    console.log("teste")
+    employeesAdded.push(newEmployee)
+    let employeeIndex = employeesAdded.indexOf(newEmployee)
+    employeesList.innerHTML += `
+      <div id="${employeeIndex}-accordion" class="accordion-item">
+        <h2 class="accordion-header" id="role-${employeeIndex}-title">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapse${employeeIndex}" aria-expanded="true" aria-controls="collapse${employeeIndex}">
+          ${newEmployee}
+        </button>
+        </h2>
+        <div id="collapse${employeeIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${employeeIndex}"
+        data-bs-parent="#employees-list">
+          <div class="accordion-body">
+            <div class="employee-allocation row"></div>
+          </>
+        </div>
+      </div>
+    `
+  }
+  generateEmployeeAllocationArea()
+}
+
+function updateDates() {
+  let rolesList = $("#roles-list")
+
+  if(rolesList.length > 0) {
+    registerDate()
+  }
 }
 
 //toast de feedback "projeto criado com sucesso"
@@ -139,45 +216,54 @@ function getRoles() {
   let data = JSON.parse(xhtpp.responseText)
 
   let selectRoles = $('#employee-roles')[0]
-  let rolesList = $('#roles-list')[0]
+  // let rolesList = $('#roles-list')[0]
   console.log(data)
   data.forEach(role => {
     selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
 
-    rolesList.innerHTML += `
-			<div id="${role.name}" class="accordion-item" hidden>
-				<h2 class="accordion-header" id="role-${role.id}-title">
-				<button class="accordion-button" type="button" data-bs-toggle="collapse"
-					data-bs-target="#collapse${role.id}" aria-expanded="true" aria-controls="collapse${role.id}">
-					${role.name}
-				</button>
-				</h2>
-				<div id="collapse${role.id}" class="accordion-collapse collapse show" aria-labelledby="heading${role.id}"
-				data-bs-parent="#roles-list">
-          <div class="accordion-body">
-            <div class="role-allocation row"></div>
-          </>
-				</div>
-			</div>
-		`
+    // rolesList.innerHTML += `
+    // 	<div id="${role.name}" class="accordion-item" hidden>
+    // 		<h2 class="accordion-header" id="role-${role.id}-title">
+    // 		<button class="accordion-button" type="button" data-bs-toggle="collapse"
+    // 			data-bs-target="#collapse${role.id}" aria-expanded="true" aria-controls="collapse${role.id}">
+    // 			${role.name}
+    // 		</button>
+    // 		</h2>
+    // 		<div id="collapse${role.id}" class="accordion-collapse collapse show" aria-labelledby="heading${role.id}"
+    // 		data-bs-parent="#roles-list">
+    //       <div class="accordion-body">
+    //         <div class="role-allocation row"></div>
+    //       </>
+    // 		</div>
+    // 	</div>
+    // `
   })
 }
 
 // função que faz um get dos funcionários de uma determinada função
-function getEmployeesInRole() {
-  let url = '/employees/inrole/DBA' // link da rota para acesso dos dados carregados do banco
+function getEmployees(index) {
+  let roleSelected = rolesAdded[index]
+  $("#allocation-modal-label")[0].innerText = `Alocar ${roleSelected}`
+  let url = `/employees/filterbyrole/${roleSelected}` // link da rota para acesso dos dados carregados do banco
 
   let xhtpp = new XMLHttpRequest() // realização de uma requisição xmlhttp
   xhtpp.open('get', url, false) // seleciona as informações dos funcionários da função
   xhtpp.send() // retorna os dados na rota
 
   let data = JSON.parse(xhtpp.responseText) // transforma os dados em json
+  
+  let allocationRoles = $("#employee-employees")[0]
+  allocationRoles.innerHTML = ''
   console.log(data)
+  data.forEach(employee => {
+    allocationRoles.innerHTML += `
+      <option value="${employee.name}">${employee.name}</option>
+    `
+  })
 }
 
-getEmployeesInRole()
-
 let roleAllocationArea
+let employeeAllocationArea
 let monthName // variável auxiliar para definir o nome dos meses (inglês)
 let monthNameBr // variável auxiliar para definir o nome dos meses (português)
 var startMonth // variável que guarda o valor do mês de início do projeto
@@ -187,9 +273,17 @@ var endMonth // variável que guarda o valor do mês de fim do projeto
 
 function registerDate() {
   // caso exista uma área para alocar horas para as funções, o html dela será zerado
+  roleAllocationArea = $('.role-allocation')
   if (roleAllocationArea) {
     roleAllocationArea.each((index, role) => {
       role.innerHTML = ''
+    })
+  }
+
+  employeeAllocationArea = $('.employee-allocation')
+  if (employeeAllocationArea) {
+    employeeAllocationArea.each((index, employee) => {
+      employee.innerHTML = ''
     })
   }
 
@@ -205,7 +299,7 @@ function registerDate() {
     // estrutura de repetição que cria os inputs para cada mês do projeto
     for (i = startMonth; i <= endMonth; i++) {
       defineMonthName(i) // cria uma label com o nome do mês
-      roleAllocation() // cria um input com id personalizado para as horas atribuídas
+      roleAllocation() // cria um input com id personalizado para as horas atribuíd
     }
   }
   // caso o projeto tenha uma duração que não esteja contida no mesmo ano
@@ -217,6 +311,13 @@ function registerDate() {
       roleAllocationArea.each((index, role) => {
         // o ano correspondente aos meses de atribuição é mostrado acima deles
         role.innerHTML += `<div class=row>${y}</div>`
+      })
+
+      employeeAllocationArea = $('.employee-allocation')
+
+      employeeAllocationArea.each((index, employee) => {
+        // o ano correspondente aos meses de atribuição é mostrado acima deles
+        employee.innerHTML += `<div class=row>${y}</div>`
       })
 
       if (y == startYear) {
@@ -244,7 +345,7 @@ function registerDate() {
   if (roleAllocationArea) {
     roleAllocationArea.each((index, role) => {
       role.innerHTML +=
-        '<div class="row"><button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#allocation-modal">Alocar funcionários</button></div>'
+        `<div class="row"><button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#allocation-modal" onclick="getEmployees(${index})">Alocar funcionários</button></div>`
     })
   }
 }
@@ -321,8 +422,6 @@ function roleAllocation() {
   })
 }
 
-var employeeAllocationArea
-
 // função que cria inputs personalizados para cada mês de atribuição de funcionários
 function employeeAllocation() {
   employeeAllocationArea = $('.employee-allocation') // seleciona os elementos de classe employee-allocation
@@ -339,7 +438,8 @@ function employeeAllocation() {
   })
 }
 
-function registerEmployeeAllocation() {
+function generateEmployeeAllocationArea() {
+  employeeAllocationArea = $('.employee-allocation') // seleciona os elementos de classe employee-allocation
   if (employeeAllocationArea) {
     employeeAllocationArea.each((index, employee) => {
       employee.innerHTML = ''

@@ -43,8 +43,8 @@ router.get('/:id', (req, res) => {
 })
 
 // bloco que seleciona todos os funcionários de uma determinada função registrados no banco de dados
-router.get('/inrole/:role_name', (req, res) => {
-  // define /inrole/:role_name como o endereço que exibirá o retorno dos comandos abaixo
+router.get('/filterbyrole/:role_name', (req, res) => {
+  // define /filterbyrole/:role_name como o endereço que exibirá o retorno dos comandos abaixo
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
   let role_name = req.params['role_name']

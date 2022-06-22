@@ -67,6 +67,7 @@
                     class="btn-primary"
                     data-bs-toggle="modal"
                     data-bs-target="#add-project-modal"
+                    onclick="clearInputs()"
                   >
                     Adicionar novo
                   </button>
@@ -216,7 +217,7 @@
                       <label for="start_date">Data de Inicio: </label>
                     </div>
                     <div class="col">
-                      <input type="date" name="start_date" id="start_date" />
+                      <input type="date" name="start_date" id="start_date" onchange="updateDates()"/>
                     </div>
                   </div>
                   <div class="row form-group">
@@ -224,7 +225,7 @@
                       <label for="end_date">Data de Conclusão: </label>
                     </div>
                     <div class="col">
-                      <input type="date" name="end_date" id="end_date" />
+                      <input type="date" name="end_date" id="end_date" onchange="updateDates()"/>
                     </div>
                   </div>
                   <div class="row form-group">
@@ -275,7 +276,7 @@
                             </select>
                           </div>
                           <div id="new-role-add" class="col-2">
-                            <button type="button" onclick="newRoleName()">
+                            <button type="button" onclick="addRole()">
                               +
                             </button>
                           </div>
@@ -320,7 +321,9 @@
         <div class="modal-dialog modal-dialog-container">
           <div class="modal-content">
             <div class="modal-header">
-              <div class="col"></div>
+              <div class="col-5">
+                <button data-bs-toggle="modal" data-bs-target="#add-project-modal">Voltar</button>
+              </div>
               <div class="col">
                 <h5 class="modal-title" id="allocation-modal-label">
                   Alocar funcionários
@@ -339,17 +342,19 @@
                 <div class="col-3">Funcionário:</div>
                 <div class="col-7">
                   <select
-                    name="employee-selection"
-                    id="employee-selection"
+                    name="employee-employees"
+                    id="employee-employees"
                   ></select>
                 </div>
                 <div class="col-2">
-                  <button type="button" onclick="registerEmployeeAllocation()">
+                  <button type="button" onclick="addEmployee()">
                     Alocar
                   </button>
                 </div>
               </div>
-              <div class="row employee-allocation"></div>
+              <div class="row employees-form" id="employees-added">
+                <div class="accordion" id="employees-list"></div>
+              </div>
             </div>
           </div>
         </div>
