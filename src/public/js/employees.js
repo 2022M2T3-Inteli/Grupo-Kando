@@ -102,7 +102,8 @@ function getEmployeeList() {
   tableData = []
   data.forEach((row, index) => {
     tableData.push(row)
-    tableData.available_projects_workload = getEmployeeWorkload(row.id)
+    tableData[index].available_projects_workload = getEmployeeWorkload(row.id)
+    tableData[index].projects_qty = getProjects(row.id)
     // console.log(tableData.available_projects_workload)
     tableData[index].tools = `
 			<div class="employee-tools">
@@ -188,6 +189,19 @@ function getRoles() {
   })
 }
 getRoles()
+
+function getProjects(id) {
+  let url = `employees/projects/${id}`
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+  console.log(data)
+
+  return data.projects_qty
+}
 
 function getEmployeeWorkload(id) {
   let url = '/employees/employeeworkload/' + id

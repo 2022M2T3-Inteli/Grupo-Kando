@@ -66,15 +66,14 @@ router.get('/projects/:employee_id', (req, res) => {
   let employee_id = req.params['employee_id']
 
   var sql =
-    'SELECT COUNT(DISTINCT project_id) AS projectsQty FROM EmployeeAssignment WHERE employee_id = ?' // seleciona da tabela employee todos as informações do employee que tiver o id requisitado
+    'SELECT COUNT(DISTINCT project_id) AS projects_qty FROM EmployeeAssignment WHERE employee_id = ?' // seleciona da tabela employee todos as informações do employee que tiver o id requisitado
 
-  db.get(sql, [employee_id], (err, rows) => {
+  db.get(sql, [employee_id], (err, row) => {
     // executa o código sql no banco de dados, passando a variável employee id
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
-    console.log | rows
-    res.json(rows) // retorno da linha da tabela com o id que foi requisitado
+    res.json(row) // retorno da linha da tabela com o id que foi requisitado
   })
 })
 
