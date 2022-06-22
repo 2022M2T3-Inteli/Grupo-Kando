@@ -81,8 +81,8 @@ router.post('/edit', urlencodedParser, (req, res) => {
     req.body.project_end_date +
     "', description = '" +
     req.body.project_description +
-    "', department_id = '" +
-    req.body.department_id +
+    "', department_name = '" +
+    req.body.project_department +
     "' WHERE id = " +
     req.body.id // código sql que faz um update de um funcionário já existente no banco de dados, requisitando nome, tags, localização, função, carga horária já usada para projetos, carga horária disponível para projetos e tipo (CLT ou TERCEIRO)
   db.run(sql, [], err => {

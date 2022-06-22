@@ -57,8 +57,7 @@ function getProjectsList() {
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#view-project-modal"
-					id="${row.id}"
-					onclick="viewProject(this.id)"
+					onclick="viewProject(${row.id})"
 				>
 					visibility
 				</div>
@@ -67,8 +66,7 @@ function getProjectsList() {
 					class="material-symbols-outlined project-edit-button"
 					data-bs-toggle="modal"
 					data-bs-target="#edit-project-modal"
-					id="${row.id}"
-					onclick="setEditProjectId(this.id)"
+					onclick="setEditProjectId(${row.id})"
 				>
 					<span class="material-symbols-outlined">
 						edit
@@ -79,8 +77,7 @@ function getProjectsList() {
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#remove-employee-modal"
-					id="${row.id}"
-					onclick="modalDelete(this.id)"
+					onclick="modalDelete(${row.id})"
 					
 				>
 					delete
@@ -492,8 +489,7 @@ function setEditProjectId(id) {
   $('#project-start-date')[0].value = projectData.start_date
   $('#project-end-date')[0].value = projectData.end_date
   $('#project-description')[0].value = projectData.description
-  $('#department-id')[0].value = projectData.department_id
-  console.log($('#employee_id')[0].value)
+  $('#project-department')[0].value = projectData.department_name
 }
 
 function getProject(id) {
