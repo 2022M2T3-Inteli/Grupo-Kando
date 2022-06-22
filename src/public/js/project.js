@@ -188,6 +188,7 @@ function registerDate() {
   if (startYear == endYear) {
     for (i = startMonth; i <= endMonth; i++) {
       defineMonthName(i)
+      roleAllocation()
     }
   } else {
     for (y = startYear; y <= endYear; y++) {
@@ -200,14 +201,17 @@ function registerDate() {
       if (y == startYear) {
         for (i = startMonth; i <= 12; i++) {
           defineMonthName(i)
+          roleAllocation()
         }
       } else if (y == endYear) {
         for (i = 1; i <= endMonth; i++) {
           defineMonthName(i)
+          roleAllocation()
         }
       } else {
         for (i = 1; i <= 12; i++) {
           defineMonthName(i)
+          roleAllocation()
         }
       }
     }
@@ -272,7 +276,9 @@ function defineMonthName(month) {
       monthNameBr = 'Dezembro'
       break
   }
+}
 
+function roleAllocation() {
   roleAllocationArea = $('.role-allocation')
 
   roleAllocationArea.each((index, role) => {
@@ -289,34 +295,6 @@ function defineMonthName(month) {
 var employeeAllocationArea
 
 function employeeAllocation() {
-  if (startYear == endYear) {
-    for (i = startMonth; i <= endMonth; i++) {
-      defineMonthName(i)
-    }
-  } else {
-    for (y = startYear; y <= endYear; y++) {
-      employeeAllocationArea.each((index, employee) => {
-        employee.innerHTML += `<div class=row>${y}</div>`
-      })
-
-      if (y == startYear) {
-        for (i = startMonth; i <= 12; i++) {
-          defineMonthName(i)
-        }
-      } else if (y == endYear) {
-        for (i = 1; i <= endMonth; i++) {
-          defineMonthName(i)
-        }
-      } else {
-        for (i = 1; i <= 12; i++) {
-          defineMonthName(i)
-        }
-      }
-    }
-  }
-}
-
-function employeeMonthAllocation() {
   employeeAllocationArea = $('.employee-allocation')
 
   employeeAllocationArea.each((index, employee) => {
@@ -328,6 +306,46 @@ function employeeMonthAllocation() {
       </div>
     `
   })
+}
+
+function registerEmployeeAllocation() {
+  if (employeeAllocationArea) {
+    employeeAllocationArea.each((index, employee) => {
+      employee.innerHTML = ''
+    })
+  }
+
+  if (startYear == endYear) {
+    for (i = startMonth; i <= endMonth; i++) {
+      defineMonthName(i)
+      employeeAllocation()
+    }
+  } else {
+    for (y = startYear; y <= endYear; y++) {
+      employeeAllocationArea = $('.employee-allocation')
+
+      employeeAllocationArea.each((index, employee) => {
+        employee.innerHTML += `<div class=row>${y}</div>`
+      })
+
+      if (y == startYear) {
+        for (i = startMonth; i <= 12; i++) {
+          defineMonthName(i)
+          employeeAllocation()
+        }
+      } else if (y == endYear) {
+        for (i = 1; i <= endMonth; i++) {
+          defineMonthName(i)
+          employeeAllocation()
+        }
+      } else {
+        for (i = 1; i <= 12; i++) {
+          defineMonthName(i)
+          employeeAllocation()
+        }
+      }
+    }
+  }
 }
 
 getRoles()
