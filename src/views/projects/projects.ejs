@@ -217,7 +217,12 @@
                       <label for="start_date">Data de Inicio: </label>
                     </div>
                     <div class="col">
-                      <input type="date" name="start_date" id="start_date" onchange="updateDates()"/>
+                      <input
+                        type="date"
+                        name="start_date"
+                        id="start_date"
+                        onchange="updateDates()"
+                      />
                     </div>
                   </div>
                   <div class="row form-group">
@@ -225,7 +230,12 @@
                       <label for="end_date">Data de Conclusão: </label>
                     </div>
                     <div class="col">
-                      <input type="date" name="end_date" id="end_date" onchange="updateDates()"/>
+                      <input
+                        type="date"
+                        name="end_date"
+                        id="end_date"
+                        onchange="updateDates()"
+                      />
                     </div>
                   </div>
                   <div class="row form-group">
@@ -276,9 +286,7 @@
                             </select>
                           </div>
                           <div id="new-role-add" class="col-2">
-                            <button type="button" onclick="addRole()">
-                              +
-                            </button>
+                            <button type="button" onclick="addRole()">+</button>
                           </div>
                         </div>
                       </div>
@@ -317,12 +325,18 @@
         tabindex="-1"
         aria-labelledby="allocation-modal-label"
         aria-hidden="true"
+        data-backdrop="static"
       >
         <div class="modal-dialog modal-dialog-container">
           <div class="modal-content">
             <div class="modal-header">
               <div class="col-5">
-                <button data-bs-toggle="modal" data-bs-target="#add-project-modal">Voltar</button>
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#add-project-modal"
+                >
+                  Voltar
+                </button>
               </div>
               <div class="col">
                 <h5 class="modal-title" id="allocation-modal-label">
@@ -347,9 +361,7 @@
                   ></select>
                 </div>
                 <div class="col-2">
-                  <button type="button" onclick="addEmployee()">
-                    Alocar
-                  </button>
+                  <button type="button" onclick="addEmployee()">Alocar</button>
                 </div>
               </div>
               <div class="row employees-form" id="employees-added">
