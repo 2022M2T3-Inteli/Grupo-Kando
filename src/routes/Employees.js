@@ -116,19 +116,19 @@ router.post('/edit', urlencodedParser, (req, res) => {
 
   sql =
     "UPDATE Employee SET name = '" +
-    req.body.nameEdit +
+    req.body.name +
     "', tags = '" +
-    req.body.tagsEdit +
+    req.body.tags +
     "', location = '" +
-    req.body.locationEdit +
+    req.body.location +
     "', role_name = '" +
-    req.body.role_nameEdit +
+    req.body.role_name +
     "', projects_workload = '" +
-    req.body.projects_workloadEdit +
+    req.body.projects_workload +
     "', available_projects_workload = '" +
-    req.body.available_projects_workloadEdit +
+    req.body.available_projects_workload +
     "', type = '" +
-    req.body.typeEdit +
+    req.body.type +
     "' WHERE id = " +
     req.body.id // código sql que faz um update de um funcionário já existente no banco de dados, requisitando nome, tags, localização, função, carga horária já usada para projetos, carga horária disponível para projetos e tipo (CLT ou TERCEIRO)
   db.run(sql, [], err => {

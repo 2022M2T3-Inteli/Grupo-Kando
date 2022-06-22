@@ -178,10 +178,12 @@ function getRoles() {
   let data = JSON.parse(xhtpp.responseText)
 
   let selectRoles = $("#employee-roles")[0]
+  let selectRole = $("#employee-role")[0]
   let rolesFilter = $("#roles-filter")[0]
 
   data.forEach(role => {
     selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
+    selectRole.innerHTML += `<option value="${role.name}">${role.name}</option>`
     rolesFilter.innerHTML += `<option value="${role.name}">${role.name}</option>`
   })
 }
@@ -273,11 +275,11 @@ function setEditEmployeeId(index) {
   console.log(employeeData.name)
   console.log(employeeData.location)
 
-  $("#employee_id")[0].value = employeeData.id
-  $("#employee_name")[0].value = employeeData.name
-  $("#employee_function")[0].value = employeeData.role_name
+  $("#employee-id")[0].value = employeeData.id
+  $("#employee-name")[0].value = employeeData.name
+  $("#employee-role")[0].value = employeeData.role_name
   $("#employee-location")[0].value = employeeData.location
-  $("#employee_workload")[0].value = employeeData.projects_workload
+  $("#employee-workload")[0].value = employeeData.projects_workload
   $("#employee-type")[0].value = employeeData.type
   // $("#employee-tags")[0].value = employeeData.tags
 
