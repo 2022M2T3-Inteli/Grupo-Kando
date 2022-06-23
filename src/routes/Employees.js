@@ -156,18 +156,19 @@ router.delete('/:id', urlencodedParser, (req, res) => {
   })
 })
 
+// bloco que faz um get da soma de horas de um determinado funcionário e m um determinado mês
 router.get('/employeeworkload/:id', (req, res) => {
-  let id = req.params['id'] // define /all como o endereço que exibirá o retorno dos comandos abaixo
-  res.statusCode = 200 // código de status de que o comando foi executado sem erros
-  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let employee_id = req.params['employee_id']
 
-  var sql = `SELECT SUM(hours_assigned) AS hours_assigned, month, year FROM EmployeeAssignment WHERE employee_id = ? AND month >= ${month} AND year >= ${year} GROUP BY month, year` // código sql que seleciona os funcionários, ordenando por id
-  db.all(sql, [id], (err, rows) => {
-    // executa o código sql no banco de dados
+  var sql = `SELECT SUM(hours_assigned) AS hours_assigned FROM EmployeeAssignment WHERE employee_id = ? AND month = ${month} AND year = ${year}` // código sql que retorna a soma de horas de um determinado funcionário em um determinado mês
+  db.all(sql, [employee_id], (err, rows) => {
     if (err) {
-      throw err // caso ocorra erro, ele será mostrado no terminal
+      throw err
     }
-    res.json(rows) // retorna a lista de funcionários no formato json
+    // Retorna os dados solicitados
+    res.json(rows)
   })
 })
 
