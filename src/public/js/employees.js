@@ -319,102 +319,168 @@ function viewEmployee(index) {
 	`
 }
 
-function setEditEmployeeId(index) {
-  let employeeData = tableData[index]
-  console.log(employeeData.name)
-  console.log(employeeData.location)
+let employeeProjectsTable = $('#projects-assigned-table')
 
-  $('#employee-id')[0].value = employeeData.id
-  $('#employee-name')[0].value = employeeData.name
-  $('#employee-role')[0].value = employeeData.role_name
-  $('#employee-location')[0].value = employeeData.location
-  $('#employee-workload')[0].value = employeeData.projects_workload
-  $('#employee-type')[0].value = employeeData.type
-  // $("#employee-tags")[0].value = employeeData.tags
-}
+let projectsTableData = []
 
-function openModalDelete(id) {
-  $('#delete-modal')[0].innerHTML += `
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-    <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee(${id})">Remover</button>
-  `
-}
-
-function deleteEmployee(id) {
-  setTimeout(function showToast() {
-    const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
-    toast.show()
-  }, 300)
-
-  let url = 'employees/' + id
+function getEmployeeProjectsList() {
+  let hours = 40
+  let url = 'employees/all'
 
   let xhttp = new XMLHttpRequest()
 
-  xhttp.addEventListener('load', getEmployeeList)
-
-  xhttp.open('delete', url, false)
+  xhttp.open('get', url, false)
   xhttp.send()
-}
 
-$(employeeTable).bootstrapTable({
-  data: tableData
-})
+  let data = JSON.parse(xhttp.responseText)
 
-// $(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
+  tableData = []
+  data.forEach((row, index) => {
+    tableData.push(row)
+    // tableData[index].employee_workload = getEmployeeWorkload(row.id)
+    tableData[index].employee_workload = hours
+    hours += 40
+    tableData[index].employee_allocation = `${
+      tableData[index].employee_workload
+    }H / ${getProjectWorkload(row.id)}H / 176H`
+    tableData[index].projects_qty = getProjects(row.id)
+    console.log(tableData.available_projects_workload)
+    tableData[index].tools = `
+			<div class="employee-tools">
+				<!-- button trigger view employee -->
+				<div class="material-symbols-outlined employee-view-button" 
+					data-bs-toggle="modal"
+					data-bs-target="#view-employee-modal"
+					onclick="viewEmployee(${index})">
+						visibility
+				</div>
 
-$(employeeTable).on('sort.bs.table', function () {
-  setTimeout(function () {
-    $(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
-  }, 0)
-})
+        <div
+					class="material-symbols-outlined project-view-button"
+					data-bs-toggle="modal"
+					data-bs-target="#edit-employee-modal"
+					onclick="setEditEmployeeId(${index})"
+				>
+					<span class="material-symbols-outlined">
+						edit
+					</span>
+				</div>
 
-let searchInput = $('#search')
-$(searchInput).keyup(function () {
-  filterEmployees()
-})
-
-function filterEmployees() {
-  let delay = 100
-  let name = searchInput[0].value.toUpperCase()
-  let role = $('#roles-filter')[0].value.toUpperCase()
-
-  let employeeRows = $('.table-body-row')
-  let employeeReversedRows = []
-
-  employeeRows.each(function (index, row) {
-    employeeReversedRows.push(row)
+				<div
+					class="material-symbols-outlined employee-view-button"
+					data-bs-toggle="modal"
+					data-bs-target="#remove-employee-modal"
+					onclick="openModalDelete(${row.id})"
+					
+				>
+					delete
+				</div>
+			</div>
+		`
   })
-  employeeReversedRows = employeeReversedRows.reverse()
 
-  employeeReversedRows.forEach(function (row) {
-    let employeeName = row.firstChild.innerText.toUpperCase()
-    let employeeRole = row.children[1].innerText.toUpperCase()
+  function setEditEmployeeId(index) {
+    let employeeData = tableData[index]
+    console.log(employeeData.name)
+    console.log(employeeData.location)
 
-    if (employeeName.includes(name) && employeeRole.includes(role)) {
-      setTimeout(function () {
+    $('#employee-id')[0].value = employeeData.id
+    $('#employee-name')[0].value = employeeData.name
+    $('#employee-role')[0].value = employeeData.role_name
+    $('#employee-location')[0].value = employeeData.location
+    $('#employee-workload')[0].value = employeeData.projects_workload
+    $('#employee-type')[0].value = employeeData.type
+    // $("#employee-tags")[0].value = employeeData.tags
+  }
+
+<<<<<<< Updated upstream
+function openModalDelete(id) {
+  $('#delete-modal')[0].innerHTML += `
+=======
+  function openModalDelete(id) {
+    $('#remove-project-modal')[0].innerHTML = `
+>>>>>>> Stashed changes
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee(${id})">Remover</button>
+  `
+  }
+
+  function deleteEmployee(id) {
+    setTimeout(function showToast() {
+      const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
+      toast.show()
+    }, 300)
+
+    let url = 'employees/' + id
+
+    let xhttp = new XMLHttpRequest()
+
+    xhttp.addEventListener('load', getEmployeeList)
+
+    xhttp.open('delete', url, false)
+    xhttp.send()
+  }
+
+  $(employeeTable).bootstrapTable({
+    data: tableData
+  })
+
+  // $(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
+
+  $(employeeTable).on('sort.bs.table', function () {
+    setTimeout(function () {
+      $(`${employeeTable} tr:not(:first)`).addClass('table-body-row')
+    }, 0)
+  })
+
+  let searchInput = $('#search')
+  $(searchInput).keyup(function () {
+    filterEmployees()
+  })
+
+  function filterEmployees() {
+    let delay = 100
+    let name = searchInput[0].value.toUpperCase()
+    let role = $('#roles-filter')[0].value.toUpperCase()
+
+    let employeeRows = $('.table-body-row')
+    let employeeReversedRows = []
+
+    employeeRows.each(function (index, row) {
+      employeeReversedRows.push(row)
+    })
+    employeeReversedRows = employeeReversedRows.reverse()
+
+    employeeReversedRows.forEach(function (row) {
+      let employeeName = row.firstChild.innerText.toUpperCase()
+      let employeeRole = row.children[1].innerText.toUpperCase()
+
+      if (employeeName.includes(name) && employeeRole.includes(role)) {
+        setTimeout(function () {
+          $(row).css({
+            display: 'table',
+            border: 'solid'
+          })
+        }, delay)
+
         $(row).css({
-          display: 'table',
-          border: 'solid'
+          visibility: 'visible',
+          opacity: 1,
+          border: 'none'
         })
-      }, delay)
+      } else {
+        setTimeout(function () {
+          $(row).css('display', 'none')
+        }, delay)
 
-      $(row).css({
-        visibility: 'visible',
-        opacity: 1,
-        border: 'none'
-      })
-    } else {
-      setTimeout(function () {
-        $(row).css('display', 'none')
-      }, delay)
+        $(row).css({
+          visibility: 'hidden',
+          opacity: 0,
+          transition: 'visibility 0.5s linear	, opacity 0.5s linear'
+        })
+      }
 
-      $(row).css({
-        visibility: 'hidden',
-        opacity: 0,
-        transition: 'visibility 0.5s linear	, opacity 0.5s linear'
-      })
-    }
-
-    delay += 0
-  })
+      delay += 0
+    })
+  }
 }
