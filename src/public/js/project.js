@@ -1,14 +1,7 @@
 if (localStorage.getItem('message')) {
   if (localStorage.getItem('message') == 'created project') {
     toastShow('add')
-    // let project = localStorage.getItem('project')
 
-    // project.forEach((role, index) => {
-    //   let roleName = Object.keys(project[index])[0].replace(/"/g, (''))
-
-    //   role.forEach()
-    // })
-    // role["\"Analista Administrativo\""]["hours_needed"])
     localStorage.removeItem('message')
   } else if (localStorage.getItem('message') == 'edited project') {
     toastShow('edit')
@@ -19,18 +12,13 @@ if (localStorage.getItem('message')) {
   }
 }
 
-function submitProject(){
+function submitProject() {
   let formValid = document.forms["add-project-form"].checkValidity();
-  if(formValid) {
+  if (formValid) {
     localStorage.setItem('message', 'created project')
     localStorage.setItem('project', project)
-    teste()
-    $("#add-project-form")[0].submit()
+    // $("#add-project-form")[0].submit()
   }
-}
-
-function teste() {
-  console.log(project)
 }
 
 function toastShow(type) {
@@ -208,7 +196,7 @@ function clearInputs() {
 //   modal.style.display = 'none'
 // }
 
-let project = []
+let project
 
 let rolesAdded = []
 function addRole() {
@@ -218,18 +206,6 @@ function addRole() {
 
   if (rolesAdded.indexOf(newRole) == -1) {
     rolesAdded.push(newRole)
-    project.push(
-      {
-        roleName: newRole,
-        years: [
-          {
-            month: [
-              {}
-            ]
-          }
-        ]
-      }
-    )
     roleIndex = rolesAdded.indexOf(newRole)
     rolesList.innerHTML += `
         <div id="${roleIndex}-accordion" class="accordion-item">
@@ -525,7 +501,6 @@ function roleAllocation(roleIndex, year, month) {
 
 function defineHoursRole(index, allocationYear, allocationMonth, hours) {
   let role = rolesAdded[index]
-  console.log(project[index])
 
   // project.push(
   //   {
@@ -539,37 +514,81 @@ function defineHoursRole(index, allocationYear, allocationMonth, hours) {
   //     ]
   //   }
   // )
-  
-  // project[index].forEach((role) => {
-  //   let haveYear = false 
-  //   role.years.forEach((year, yearIndex) => {
-  //     if(year.number == allocationYear) {
-  //       hasYear = true
-  //       let haveMonth = false
-  //       year.forEach((month, monthIndex) => {
 
-  //       })
-  //     }
-  //   })
-  //   if(!hasYear) {
-  //     role.years.push(
-  //       {
-  //         name: allocationYear,
-  //         months: [
-  //           {
-  //             number: allocationMonth,
-  //             hours: hours
-  //           }
-  //         ]
-  //       }
-  //     )
-  //   }
-  //   else {
-
-  //   }
-  // })
-  // project[index].years.year = year
-  // console.log(project[index])
+  // console.log(project)
+  if (!project) {
+    project = []
+    project.push(
+      {
+        roleName: rolesAdded[index],
+        years: [
+          {
+            number: allocationYear,
+            months: [
+              {
+                number: allocationMonth,
+                hours: hours
+              }
+            ]
+          }
+        ]
+      }
+    )
+  }
+  // console.log(project)
+  project.forEach((role, roleIndex) => {
+    let haveYear = false
+    role.years.forEach((year, yearIndex) => {
+      if (year.number == allocationYear) {
+        haveYear = true
+        let haveMonth = false
+        year.months.forEach((month, monthIndex) => {
+          if (month.number == allocationMonth) {
+            console.log(month.number, allocationMonth)
+            haveMonth = true
+          }
+        })
+        if (!haveMonth) {
+          year.months.push(
+              {
+                number: allocationMonth,
+                hours: hours
+              }
+          )
+        }
+      }
+    })
+    if (!haveYear) {
+      console.log("entrou")
+      role.years.push(
+          {
+            number: allocationYear,
+            months: [
+              {
+                number: allocationMonth,
+                hours: hours
+              }
+            ]
+          }
+      ) 
+    }
+    // else {
+    //   console.log("entrou")
+    //   role.years[0] =
+    //     [
+    //       {
+    //         number: allocationYear,
+    //         months: [
+    //           {
+    //             number: allocationMonth,
+    //             hours: hours
+    //           }
+    //         ]
+    //       }
+    //     ]
+    // }
+    console.log(project)
+  })
 }
 // função que cria inputs personalizados para cada mês de atribuição de funcionários
 function employeeAllocation() {
