@@ -64,7 +64,11 @@
 
                   <div class="filter col">
                     <label for="role-filter">Filtrar por Função:</label>
-                    <select name="role-filter" id="roles-filter" onchange="filterEmployees()">
+                    <select
+                      name="role-filter"
+                      id="roles-filter"
+                      onchange="filterEmployees()"
+                    >
                       <option value="" selected>Todas</option>
                     </select>
                   </div>
@@ -103,7 +107,7 @@
                           Função
                         </th>
                         <th
-                          data-field="projects_workload"
+                          data-field="employee_allocation"
                           class="employee-allocation"
                         >
                           Alocação
@@ -230,10 +234,7 @@
                         <label for="employee-roles">Função: </label>
                       </div>
                       <div class="col">
-                        <select
-                          name="role_name"
-                          id="employee-roles"
-                        >
+                        <select name="role_name" id="employee-roles">
                           <option value="null" hidden>Escolher Função</option>
                         </select>
                       </div>

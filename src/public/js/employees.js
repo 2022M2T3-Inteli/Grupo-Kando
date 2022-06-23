@@ -1,10 +1,9 @@
 if (localStorage.getItem('message')) {
   if (localStorage.getItem('message') == 'created employee') {
-    toastShow("add")
+    toastShow('add')
     localStorage.removeItem('message')
-  }
-  else if (localStorage.getItem('message') == 'edited employee') {
-    toastShow("edit")
+  } else if (localStorage.getItem('message') == 'edited employee') {
+    toastShow('edit')
     localStorage.removeItem('message')
   }
   // else if (localStorage.getItem('message') == 'deleted project') {
@@ -42,10 +41,9 @@ function removeTagElement(el) {
 function toastShow(type) {
   setTimeout(function showToast() {
     let toastElement
-    if (type == "add") {
+    if (type == 'add') {
       toastElement = $('#addToast')[0]
-    }
-    else if (type == "edit") {
+    } else if (type == 'edit') {
       toastElement = $('#editToast')[0]
     }
     // else {
@@ -87,9 +85,10 @@ let employeesData = [
   }
 ]
 
-let employeeTable = $("#employees-table")
+let employeeTable = $('#employees-table')
 let tableData = []
 function getEmployeeList() {
+  let hours = 40
   let url = 'employees/all'
 
   let xhttp = new XMLHttpRequest()
@@ -102,7 +101,12 @@ function getEmployeeList() {
   tableData = []
   data.forEach((row, index) => {
     tableData.push(row)
-    tableData[index].projects_workload = getEmployeeWorkload(row.id)
+    // tableData[index].employee_workload = getEmployeeWorkload(row.id)
+    tableData[index].employee_workload = hours
+    hours += 40
+    tableData[index].employee_allocation = `${
+      tableData[index].employee_workload
+    }H / ${getProjectWorkload(row.id)}H / 176H`
     tableData[index].projects_qty = getProjects(row.id)
     console.log(tableData.available_projects_workload)
     tableData[index].tools = `
@@ -137,50 +141,75 @@ function getEmployeeList() {
 				</div>
 			</div>
 		`
-
-    // if (tableData[index].allocation > 176) {
-    //   $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
-    //     color: '#020202',
-    //     'font-weight': 800
-    //   })
-    // } else if (
-    //   tableData[index].allocation > tableData[index].totalHours
-    // ) {
-    //   $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
-    //     color: '#D30000',
-    //     'font-weight': 600
-    //   })
-    // } else {
-    //   $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
-    //     color: 'green',
-    //     'font-weight': 600
-    //   })
-    // }
+    //   if (tableData[index].allocation > 176) {
+    //     $(`#employees-table tr:eq(${index + 1}) td:eq(2)`).css({
+    //       color: '#020202',
+    //       'font-weight': 800
+    //     })
+    //   } else if (tableData[index].allocation > tableData[index].totalHours) {
+    //     $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+    //       color: '#D30000',
+    //       'font-weight': 600
+    //     })
+    //   } else {
+    //     $(`${employeeTable} tr:eq(${index + 1}) td:eq(2)`).css({
+    //       color: 'green',
+    //       'font-weight': 600
+    //     })
+    //   }
   })
 
-  $(employeeTable).bootstrapTable("destroy")
-  setInterval(function () {
+  $(employeeTable).bootstrapTable('destroy')
+  setTimeout(function () {
     $(employeeTable).bootstrapTable({
       data: tableData
     })
-    $("#employees-table tr:not(:first)").addClass("table-body-row")
+    $('#employees-table tr:not(:first)').addClass('table-body-row')
+    data.forEach((row, index) => {
+      console.log(tableData[index].projects_workload)
+      if (tableData[index].employee_workload > 176) {
+        $(`#employees-table tr:eq(${index + 1}) td:eq(2)`).css({
+          color: '#020202',
+          'font-weight': 800
+        })
+      } else if (
+        tableData[index].employee_workload > tableData[index].projects_workload
+      ) {
+        $(`#employees-table tr:eq(${index + 1}) td:eq(2)`).css({
+          color: '#D30000',
+          'font-weight': 600
+        })
+      } else if (
+        tableData[index].employee_workload >=
+        tableData[index].projects_workload * 0.8
+      ) {
+        $(`#employees-table tr:eq(${index + 1}) td:eq(2)`).css({
+          color: '#c59716',
+          'font-weight': 600
+        })
+      } else {
+        $(`#employees-table tr:eq(${index + 1}) td:eq(2)`).css({
+          color: 'green',
+          'font-weight': 600
+        })
+      }
+    })
   }, 0)
-
 }
 getEmployeeList()
 
 function getRoles() {
-  let url = "roles/all"
+  let url = 'roles/all'
 
   let xhtpp = new XMLHttpRequest()
-  xhtpp.open("get", url, false)
+  xhtpp.open('get', url, false)
   xhtpp.send()
 
   let data = JSON.parse(xhtpp.responseText)
 
-  let selectRoles = $("#employee-roles")[0]
-  let selectRole = $("#employee-role")[0]
-  let rolesFilter = $("#roles-filter")[0]
+  let selectRoles = $('#employee-roles')[0]
+  let selectRole = $('#employee-role')[0]
+  let rolesFilter = $('#roles-filter')[0]
 
   data.forEach(role => {
     selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
@@ -208,43 +237,54 @@ function getEmployeeWorkload(id) {
   let url = `/employees/employeeworkload/${id}`
 
   let xhtpp = new XMLHttpRequest()
-  xhtpp.open("get", url, false)
+  xhtpp.open('get', url, false)
   xhtpp.send()
 
-  let employeeWorkload = {}
   let data = JSON.parse(xhtpp.responseText)
 
-  data.forEach(assignment => {
-    console.log(assignment)
-    if(assignment) {
-      return assignment.hours_assigned
-    }
-    else {
-      return 0
-    }
-    // if (!employeeWorkload[assignment.year]) {
-    //   employeeWorkload[assignment.year] =
-    //   {
-    //     [assignment.month]: assignment.hours_assigned,
-    //   }
-    // }
-    // else {
-    //   employeeWorkload[assignment.year] = Object.assign(
-    //     employeeWorkload[assignment.year], {
-    //     [assignment.month]: assignment.hours_assigned
-    //   }
-    //   )
-    // }
-  })
-  console.log(employeeWorkload)
-  return employeeWorkload
+  if (data.hours_assigned) {
+    return data.hours_assigned
+  } else {
+    return 0
+  }
+
+  // if (!employeeWorkload[assignment.year]) {
+  //   employeeWorkload[assignment.year] =
+  //   {
+  //     [assignment.month]: assignment.hours_assigned,
+  //   }
+  // }
+  // else {
+  //   employeeWorkload[assignment.year] = Object.assign(
+  //     employeeWorkload[assignment.year], {
+  //     [assignment.month]: assignment.hours_assigned
+  //   }
+  //   )
+  // }
+  // console.log(employeeWorkload)
+  // return employeeWorkload
+}
+
+function getProjectWorkload(id) {
+  let url = `/employees/projectsworkload/${id}`
+
+  let xhtpp = new XMLHttpRequest()
+  xhtpp.open('get', url, false)
+  xhtpp.send()
+
+  let data = JSON.parse(xhtpp.responseText)
+
+  if (data.projects_workload) {
+    return data.projects_workload
+  } else {
+    return 0
+  }
 }
 
 function viewEmployee(index) {
-  let employeeData = tableData[index];
+  let employeeData = tableData[index]
 
-  $("#employee-info-section")[0].innerHTML =
-    `
+  $('#employee-info-section')[0].innerHTML = `
 		<table class="table">
 			<tbody>
 				<tr>
@@ -261,7 +301,10 @@ function viewEmployee(index) {
 				</tr>
 				<tr>
 					<th scope="row">Tempo Alocado/Mês:</th>
-					<td>${employeeData.projects_workload - employeeData.available_projects_workload}/${employeeData.projects_workload}/176h</td>
+					<td>${
+            employeeData.projects_workload -
+            employeeData.available_projects_workload
+          }/${employeeData.projects_workload}/176h</td>
 				</tr>
         <tr>
 					<th scope="row">Tipo:</th>
@@ -281,18 +324,17 @@ function setEditEmployeeId(index) {
   console.log(employeeData.name)
   console.log(employeeData.location)
 
-  $("#employee-id")[0].value = employeeData.id
-  $("#employee-name")[0].value = employeeData.name
-  $("#employee-role")[0].value = employeeData.role_name
-  $("#employee-location")[0].value = employeeData.location
-  $("#employee-workload")[0].value = employeeData.projects_workload
-  $("#employee-type")[0].value = employeeData.type
+  $('#employee-id')[0].value = employeeData.id
+  $('#employee-name')[0].value = employeeData.name
+  $('#employee-role')[0].value = employeeData.role_name
+  $('#employee-location')[0].value = employeeData.location
+  $('#employee-workload')[0].value = employeeData.projects_workload
+  $('#employee-type')[0].value = employeeData.type
   // $("#employee-tags")[0].value = employeeData.tags
-
 }
 
 function openModalDelete(id) {
-  $("#delete-modal")[0].innerHTML = `
+  $('#delete-modal')[0].innerHTML = `
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
     <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee(${id})">Remover</button>
   `
@@ -304,15 +346,14 @@ function deleteEmployee(id) {
     toast.show()
   }, 300)
 
-  let url = "employees/" + id
+  let url = 'employees/' + id
 
   let xhttp = new XMLHttpRequest()
 
-  xhttp.addEventListener("load", getEmployeeList)
+  xhttp.addEventListener('load', getEmployeeList)
 
-  xhttp.open("delete", url, false)
+  xhttp.open('delete', url, false)
   xhttp.send()
-
 }
 
 $(employeeTable).bootstrapTable({
@@ -335,7 +376,7 @@ $(searchInput).keyup(function () {
 function filterEmployees() {
   let delay = 100
   let name = searchInput[0].value.toUpperCase()
-  let role = $("#roles-filter")[0].value.toUpperCase()
+  let role = $('#roles-filter')[0].value.toUpperCase()
 
   let employeeRows = $('.table-body-row')
   let employeeReversedRows = []

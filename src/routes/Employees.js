@@ -163,12 +163,28 @@ router.get('/employeeworkload/:id', (req, res) => {
   let employee_id = req.params['employee_id']
 
   var sql = `SELECT SUM(hours_assigned) AS hours_assigned FROM EmployeeAssignment WHERE employee_id = ? AND month = ${month} AND year = ${year}` // código sql que retorna a soma de horas de um determinado funcionário em um determinado mês
-  db.all(sql, [employee_id], (err, rows) => {
+  db.get(sql, [employee_id], (err, row) => {
     if (err) {
       throw err
     }
     // Retorna os dados solicitados
-    res.json(rows)
+    res.json(row)
+  })
+})
+
+// bloco que faz um get das horas destinadas a projetos por mês de um determinado funcionário
+router.get('/projectsworkload/:id', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let id = req.params['id']
+
+  var sql = `SELECT projects_workload FROM Employee WHERE id = ?` // código sql que retorna as horas destinadas a projetos por mês de um determinado funcionário
+  db.get(sql, [id], (err, row) => {
+    if (err) {
+      throw err
+    }
+    // Retorna os dados solicitados
+    res.json(row)
   })
 })
 
