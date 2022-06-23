@@ -102,9 +102,9 @@ function getEmployeeList() {
   tableData = []
   data.forEach((row, index) => {
     tableData.push(row)
-    tableData[index].available_projects_workload = getEmployeeWorkload(row.id)
+    tableData[index].projects_workload = getEmployeeWorkload(row.id)
     tableData[index].projects_qty = getProjects(row.id)
-    // console.log(tableData.available_projects_workload)
+    console.log(tableData.available_projects_workload)
     tableData[index].tools = `
 			<div class="employee-tools">
 				<!-- button trigger view employee -->
@@ -203,8 +203,9 @@ function getProjects(id) {
   return data.projects_qty
 }
 
+// Pega as horas do mês atual do funcoinário
 function getEmployeeWorkload(id) {
-  let url = '/employees/employeeworkload/' + id
+  let url = `/employees/employeeworkload/${id}`
 
   let xhtpp = new XMLHttpRequest()
   xhtpp.open("get", url, false)
@@ -214,35 +215,26 @@ function getEmployeeWorkload(id) {
   let data = JSON.parse(xhtpp.responseText)
 
   data.forEach(assignment => {
-    // if(!employeeWorkload[assignment.year]) {
-    //   employeeWorkload[assignment.year] = []
-    //   employeeWorkload[assignment.year].push(
-    //     {
-    //       [assignment.month]: assignment.hours_assigned,
-    //     } 
-    //   )
-    // }
-    // else {
-    //   employeeWorkload[assignment.year].push(
-    //     {
-    //       [assignment.month]: assignment.hours_assigned,
-    //     } 
-    //   ) 
-    // }
-
-    if (!employeeWorkload[assignment.year]) {
-      employeeWorkload[assignment.year] =
-      {
-        [assignment.month]: assignment.hours_assigned,
-      }
+    console.log(assignment)
+    if(assignment) {
+      return assignment.hours_assigned
     }
     else {
-      employeeWorkload[assignment.year] = Object.assign(
-        employeeWorkload[assignment.year], {
-        [assignment.month]: assignment.hours_assigned
-      }
-      )
+      return 0
     }
+    // if (!employeeWorkload[assignment.year]) {
+    //   employeeWorkload[assignment.year] =
+    //   {
+    //     [assignment.month]: assignment.hours_assigned,
+    //   }
+    // }
+    // else {
+    //   employeeWorkload[assignment.year] = Object.assign(
+    //     employeeWorkload[assignment.year], {
+    //     [assignment.month]: assignment.hours_assigned
+    //   }
+    //   )
+    // }
   })
   console.log(employeeWorkload)
   return employeeWorkload
