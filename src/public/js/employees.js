@@ -120,7 +120,7 @@ function getEmployeeList() {
 				</div>
 
         <div
-					class="material-symbols-outlined project-view-button"
+					class="material-symbols-outlined employee-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#edit-employee-modal"
 					onclick="setEditEmployeeId(${index})"
@@ -334,7 +334,7 @@ function setEditEmployeeId(index) {
 }
 
 function openModalDelete(id) {
-  $('#remove-project-modal')[0].innerHTML = `
+  $('#delete-modal')[0].innerHTML += `
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
     <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee(${id})">Remover</button>
   `
