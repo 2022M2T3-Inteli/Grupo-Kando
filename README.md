@@ -16,19 +16,19 @@
 
 ## 🚀 Integrantes:
 - <a href="https://www.linkedin.com/in/felipe-saadi/">Felipe Saadi</a>
-- <a href="https://www.linkedin.com/in/">Fernando Paiva</a>
+- <a href="https://www.linkedin.com/in/">Fernando Araújo</a>
 - <a href="https://www.linkedin.com/in/gabriel-pascoli-73733b200/">Gabriel Pascoli</a>
 - <a href="https://www.linkedin.com/in/iago-tavares-b10244149">Iago Tavares</a>
 - <a href="https://www.linkedin.com/in/mateussda/">Mateus Almeida</a>
-- <a href="https://www.linkedin.com/in/">Rodrigo Martins</a>
+- <a href="https://www.linkedin.com/in/rodrigo-moraes-martins-a81703202">Rodrigo Martins</a>
 - <a href="https://www.linkedin.com/in/">Vinicius Santos</a>
 <br>
 
 ## 🏍 Descrição
 
-A Plataforma de Capacity Planning para Projetos é uma aplicação web de gestão de capacidade ("capacity planning") dos recursos humanos nos projetos da Yamaha.
+O produto é uma aplicação web interna da Yamaha para gerenciar o planejamento de capacidade humana para projetos, de forma a facilitar a visualização da demanda interna dos projetos e se ela está sendo atendida ou não, conforme estimativas feitas dentro da aplicação. 
 <br><br>
-Seu principal objetivo é facilitar o processo de análise de disponibilidade de horas dos recursos humanos da Yamaha para projetos e otimizar a alocação dos funcionários em projetos existentes. O sistema Web pode ser utilizado por um gerente para cadastrar funções, funcionários, projetos e alocações. Também pode ser usado para visualizar de forma analítica a situação atual da empresa, em relação aos projetos e as alocação de funcionários, para assim embasar a tomada de decisões.
+Dentre as principais funcionalidades, no que tange a projetos, o usuário pode cadastrar novos funcionários, alocá-los e ver um dashboard que mostre o andamento e quais recursos humanos foram destinados a ele, de duas formas: uma visão geral de todos os projetos ou uma perspectiva mais específica sobre cada um deles. De maneira similar, o gestor da aplicação pode visualizar uma tela de colaboradores, que exibe informações tanto sobre eles, como nome, região, e função, quanto sobre os projetos nos quais estão trabalhando com o seu andamento e horas destinadas a eles, tudo de modo sintetizado e gráfico.
 <br><br>
 
 
@@ -70,50 +70,38 @@ Para instalar o servidor localmente em seu computador, primeiro clone o reposit�
 
 ## 💻 Configuração para desenvolvimento
 
-### Prettier e ESLint
-
-O projeto já contém arquivos de configuração para o formatador Prettier (melhora a apresentação do código) e linter ESLint (melhora a qualidade de código). Para usar essas ferramentas, recomendamos baixar as extensões do [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) e do [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) para o VSCode e seguir as instruções de instalação nas respectivas páginas.
-
-### Seeds
-
-Disponibilizamos alguns arquivos de "seed" para popular o banco de dados com algumas informações de teste. Para usá-los, siga os passos abaixo:
-
-1. Instale o `sequelize-cli` no terminal com `npm install -g sequelize-cli`
-2. Rode o comando `npx sequelize-cli db:seed:all` na pasta `src`
+### 
 
 ## 🗃 Histórico de lançamentos (versões)
 
-- 6.0 - 20/06/2020
+- 6.0 - 22/06/2020
   - Preenchimento do README.md
-  - Revisão dos itens preenchidos previamente no WAD
-- 5.0 - 11/06/2020
-  - Preenchimento dos itens 7 e 8 do WAD
-- 4.0 - 30/05/2022
-  - Preenchimento dos itens 4 e 6 do WAD
-  - Conclusão do desenvolvimento do backend
-- 3.0 - 18/05/2022
-  - Preenchimento do item 5 do WAD
-  - Conclusão do desenvolvimento do frontend
-  - Início do desenvolvimento do backend
-- 2.0 - 02/05/2022
-  - Preenchimento dos itens 1 a 3 do WAD
-  - Início do desenvolvimento do frontend
+  - Preenchimento do WAD (9. Revisão Geral do Projeto - 10. Manual do Usuário)
+  - Integração do projeto finalizada e revisada
+- 5.0 - 09/06/2020
+  - Preenchimento do WAD (7. Arquitetura do Sistema - 8. Revisão em todas as seções)
+  - Desenvolvimento do backend finalizado
+- 4.0 - 26/05/2022
+  - Preenchimento do WAD (6. Arquitetura do Sistema)
+  - Integração do projeto iniciada
+- 3.0 - 12/05/2022
+  - Preenchimento do WAD (5.1 UX e UI Design)
+  - Desenvolvimento do frontend finalizado e do backend iniciado
+- 2.0 - 06/05/2022
+  - Preenchimento do WAD (1.1 Visão Geral do Projeto - 3.1 Requisitos do Sistema)
+  - Desenvolvimento do frontend iniciado
 - 1.0 - 26/04/2022
   - Projeto iniciado
 
 ## 🎯 Exemplos de uso
 
-O Plataforma de Capacity Planning para Projetos pode ser usado pela Yamaha para gerenciar seus funcionários, especificamente para a alocação de capacidade horária disponível de trabalho dos funcionários nos diversos projetos existentes.
+O Plataforma de Capacity Planning para Projetos, projeto que o time Kando está produzindo, consiste em uma aplicação web que visa melhorara gestão de capacity dos funcionários da área de TI da Yamaha, consolidando em gráficos e tabelas as informações da área e melhorando assim a visualização dos tomadores de decisão,que vão buscar com mais eficácia gargalos de eficiência.
 
-Para tanto, o sistema permite o cadastro e a manipulação de informações sobre funções, projetos, funcionários e horas de trabalho mensais alocadas.
-
-Também é possível visualizar a média de horas mensais alocadas para cada função, através de uma tabela. A carga horária alocada e disponível também pode ser vista através de um gráfico.
-
-O [Manual do Usuário]() elaborado por nós descreve de forma detalhada como realizar esssas operações.
+O [Manual do Usuário]() apresenta as maneiras pelas quais se oide manipular e visualizar devidamente tais gráficos e tabelas.
 
 ## 📋 Licença
 
-<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2022M2T3/Projeto1">Plataforma de Capacity Planning para Projetos</a> by <span property="cc:attributionName">INTELI, Felipe Saadi, Fernando Paiva, Gabriel Pascoli, Iago Tavares, Mateus Almeida, Rodrigo Martins, Vinicius Santos</span> is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/2022M2T3/Projeto1">Plataforma de Capacity Planning para Projetos</a> by <span property="cc:attributionName">INTELI, Felipe Saadi, Fernando Araújo, Gabriel Pascoli, Iago Tavares, Mateus Almeida, Rodrigo Martins, Vinicius Santos</span> is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
 
 
 ## 📚 Referências
