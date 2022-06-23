@@ -1,6 +1,14 @@
 if (localStorage.getItem('message')) {
   if (localStorage.getItem('message') == 'created project') {
     toastShow('add')
+    // let project = localStorage.getItem('project')
+
+    // project.forEach((role, index) => {
+    //   let roleName = Object.keys(project[index])[0].replace(/"/g, (''))
+
+    //   role.forEach()
+    // })
+    // role["\"Analista Administrativo\""]["hours_needed"])
     localStorage.removeItem('message')
   } else if (localStorage.getItem('message') == 'edited project') {
     toastShow('edit')
@@ -9,6 +17,20 @@ if (localStorage.getItem('message')) {
     toastShow('delete')
     localStorage.removeItem('message')
   }
+}
+
+function submitProject(){
+  let formValid = document.forms["add-project-form"].checkValidity();
+  if(formValid) {
+    localStorage.setItem('message', 'created project')
+    localStorage.setItem('project', project)
+    teste()
+    $("#add-project-form")[0].submit()
+  }
+}
+
+function teste() {
+  console.log(project)
 }
 
 function toastShow(type) {
@@ -76,9 +98,8 @@ function getProjectsList() {
 				<div
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
-					data-bs-target="#remove-employee-modal"
-					onclick="modalDelete(${row.id})"
-					
+					data-bs-target="#remove-project-modal"
+					onclick="openModalDelete(${row.id})"
 				>
 					delete
 				</div>
@@ -95,6 +116,13 @@ function getProjectsList() {
   }, 0)
 }
 getProjectsList()
+
+function openModalDelete(id) {
+  $('#delete-modal')[0].innerHTML = `
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteProject(${id})">Remover</button>
+  `
+}
 
 function getRoles() {
   let url = 'roles/all'
@@ -141,7 +169,7 @@ function getEmployees(index) {
   xhtpp.send() // retorna os dados na rota
 
   let data = JSON.parse(xhtpp.responseText) // transforma os dados em json
-  
+
   let allocationRoles = $("#employee-employees")[0]
   allocationRoles.innerHTML = ''
   console.log(data)
@@ -180,33 +208,70 @@ function clearInputs() {
 //   modal.style.display = 'none'
 // }
 
+let project = []
+
 let rolesAdded = []
 function addRole() {
   let rolesList = $("#roles-list")[0]
   let newRole = document.getElementById('employee-roles').value
+  let roleIndex
 
   if (rolesAdded.indexOf(newRole) == -1) {
-    console.log("teste")
     rolesAdded.push(newRole)
-    let roleIndex = rolesAdded.indexOf(newRole)
+    project.push(
+      {
+        roleName: newRole,
+        years: [
+          {
+            month: [
+              {}
+            ]
+          }
+        ]
+      }
+    )
+    roleIndex = rolesAdded.indexOf(newRole)
     rolesList.innerHTML += `
-      <div id="${roleIndex}-accordion" class="accordion-item">
-        <h2 class="accordion-header" id="role-${roleIndex}-title">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapse${roleIndex}" aria-expanded="true" aria-controls="collapse${roleIndex}">
-          ${newRole}
-        </button>
-        </h2>
-        <div id="collapse${roleIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${roleIndex}"
-        data-bs-parent="#roles-list">
-          <div class="accordion-body">
-            <div class="role-allocation row"></div>
-          </>
+        <div id="${roleIndex}-accordion" class="accordion-item">
+          <h2 class="accordion-header" id="role-${roleIndex}-title">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse${roleIndex}" aria-expanded="true" aria-controls="collapse${roleIndex}">
+            ${newRole}
+          </button>
+          </h2>
+          <div id="collapse${roleIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${roleIndex}"
+          data-bs-parent="#roles-list">
+            <div class="accordion-body">
+              <div class="role-allocation row"></div>
+            </>
+          </div>
         </div>
-      </div>
-    `
+      `
   }
-  updateDates()
+  updateDates(roleIndex)
+
+  // if (rolesAdded.indexOf(newRole) == -1) {
+  //   console.log("teste")
+  //   rolesAdded.push(newRole)
+  //   let roleIndex = rolesAdded.indexOf(newRole)
+  //   rolesList.innerHTML += `
+  //     <div id="${roleIndex}-accordion" class="accordion-item">
+  //       <h2 class="accordion-header" id="role-${roleIndex}-title">
+  //       <button class="accordion-button" type="button" data-bs-toggle="collapse"
+  //         data-bs-target="#collapse${roleIndex}" aria-expanded="true" aria-controls="collapse${roleIndex}">
+  //         ${newRole}
+  //       </button>
+  //       </h2>
+  //       <div id="collapse${roleIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${roleIndex}"
+  //       data-bs-parent="#roles-list">
+  //         <div class="accordion-body">
+  //           <div class="role-allocation row"></div>
+  //         </>
+  //       </div>
+  //     </div>
+  //   `
+  // }
+  // updateDates()
 }
 
 let employeesAdded = []
@@ -238,11 +303,11 @@ function addEmployee() {
   generateEmployeeAllocationArea()
 }
 
-function updateDates() {
+function updateDates(index) {
   let rolesList = $("#roles-list")
 
-  if(rolesList.length > 0) {
-    registerDate()
+  if (rolesList.length > 0) {
+    registerDate(index)
   }
 }
 
@@ -269,7 +334,7 @@ var startYear // variável que guarda valor do ano de início do projeto
 var endYear // variável que guarda valor do ano de fim do projeto
 var endMonth // variável que guarda o valor do mês de fim do projeto
 
-function registerDate() {
+function registerDate(roleIndex) {
   // caso exista uma área para alocar horas para as funções, o html dela será zerado
   roleAllocationArea = $('.role-allocation')
   if (roleAllocationArea) {
@@ -293,17 +358,32 @@ function registerDate() {
   endMonth = Number(endDate[1]) // armazena o valor do mês de fim do projeto
 
   // caso o projeto esteja contido dentro o mesmo ano
+  console.log(startYear)
   if (startYear == endYear) {
-    // estrutura de repetição que cria os inputs para cada mês do projeto
-    for (i = startMonth; i <= endMonth; i++) {
-      defineMonthName(i) // cria uma label com o nome do mês
-      roleAllocation() // cria um input com id personalizado para as horas atribuíd
+    if (startYear > 0 && endYear > 0) {
+      roleAllocationArea = $('.role-allocation')
+      // estrutura de repetição que cria os inputs para cada mês do projeto
+      roleAllocationArea.each((index, role) => {
+        // o ano correspondente aos meses de atribuição é mostrado acima deles
+        role.innerHTML += `
+          <div class="row">
+            <div class="year-section">${startYear}</div>
+          </div>
+        `
+      })
     }
+    for (i = startMonth; i <= endMonth; i++) {
+      let month = i
+      defineMonthName(month) // cria uma label com o nome do mês
+      roleAllocation(roleIndex, startYear, month) // cria um input com id personalizado para as horas atribuíd
+    }
+
   }
   // caso o projeto tenha uma duração que não esteja contida no mesmo ano
   else {
     // estrutura de repetição que cria os inputs para cada mês do projeto
     for (y = startYear; y <= endYear; y++) {
+      let year = y
       roleAllocationArea = $('.role-allocation')
 
       roleAllocationArea.each((index, role) => {
@@ -324,32 +404,46 @@ function registerDate() {
 
       if (y == startYear) {
         for (i = startMonth; i <= 12; i++) {
+          let month = i
           // caso esteja no primeiro ano do projeto, os espaços de atribuição de horas por mês serão criados a partir do primeiro mês do projeto
-          defineMonthName(i) // cria uma label com o nome do mês
-          roleAllocation() // cria um input com id personalizado para as horas atribuídas
+          defineMonthName(month) // cria uma label com o nome do mês
+          roleAllocation(roleIndex, year, month) // cria um input com id personalizado para as horas atribuídas
         }
       } else if (y == endYear) {
         for (i = 1; i <= endMonth; i++) {
+          let month = i
           // caso esteja no último ano do projeto, os espaços de atribuição de horas por mês serão criados até o último mês do projeto
-          defineMonthName(i) // cria uma label com o nome do mês
-          roleAllocation() // cria um input com id personalizado para as horas atribuídas
+          defineMonthName(month) // cria uma label com o nome do mês
+          roleAllocation(roleIndex, year, month) // cria um input com id personalizado para as horas atribuídas
         }
       } else {
         for (i = 1; i <= 12; i++) {
+          let month = i
           // caso esteja em um ano intermediário de projeto, os espaços de atribuição de horas por mês serão criados de janeiro a dezembro
-          defineMonthName(i) // cria uma label com o nome do mês
-          roleAllocation() // cria um input com id personalizado para as horas atribuídas
+          defineMonthName(month) // cria uma label com o nome do mês
+          roleAllocation(roleIndex, year, month) // cria um input com id personalizado para as horas atribuídas
         }
       }
     }
   }
 
-  if (roleAllocationArea) {
+  if (roleAllocationArea && startYear > 0 && endYear > 0) {
     roleAllocationArea.each((index, role) => {
       role.innerHTML += `
         <div class="row">
           <div class="allocation-button-section">
             <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#allocation-modal" onclick="getEmployees(${index})">Alocar funcionários</button>
+          </div>
+        </div>
+      `
+    })
+  }
+  else {
+    roleAllocationArea.each((index, role) => {
+      role.innerHTML += `
+        <div class="row">
+          <div class="allocation-button-section">
+            Defina uma data inicial e final para fazer a alocação
           </div>
         </div>
       `
@@ -414,21 +508,69 @@ function defineMonthName(month) {
 }
 
 // função que cria inputs personalizados para cada mês de atribuição de funções
-function roleAllocation() {
+function roleAllocation(roleIndex, year, month) {
   roleAllocationArea = $('.role-allocation') // seleciona os elementos de classe role-allocation
 
   roleAllocationArea.each((index, role) => {
     // define o html interno de cada elemento da classe role-allocation com uma label para o nome do mês e um input com name e id personalizado para cada mês do projeto
     role.innerHTML += `
       <div class="col-3 month-allocation"> 
-        <label for="role-hours-${monthName}-${startYear}">${monthNameBr}: 
+        <label for="role-hours-month${month}">${monthNameBr}: 
         </label>
-        <input type="number" name="role-hours-${monthName}-${startYear}" id="role-hours-${monthName}-${startYear}">
+        <input type="number" name="role-hours-month${month}-${index}" id="role-hours-month${month}-${index}" onchange="defineHoursRole(${roleIndex}, ${year}, ${month}, this.value)" required>
       </div>
     `
   })
 }
 
+function defineHoursRole(index, allocationYear, allocationMonth, hours) {
+  let role = rolesAdded[index]
+  console.log(project[index])
+
+  // project.push(
+  //   {
+  //     roleName: newRole,
+  //     years: [
+  //       {
+  //         months: [
+  //           {}
+  //         ]
+  //       }
+  //     ]
+  //   }
+  // )
+  
+  // project[index].forEach((role) => {
+  //   let haveYear = false 
+  //   role.years.forEach((year, yearIndex) => {
+  //     if(year.number == allocationYear) {
+  //       hasYear = true
+  //       let haveMonth = false
+  //       year.forEach((month, monthIndex) => {
+
+  //       })
+  //     }
+  //   })
+  //   if(!hasYear) {
+  //     role.years.push(
+  //       {
+  //         name: allocationYear,
+  //         months: [
+  //           {
+  //             number: allocationMonth,
+  //             hours: hours
+  //           }
+  //         ]
+  //       }
+  //     )
+  //   }
+  //   else {
+
+  //   }
+  // })
+  // project[index].years.year = year
+  // console.log(project[index])
+}
 // função que cria inputs personalizados para cada mês de atribuição de funcionários
 function employeeAllocation() {
   employeeAllocationArea = $('.employee-allocation') // seleciona os elementos de classe employee-allocation
@@ -522,14 +664,14 @@ function modalDelete(id) {
   projectId = id
 }
 
-function deleteProject() {
+function deleteProject(id) {
   // localStorage.setItem('message', 'deleted project')
   setTimeout(function showToast() {
     const toast = new bootstrap.Toast(document.getElementById('deleteToast'))
     toast.show()
   }, 300)
 
-  let url = 'projects/' + projectId
+  let url = 'projects/' + id
 
   let xhttp = new XMLHttpRequest()
 

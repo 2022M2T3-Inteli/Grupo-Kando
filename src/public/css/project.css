@@ -15,6 +15,10 @@ body{
     align-self: flex-end;
 }
 
+#project-table {
+	max-height: 80vh;
+}
+
 #project-description {
 	resize: none;
 	max-height: 80px;

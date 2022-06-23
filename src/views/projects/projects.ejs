@@ -174,7 +174,7 @@
     </div>
 
     <!-- modal add project -->
-    <form action="/projects" method="POST">
+    <form id="add-project-form" action="/projects" method="POST" onsubmit="return false;">
       <div class="parent-modal">
         <div
           class="modal fade"
@@ -209,6 +209,7 @@
                         name="name"
                         id="name"
                         placeholder="Nome do Projeto"
+                        required
                       />
                     </div>
                   </div>
@@ -222,6 +223,7 @@
                         name="start_date"
                         id="start_date"
                         onchange="updateDates()"
+                        required
                       />
                     </div>
                   </div>
@@ -235,6 +237,7 @@
                         name="end_date"
                         id="end_date"
                         onchange="updateDates()"
+                        required
                       />
                     </div>
                   </div>
@@ -300,12 +303,9 @@
               <div class="modal-footer">
                 <div class="buttons-container">
                   <button
-                    type="submit"
-                    onclick="toastTriggerAdd()"
                     class="btn-primary"
                     id="liveToastBtn"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
+                    onclick="submitProject()"
                   >
                     Criar Projeto
                   </button>
@@ -444,11 +444,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Remover Funcionário</h5>
+          <h5 class="modal-title">Remover Projeto</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Deseja Remover o Funcionario?</p>
+          <p>Deseja Remover o Projeto?</p>
         </div>
         <div class="modal-footer" id="delete-modal"></div>
       </div>
