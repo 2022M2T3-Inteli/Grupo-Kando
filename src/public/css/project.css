@@ -85,6 +85,26 @@ body{
 	height: 30px;
 }
 
+.year-section {
+	margin-top: 15px !important
+}
+
+.month-allocation {
+	margin-top: 10px !important;
+}
+
+.allocation-button-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 80px;
+}
+.allocation-button-section button {
+	width: 50%;
+	margin-top: 20px;
+}
+
 .icons-group:hover {
 	transition: ease 500ms;
 	background-color: rgb(41, 145, 237);

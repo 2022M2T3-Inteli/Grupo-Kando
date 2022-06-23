@@ -308,7 +308,11 @@ function registerDate() {
 
       roleAllocationArea.each((index, role) => {
         // o ano correspondente aos meses de atribuição é mostrado acima deles
-        role.innerHTML += `<div class=row>${y}</div>`
+        role.innerHTML += `
+          <div class="row">
+            <div class="year-section">${y}</div>
+          </div>
+        `
       })
 
       employeeAllocationArea = $('.employee-allocation')
@@ -342,8 +346,13 @@ function registerDate() {
 
   if (roleAllocationArea) {
     roleAllocationArea.each((index, role) => {
-      role.innerHTML +=
-        `<div class="row"><button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#allocation-modal" onclick="getEmployees(${index})">Alocar funcionários</button></div>`
+      role.innerHTML += `
+        <div class="row">
+          <div class="allocation-button-section">
+            <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#allocation-modal" onclick="getEmployees(${index})">Alocar funcionários</button>
+          </div>
+        </div>
+      `
     })
   }
 }
@@ -411,7 +420,7 @@ function roleAllocation() {
   roleAllocationArea.each((index, role) => {
     // define o html interno de cada elemento da classe role-allocation com uma label para o nome do mês e um input com name e id personalizado para cada mês do projeto
     role.innerHTML += `
-      <div class="col-3"> 
+      <div class="col-3 month-allocation"> 
         <label for="role-hours-${monthName}-${startYear}">${monthNameBr}: 
         </label>
         <input type="number" name="role-hours-${monthName}-${startYear}" id="role-hours-${monthName}-${startYear}">
@@ -427,7 +436,7 @@ function employeeAllocation() {
   employeeAllocationArea.each((index, employee) => {
     // define o html interno de cada elemento da classe employee-allocation com uma label para o nome do mês e um input com name e id personalizado para cada mês do projeto
     employee.innerHTML += `
-      <div class="col-3"> 
+      <div class="col-3 month-allocation"> 
         <label for="employee-hours-${monthName}-${startYear}">${monthNameBr}: 
         </label>
         <input type="number" name="employee-hours-${monthName}-${startYear}" id="employee-hours-${monthName}-${startYear}">
@@ -454,7 +463,11 @@ function generateEmployeeAllocationArea() {
       employeeAllocationArea = $('.employee-allocation')
 
       employeeAllocationArea.each((index, employee) => {
-        employee.innerHTML += `<div class=row>${y}</div>`
+        employee.innerHTML += `
+          <div class="row">
+            <div class="year-section">${y}</div>
+          </div>
+        `
       })
 
       if (y == startYear) {
