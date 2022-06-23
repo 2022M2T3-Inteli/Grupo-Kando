@@ -1,23 +1,3 @@
-// let totalMonthWorkload = {
-//   hoursNeeded: {
-//     jan: 0,
-//     feb: 0,
-//     mar: 0,
-//     apr: 0,
-//     may: 0,
-//     jun: 0,
-//     jul: 0,
-//     aug: 0,
-//     sep: 0,
-//     oct: 0,
-//     nov: 0,
-//     dec: 0
-//   },
-//   hoursAvailableAll: 0,
-//   hoursAvailableCLT: 0,
-//   hoursAvailableETW: 0
-// }
-
 // Define os meses do ano para ser utilizado nos gráficos
 const yearMounths = [
   'Janeiro',
@@ -162,15 +142,15 @@ function getHoursAvailableByType(role, type) {
 }
 
 function getRoles() {
-  let url = "roles/all"
+  let url = 'roles/all'
 
   let xhtpp = new XMLHttpRequest()
-  xhtpp.open("get", url, false)
+  xhtpp.open('get', url, false)
   xhtpp.send()
 
   let data = JSON.parse(xhtpp.responseText)
 
-  let selectRoles = $("#hours-chart-select")[0]
+  let selectRoles = $('#hours-chart-select')[0]
   console.log(data)
   data.forEach(role => {
     selectRoles.innerHTML += `<option value="${role.name}">${role.name}</option>`
@@ -181,7 +161,7 @@ getRoles()
 // Define o array que será responsável por guardar os dados do primeiro Gráfico (Horas Totais)
 let generalChartData = []
 
-// Função que gera todos os dados do primeiro Gráfico, chamando as funções que geram cada tipo de dado dos gráficos   
+// Função que gera todos os dados do primeiro Gráfico, chamando as funções que geram cada tipo de dado dos gráficos
 function generateHoursChartData(role) {
   generalChartData = [
     {
@@ -294,7 +274,7 @@ function getEmployeesAllocation() {
 
   let data = JSON.parse(xhttp.responseText)
 
-  // Percorre o dado de alocação de cada mês retornado na requisição e define o total de employees alocados por mês  
+  // Percorre o dado de alocação de cada mês retornado na requisição e define o total de employees alocados por mês
   let employeesPerMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   data.forEach(row => {
     switch (row.month) {
@@ -449,10 +429,10 @@ generateEmployeesChartData()
 
 // Função que faz a requisição para obter a média de horas dos funcionários por função
 function getRolesWorkload() {
-  let url = "dashboard/rolesworkload"
+  let url = 'dashboard/rolesworkload'
 
   let xhttp = new XMLHttpRequest()
-  xhttp.open("get", url, false)
+  xhttp.open('get', url, false)
   xhttp.send()
 
   let data = JSON.parse(xhttp.responseText)
@@ -475,7 +455,7 @@ getRolesWorkload()
 
 // Define a função que irá gerar o gráfico de horas por função
 function generateRolesWorkloadChart(roles, monthWorkload) {
-  new Chart($("#general-roles-chart"), {
+  new Chart($('#general-roles-chart'), {
     type: 'bar',
     data: {
       labels: roles,
@@ -497,7 +477,7 @@ function generateRolesWorkloadChart(roles, monthWorkload) {
       scales: {
         y: {
           min: 0,
-          max: function() {
+          max: function () {
             return monthWorkload[0] + 20
           }
         }
@@ -507,35 +487,6 @@ function generateRolesWorkloadChart(roles, monthWorkload) {
 }
 
 // ######## Início dos gráficos estáticos
-const generalChart4 = {
-  labels: [
-    'Nº de Projetos Atrasados',
-    'Nº de Projetos com Data Alterada',
-    'Nº de Projetos no Tempo'
-  ],
-  datasets: [
-    {
-      data: [50, 100, 25],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 205, 86)',
-        'rgb(54, 162, 235)'
-      ]
-    }
-  ]
-}
-
-const generalChart4Config = {
-  type: 'pie',
-  data: generalChart4,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      offset: 30
-    }
-  }
-}
 
 const generalChart5 = {
   labels: [
@@ -566,10 +517,6 @@ const generalChart5Config = {
     }
   }
 }
-
-//  Gráficos da tela Geral do Dashboard
-const generalCtx4 = document.getElementById('general-projects-status-chart')
-const generalDashChart4 = new Chart(generalCtx4, generalChart4Config)
 
 const generalCtx5 = document.getElementById('general-employee-chart2')
 const generalDashChart5 = new Chart(generalCtx5, generalChart5Config)
@@ -694,12 +641,6 @@ function generateProjectAllocationChart() {
   projectChartAllocation = new Chart(project1Ctx, project1Chart1Config)
 }
 
-// const project1Ctx2 = document.getElementById("project1-estimate-chart")
-// const project1DashChart2 = new Chart(project1Ctx2, project1Chart2Config)
-
-const project1Ctx3 = document.getElementById('project-role-chart')
-const project1DashChart3 = new Chart(project1Ctx3, project1Chart3Config)
-
 // ############ Fim do gráfico estático de projetos
 
 // Chama a função para gerar os primeiros gráficos de horas da tela
@@ -710,6 +651,66 @@ function chartChange(value) {
     generalChart.destroy()
   }
   generateHoursChartData(value)
+}
+
+// Função que faz a requisição para obter a média de horas dos funcionários por função
+function getRolesWorkloadFiltered(projectId) {
+  let url = `dashboard/rolesworkloadfiltered/${projectId}`
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+  console.log(data)
+
+  // Percorre as linhas retornadas do banco e define as funções e seus valores de horas por mês
+  let roles = []
+  let monthWorkload = []
+  data.forEach(row => {
+    roles.push(row.role_name)
+    monthWorkload.push(row.hours_assigned)
+  })
+
+  console.log(roles, monthWorkload)
+
+  // Retorna a função que cria o gráfico de horas alocação por função
+  return generateRolesWorkloadFilteredChart(roles, monthWorkload)
+}
+
+getRolesWorkloadFiltered(14)
+
+// Define a função que irá gerar o gráfico de horas por função filtrado por projeto
+function generateRolesWorkloadFilteredChart(roles, monthWorkload) {
+  new Chart($('#project-roles-chart'), {
+    type: 'bar',
+    data: {
+      labels: roles,
+      datasets: [
+        {
+          data: monthWorkload,
+          backgroundColor: ['red', 'blue', 'green', 'grey', 'pink']
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: function () {
+            return monthWorkload[0] + 20
+          }
+        }
+      }
+    }
+  })
 }
 
 // Define a função que irá esconder e mostrar os gráficos de acordo com a aba do dashboard escolhido (Geral ou Projeto)

@@ -91,7 +91,6 @@ router.post('/edit', urlencodedParser, (req, res) => {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
     res.redirect('back')
-
   })
 })
 
@@ -141,6 +140,21 @@ router.delete('/:id', urlencodedParser, (req, res) => {
       throw err // caso ocorra erro, ele será mostrado no terminal
     } else console.log(sql)
     res.end()
+  })
+})
+
+router.get('/employeesassigned/:project_id', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Acces-Control-Allow-Origin', '*')
+  let project_id = req.params['project_id']
+
+  sql = `SELECT name FROM Employee WHERE id IN (SELECT EmployeeAssignment.employee_id FROM EmployeeAssignment WHERE EmployeeAssignment.project_id = ?)`
+
+  db.all(sql, [project_id], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    res.json(rows)
   })
 })
 

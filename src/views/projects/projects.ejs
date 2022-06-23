@@ -84,7 +84,6 @@
                       {"sortName": "startDate","sortOrder":"desc"},
                       {"sortName": "endDate","sortOrder":"desc"},
                       {"sortName": "totalHours","sortOrder":"desc"}
-
                     ]'
                 >
                   <thead class="table-head-custom">
@@ -174,7 +173,12 @@
     </div>
 
     <!-- modal add project -->
-    <form id="add-project-form" action="/projects" method="POST" onsubmit="return false;">
+    <form
+      id="add-project-form"
+      action="/projects"
+      method="POST"
+      onsubmit="return false;"
+    >
       <div class="parent-modal">
         <div
           class="modal fade"
@@ -403,8 +407,16 @@
 
               <div class="row container">
                 <table
-                  id="project-employees-list"
-                  class="table table-sm project-view-tables"
+                  id="employees-assigned-table"
+                  class="table table-hover table-style"
+                  data-show-multi-sort="true"
+                  data-sort-priority='[
+                    {"sortName": "name","sortOrder":"desc"},
+                    {"sortName": "employeeQty","sortOrder":"desc"},
+                    {"sortName": "startDate","sortOrder":"desc"},
+                    {"sortName": "endDate","sortOrder":"desc"},
+                    {"sortName": "totalHours","sortOrder":"desc"}
+                  ]'
                 >
                   <thead>
                     <tr class="table-head">
@@ -439,21 +451,31 @@
     </div>
 
     <!-- modal remove project -->
-  <div class="modal fade" id="remove-project-modal" tabindex="-1" aria-labelledby="view-project-modal-label"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Remover Projeto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div
+      class="modal fade"
+      id="remove-project-modal"
+      tabindex="-1"
+      aria-labelledby="view-project-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Remover Projeto</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Deseja Remover o Projeto?</p>
+          </div>
+          <div class="modal-footer" id="delete-modal"></div>
         </div>
-        <div class="modal-body">
-          <p>Deseja Remover o Projeto?</p>
-        </div>
-        <div class="modal-footer" id="delete-modal"></div>
       </div>
     </div>
-  </div>
 
     <!-- modal edit project -->
     <div class="parent-modal">
