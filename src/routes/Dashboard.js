@@ -303,14 +303,13 @@ router.get('/rolesassignment/:role_name/:project_id', (req, res) => {
 })
 
 // bloco que faz a soma das horas alocadas de uma função em um determinado projeto
-router.get('/rolesworkloadfiltered/:role_name/:project_id', (req, res) => {
+router.get('/rolesworkloadfiltered/:project_id', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let role_name = req.params['role_name']
   let project_id = req.params['project_id']
 
-  var sql = `SELECT SUM (hours_assigned) FROM EmployeeAssignment WHERE employee_id IN (SELECT Employee.id FROM Employee WHERE Employee.role_name = ?) AND project_id = ?` // código sql que retorna a soma das horas alocadas, filtrando por função e por projeto
-  db.all(sql, [role_name, project_id], (err, rows) => {
+  var sql = `SELECT SUM(hours_assigned) AS hours_assigned, role_name FROM EmployeeAssignment INNER JOIN Employee ON EmployeeAssignment.employee_id = Employee.id WHERE EmployeeAssignment.project_id = ? GROUP BY role_name ORDER BY hours_assigned DESC` // código sql que retorna a soma das horas alocadas, filtrando por função e por projeto
+  db.all(sql, [project_id], (err, rows) => {
     if (err) {
       throw err
     }
