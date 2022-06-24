@@ -206,12 +206,12 @@ function getEmployeeList() {
 }
 getEmployeeList()
 
-function postTags(tagArray) {
-  let url = 'roles/taglist'
+function postTags(id, tagArray) {
+  let url = 'roles/taglist' + id
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('post', url, false)
-  xhhtp.send(JSON.stringify(tagArray))
+  xhttp.send(JSON.stringify(tagArray))
 }
 postTags(tagArray)
 
