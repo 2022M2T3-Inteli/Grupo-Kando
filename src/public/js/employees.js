@@ -393,13 +393,8 @@ function getEmployeeProjectsList() {
     // $("#employee-tags")[0].value = employeeData.tags
   }
 
-<<<<<<< Updated upstream
-function openModalDelete(id) {
-  $('#delete-modal')[0].innerHTML += `
-=======
   function openModalDelete(id) {
     $('#remove-project-modal')[0].innerHTML = `
->>>>>>> Stashed changes
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
     <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee(${id})">Remover</button>
   `
