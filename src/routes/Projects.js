@@ -3,6 +3,7 @@ const router = express.Router() // define a variável router como o método Rout
 const db = require('../data/db') // faz uma requisição do arquivo js que abre o banco de dados
 
 const bodyParser = require('body-parser')
+const { render } = require('ejs')
 
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 router.use(bodyParser.json())
@@ -27,7 +28,7 @@ router.get('/all', (req, res) => {
   })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/project/:id', (req, res) => {
   let id = req.params['id']
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
@@ -43,13 +44,28 @@ router.get('/:id', (req, res) => {
   })
 })
 
+
+router.get('/projectid', (req, res) => {
+  res.statusCode = 200 // código de status de que o comando foi executado sem erros
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+
+  let sql = 'SELECT seq FROM sqlite_sequence WHERE name = "Project"'
+
+  db.get(sql, [], (err, row) => {
+    if (err) {
+      throw err
+    }
+    res.json(row.seq)
+  })
+})
+
 // bloco que insere um novo projeto no banco de dados
 router.post('/', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
   // res.send(req.body)
 
-  sql =
+  let sql =
     "INSERT INTO Project (name, location, start_date, end_date, description, department_name) VALUES ('" +
     req.body.name +
     "', '" +
@@ -101,24 +117,46 @@ router.post('/edit', urlencodedParser, (req, res) => {
   })
 })
 
-router.post('/assignments/:data', urlencodedParser, (req, res) => {
+router.delete('/deleteassignments/:id', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
-  let data = req.params['data']
-  // data = JSON.stringify(data)
-  // data = JSON.parse(data)
+  let projectId = req.params['id']
 
-  // data.forEach((role, roleIndex) => {
-  //   role.years.forEach((year, yearIndex) => {
-  //     year.months.forEach((month, monthIndex) => {
-  //       // let sql = `INSERT INTO RoleAssignment (project_id, role_name, hours_assigned, month, year) VALUES ('${}')`
-  //       console.log(month)
-  //     })
-  //   })
-  // })
-  // console.log(data)
-  res.send(console.log(data))
+  sql = 'DELETE FROM RoleAssignment WHERE project_id = ?' // código sql que deleta um projeto do banco de dados, requisitando id
+  db.run(sql, [projectId], err => {
+    // executa o código sql no banco de dados
+    if (err) {
+      throw err // caso ocorra erro, ele será mostrado no terminal
+    } else console.log(sql)
+    res.end()
+  })
+})
+
+router.post('/assignments', urlencodedParser, (req, res) => {
+  res.statusCode = 200 // código de status de que o comando foi executado sem erros
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+
+  // let data = req.params['data']
+  let data = req.body[0]
+  let projectId = req.body[1]
+  // let projectId = req.body.projectId
+
+  data.forEach((role, roleIndex) => {
+    console.log(role)
+    role.years.forEach((year, yearIndex) => {
+      year.months.forEach((month, monthIndex) => {
+        sql = `INSERT INTO RoleAssignment (project_id, role_name, hours_assigned, month, year) VALUES ('${projectId}', '${role.roleName}', '${month.hours}', '${month.number}', '${year.number}')`
+        db.run(sql, [], (err) => {
+          if (err) {
+            throw err
+          }
+        })
+      })
+    })
+  })
+
+  res.end()
 })
 
 // // bloco que atualiza od dados de um projeto já existente no banco de dados

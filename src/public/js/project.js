@@ -1,4 +1,4 @@
-let project
+let rolesAssignment
 
 // if(localStorage.getItem("project")){
 //   project = localStorage.getItem("project")
@@ -19,8 +19,32 @@ if (localStorage.getItem('message')) {
   }
 }
 
+function getProjectId() {
+  let url = 'projects/projectid'
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = xhttp.responseText
+  return data
+}
+
+function deleteAssignments(id) {
+  let url = `projects/deleteassignments/${id}`
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('delete', url, false)
+  xhttp.send()
+}
+
 function submitProject() {
-  let formValid = document.forms['add-project-form'].checkValidity()
+  let formValid = document.forms["add-project-form"].checkValidity()
+  // localStorage.setItem('project', project);
+  let projectId = getProjectId()
+
+  deleteAssignments(projectId)
+  projectCreated(rolesAssignment, projectId)
   if (formValid) {
     localStorage.setItem('message', 'created project')
     // $("#add-project-form")[0].submit()
@@ -50,14 +74,15 @@ function toastTriggerEdit() {
   localStorage.setItem('message', 'edited project')
 }
 
-function projectCreated(data) {
-  let url = `/projects/assignments/${data}`
+function projectCreated(data, projectId) {
+  let url = `/projects/assignments`
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('POST', url, false)
   // Definindo o tipo de dado que será passado na requisição
-  xhttp.setRequestHeader('Content-type', 'application/json')
-  xhttp.send()
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify([data, projectId]))
+  console.log(xhttp.responseText)
 }
 
 let projectsTable = $('#projects-table')
@@ -73,6 +98,7 @@ function getProjectsList() {
   let data = JSON.parse(xhttp.responseText)
 
   projectsData = []
+
   data.forEach((row, index) => {
     projectsData.push(row)
     projectsData[index].tools = `
@@ -188,8 +214,8 @@ function clearInputs() {
   let projectInputs = $('#add-project-modal input')
   let projectTextAreas = $('#add-project-modal textarea')
   let locationSelect = $('#location')[0]
-  let rolesList = $('#roles-list')[0]
-  rolesAdded = []
+  // let rolesList = $('#roles-list')[0]
+  // rolesAdded = []
 
   projectInputs.each((index, input) => {
     input.value = ''
@@ -214,6 +240,7 @@ function clearInputs() {
 
 let rolesAdded = []
 function addRole() {
+  rolesAssignment = []
   let rolesList = $('#roles-list')[0]
   let newRole = document.getElementById('employee-roles').value
   let roleIndex
@@ -266,31 +293,32 @@ function addRole() {
 
 let employeesAdded = []
 function addEmployee() {
+  employeesAssignment = []
   let employeesList = $('#employees-list')[0]
-  let newEmployee = document.getElementById('employee-employees').value
+  let newEmployee = document.getElementById('employees-employee').value
+  let employeeIndex
 
   if (employeesAdded.indexOf(newEmployee) == -1) {
-    console.log('teste')
     employeesAdded.push(newEmployee)
-    let employeeIndex = employeesAdded.indexOf(newEmployee)
+    employeeIndex = employeesAdded.indexOf(newEmployee)
     employeesList.innerHTML += `
-      <div id="${employeeIndex}-accordion" class="accordion-item">
-        <h2 class="accordion-header" id="role-${employeeIndex}-title">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapse${employeeIndex}" aria-expanded="true" aria-controls="collapse${employeeIndex}">
-          ${newEmployee}
-        </button>
-        </h2>
-        <div id="collapse${employeeIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${employeeIndex}"
-        data-bs-parent="#employees-list">
-          <div class="accordion-body">
-            <div class="employee-allocation row"></div>
-          </>
+        <div id="${employeeIndex}-accordion" class="accordion-item">
+          <h2 class="accordion-header" id="role-${employeeIndex}-title">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse${employeeIndex}" aria-expanded="true" aria-controls="collapse${employeeIndex}">
+            ${newEmployee}
+          </button>
+          </h2>
+          <div id="collapse${employeeIndex}" class="accordion-collapse collapse show" aria-labelledby="heading${employeeIndex}"
+          data-bs-parent="#roles-list">
+            <div class="accordion-body">
+              <div class="role-allocation row"></div>
+            </>
+          </div>
         </div>
-      </div>
-    `
+      `
   }
-  generateEmployeeAllocationArea()
+  updateDates(employeeIndex)
 }
 
 function updateDates(index) {
@@ -505,7 +533,7 @@ function roleAllocation(roleIndex, year, month) {
       <div class="col-3 month-allocation"> 
         <label for="role-hours-month${month}">${monthNameBr}: 
         </label>
-        <input type="number" name="role-hours-month${month}-${index}" id="role-hours-month${month}-${index}" onchange="defineHoursRole(${roleIndex}, ${year}, ${month}, this.value)" required>
+        <input type="number" name="role-hours-month${month}-${index}" id="role-hours-month${month}-${index}" onchange="defineHoursRole(${index}, ${year}, ${month}, this.value)" required>
       </div>
     `
   })
@@ -513,9 +541,9 @@ function roleAllocation(roleIndex, year, month) {
 
 function defineHoursRole(index, allocationYear, allocationMonth, hours) {
   hours = Number(hours)
-  let role = rolesAdded[index]
+  // let role = rolesAdded[index]
 
-  // project.push(
+  // rolesAssignment.push(
   //   {
   //     roleName: newRole,
   //     years: [
@@ -528,74 +556,73 @@ function defineHoursRole(index, allocationYear, allocationMonth, hours) {
   //   }
   // )
 
-  // console.log(project)
-  if (!project) {
-    project = []
-    project.push({
-      roleName: rolesAdded[index],
-      years: [
+  // console.log(rolesAssignment)
+  if (!rolesAssignment || rolesAssignment.length - 1 < index) {
+    rolesAdded.forEach((role, index) => {
+      rolesAssignment.push({
+        roleName: role,
+        years: [
+          {
+            number: allocationYear,
+            months: [
+              {
+                number: allocationMonth,
+                hours: hours
+              }
+            ]
+          }
+        ]
+      })
+    })
+  }
+  // console.log(rolesAssignment)
+  let haveYear = false
+  rolesAssignment[index].years.forEach((year, yearIndex) => {
+    if (year.number == allocationYear) {
+      haveYear = true
+      let haveMonth = false
+      year.months.forEach((month, monthIndex) => {
+        if (month.number == allocationMonth) {
+          console.log(month.number, allocationMonth)
+          haveMonth = true
+        }
+      })
+      if (!haveMonth) {
+        year.months.push({
+          number: allocationMonth,
+          hours: hours
+        })
+      }
+    }
+  })
+  if (!haveYear) {
+    console.log('entrou')
+    role.years.push({
+      number: allocationYear,
+      months: [
         {
-          number: allocationYear,
-          months: [
-            {
-              number: allocationMonth,
-              hours: hours
-            }
-          ]
+          number: allocationMonth,
+          hours: hours
         }
       ]
     })
   }
-  // console.log(project)
-  project.forEach((role, roleIndex) => {
-    let haveYear = false
-    role.years.forEach((year, yearIndex) => {
-      if (year.number == allocationYear) {
-        haveYear = true
-        let haveMonth = false
-        year.months.forEach((month, monthIndex) => {
-          if (month.number == allocationMonth) {
-            console.log(month.number, allocationMonth)
-            haveMonth = true
-          }
-        })
-        if (!haveMonth) {
-          year.months.push({
-            number: allocationMonth,
-            hours: hours
-          })
-        }
-      }
-    })
-    if (!haveYear) {
-      console.log('entrou')
-      role.years.push({
-        number: allocationYear,
-        months: [
-          {
-            number: allocationMonth,
-            hours: hours
-          }
-        ]
-      })
-    }
-    // else {
-    //   console.log("entrou")
-    //   role.years[0] =
-    //     [
-    //       {
-    //         number: allocationYear,
-    //         months: [
-    //           {
-    //             number: allocationMonth,
-    //             hours: hours
-    //           }
-    //         ]
-    //       }
-    //     ]
-    // }
-    console.log(project)
-  })
+  // else {
+  //   console.log("entrou")
+  //   role.years[0] =
+  //     [
+  //       {
+  //         number: allocationYear,
+  //         months: [
+  //           {
+  //             number: allocationMonth,
+  //             hours: hours
+  //           }
+  //         ]
+  //       }
+  //     ]
+  // }
+  console.log(rolesAssignment)
 }
 // função que cria inputs personalizados para cada mês de atribuição de funcionários
 function employeeAllocation() {
@@ -674,7 +701,7 @@ function setEditProjectId(id) {
 }
 
 function getProject(id) {
-  let url = '/projects/' + id
+  let url = '/projects/project/' + id
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
@@ -769,10 +796,6 @@ $(searchInput).keyup(function () {
     }
   })
 })
-
-function Teste() {
-  console.log('aeeeeeeeeeeeee')
-}
 
 // export function toastTrigger()
 
