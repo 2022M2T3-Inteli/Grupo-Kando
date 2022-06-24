@@ -412,7 +412,7 @@ function setEditEmployeeId(index) {
 }
 
 function openModalDelete(id) {
-  $('#delete-modal-footer')[0].innerHTML += `
+  $('#delete-modal-footer')[0].innerHTML = `
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
     <button type="button" class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteEmployee(${id})">Remover</button>
   `
