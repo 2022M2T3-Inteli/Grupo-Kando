@@ -486,9 +486,77 @@ function generateRolesWorkloadChart(roles, monthWorkload) {
   })
 }
 
-// ######## Início dos gráficos estáticos
+// ######## GRÁFICO STATUS DOS FUNCIONÁRIOS
 
-const generalChart5 = {
+let employeeAssignmentQty
+
+function getEmployeesAssignmentQty() {
+  let url = 'dashboard/employeesassignmentqty'
+
+  let xhttp = new XMLHttpRequest()
+
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+
+  employeeAssignmentQty = data
+}
+
+getEmployeesAssignmentQty()
+console.log(employeeAssignmentQty)
+
+function getEmployeesProjectsWorkload(id) {
+  let url = 'dashboard/projectsworkload/' + id
+
+  let xhttp = new XMLHttpRequest()
+
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+
+  return data[0].projects_workload
+}
+
+function getTodayEmployeesWorkload(id) {
+  let url = 'dashboard/employeeworkload/' + id
+
+  let xhttp = new XMLHttpRequest()
+
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+
+  return data[0].hours_assigned
+}
+
+let employeesGeneralOverloadedQty = 0
+let employeesProjectOverloadedQty = 0
+let employeesNotOverloadedQty = 0
+
+function calculateWorkloadStatus() {
+  for (employee = 0; employee < employeeAssignmentQty.length; employee++) {
+    if (
+      getTodayEmployeesWorkload(employeeAssignmentQty[employee].employee_id) >
+      176
+    ) {
+      employeesGeneralOverloadedQty += 1
+    } else if (
+      getTodayEmployeesWorkload(employeeAssignmentQty[employee].employee_id) >
+      getEmployeesProjectsWorkload(employeeAssignmentQty[employee].employee_id)
+    ) {
+      employeesProjectOverloadedQty += 1
+    } else {
+      employeesNotOverloadedQty += 1
+    }
+  }
+}
+
+calculateWorkloadStatus()
+
+const employeeStatusChart = {
   labels: [
     'Nº de Funcionarios Dentro da Carga Horária',
     'Nº de Funcionarios Sobrecarregados Geral',
@@ -496,7 +564,11 @@ const generalChart5 = {
   ],
   datasets: [
     {
-      data: [70, 100, 20],
+      data: [
+        employeesNotOverloadedQty,
+        employeesGeneralOverloadedQty,
+        employeesProjectOverloadedQty
+      ],
       backgroundColor: [
         'rgb(155, 215, 235)',
         'rgb(154, 12, 135)',
@@ -506,9 +578,9 @@ const generalChart5 = {
   ]
 }
 
-const generalChart5Config = {
+const employeeStatusChartConfig = {
   type: 'pie',
-  data: generalChart5,
+  data: employeeStatusChart,
   options: {
     responsive: true,
     maintainAspectRatio: false,
@@ -519,9 +591,7 @@ const generalChart5Config = {
 }
 
 const generalCtx5 = document.getElementById('general-employee-chart2')
-const generalDashChart5 = new Chart(generalCtx5, generalChart5Config)
-
-// ############### Fim dos gráficos estáticos
+const generalDashChart5 = new Chart(generalCtx5, employeeStatusChartConfig)
 
 // Função que faz a requisição para gerar os dados do gráfico de projetos (Aba de projetos do Dashboard)
 function getProjectEmployees(id, type) {
@@ -641,6 +711,40 @@ function generateProjectAllocationChart() {
   projectChartAllocation = new Chart(project1Ctx, project1Chart1Config)
 }
 
+let rolesWorkload
+// Define a função que irá gerar o gráfico de horas por função filtrado por projeto
+function generateRolesWorkloadFilteredChart(roles, monthWorkload) {
+  rolesWorkload = new Chart($('#project-roles-chart'), {
+    type: 'bar',
+    data: {
+      labels: roles,
+      datasets: [
+        {
+          data: monthWorkload,
+          backgroundColor: ['red', 'blue', 'green', 'grey', 'pink']
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: function () {
+            return monthWorkload[0] + 20
+          }
+        }
+      }
+    }
+  })
+}
+
 // ############ Fim do gráfico estático de projetos
 
 // Chama a função para gerar os primeiros gráficos de horas da tela
@@ -680,39 +784,6 @@ function getRolesWorkloadFiltered(projectId) {
 
 getRolesWorkloadFiltered(14)
 
-// Define a função que irá gerar o gráfico de horas por função filtrado por projeto
-function generateRolesWorkloadFilteredChart(roles, monthWorkload) {
-  new Chart($('#project-roles-chart'), {
-    type: 'bar',
-    data: {
-      labels: roles,
-      datasets: [
-        {
-          data: monthWorkload,
-          backgroundColor: ['red', 'blue', 'green', 'grey', 'pink']
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false
-        }
-      },
-      scales: {
-        y: {
-          min: 0,
-          max: function () {
-            return monthWorkload[0] + 20
-          }
-        }
-      }
-    }
-  })
-}
-
 // Define a função que irá esconder e mostrar os gráficos de acordo com a aba do dashboard escolhido (Geral ou Projeto)
 function changeDashSection(dashSection) {
   if (dashSection == 'general') {
@@ -722,6 +793,10 @@ function changeDashSection(dashSection) {
     document.getElementById('general').hidden = true
     document.getElementById('project').hidden = false
 
+    if (rolesWorkload) {
+      rolesWorkload.destroy()
+      getRolesWorkloadFiltered(14)
+    }
     // Destrói o gráfico antigo caso exista algum
     if (projectChartAllocation) {
       projectChartAllocation.destroy()

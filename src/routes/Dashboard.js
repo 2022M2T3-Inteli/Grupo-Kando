@@ -320,13 +320,13 @@ router.get('/rolesworkloadfiltered/:project_id', (req, res) => {
 
 // #### ROTAS PARA O GRÁFICO "STATUS DOS FUNCIONÁRIOS"
 
-// bloco que faz um get da quantidade de horas disponíveis de um determinado funcionário
-router.get('/availableworkload/:id', (req, res) => {
+// bloco que faz um get da quantidade de horas destinadas a projetos de um determinado funcionário
+router.get('/projectsworkload/:id', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
   let id = req.params['id']
 
-  var sql = `SELECT available_projects_workload FROM Employee WHERE id = ?` // código sql que retorna a quantidade de horas disponíveis de um determinado funcionário
+  var sql = `SELECT projects_workload FROM Employee WHERE id = ?` // código sql que retorna a quantidade de horas destinadas a projetos de um determinado funcionário
   db.all(sql, [id], (err, rows) => {
     if (err) {
       throw err
@@ -337,13 +337,28 @@ router.get('/availableworkload/:id', (req, res) => {
 })
 
 // bloco que faz um get da soma de horas de um determinado funcionário e m um determinado mês
-router.get('/employeeworkload/:id', (req, res) => {
+router.get('/employeeworkload/:employee_id', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
   let employee_id = req.params['employee_id']
 
   var sql = `SELECT SUM(hours_assigned) AS hours_assigned FROM EmployeeAssignment WHERE employee_id = ? AND month = ${month} AND year = ${year}` // código sql que retorna a soma de horas de um determinado funcionário em um determinado mês
   db.all(sql, [employee_id], (err, rows) => {
+    if (err) {
+      throw err
+    }
+    // Retorna os dados solicitados
+    res.json(rows)
+  })
+})
+
+// quantidade de funcionários alocados no mês atual
+router.get('/employeesassignmentqty', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  var sql = `SELECT DISTINCT employee_id FROM EmployeeAssignment WHERE month = ${month} AND year = ${year}`
+  db.all(sql, [], (err, rows) => {
     if (err) {
       throw err
     }
