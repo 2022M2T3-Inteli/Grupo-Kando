@@ -77,7 +77,7 @@ router.delete('/:id', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
-  sql = 'DELETE FROM Role WHERE id = ? ' // código sql que deleta um projeto do banco de dados, requisitando id
+  sql = 'DELETE FROM Role WHERE id = ? ' // código sql que deleta uma função do banco de dados, requisitando id
   db.run(sql, [id], err => {
     // executa o código sql no banco de dados
     if (err) {

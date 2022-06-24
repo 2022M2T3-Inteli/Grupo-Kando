@@ -14,6 +14,7 @@ if (localStorage.getItem("message")) {
 
 var tagList = document.body.querySelector(".employee-tag-list");
 var tagName;
+var tagArray = [];
 
 // função que faz a caixa de input da tag aparecer, se o usuário clicar no "+"
 function newTagName() {
@@ -24,18 +25,26 @@ function newTagName() {
 // função que coleta o texto inserido na caixa de input da tag
 function changeInputTagValue(value) {
   tagName = value;
+  tagArray.push(tagName)
+  console.log(tagArray)
 }
 
 // função que remove a caixa de input da tag e adiciona ela a página do funcionário, quando o usuário clicar em "ok"
 function addTagElement() {
   document.getElementById("new-tag-name").remove();
   tagList.innerHTML += `<div id="${tagName}" class="tag" name="tags">${tagName}</div><button type="button" class="tag-button" name="${tagName}" onclick="removeTagElement(this)">x</button>`;
+  
 }
 
 // função que remove a tag, caso o usuário clique no "x"
 function removeTagElement(el) {
+  const index = tagArray.indexOf(el.name)
+  if (index > -1) {
+    tagArray.splice(index, 1)
+  }
   document.getElementById(el.name).remove();
   el.remove();
+  console.log(tagArray)
 }
 //toast de feedback "funcionario criado/editado com sucesso"
 function toastShow(type) {
@@ -198,14 +207,24 @@ function getEmployeeList() {
 }
 getEmployeeList();
 
+function postTags(tagArray) {
+  let url = "roles/taglist"
+
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("post", url, false);
+  xhhtp.send(JSON.stringify(tagArray))
+
+}
+postTags(tagArray)
+
 function getRoles() {
   let url = "roles/all";
 
-  let xhtpp = new XMLHttpRequest();
-  xhtpp.open("get", url, false);
-  xhtpp.send();
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("get", url, false);
+  xhttp.send();
 
-  let data = JSON.parse(xhtpp.responseText);
+  let data = JSON.parse(xhttp.responseText);
 
   let selectRoles = $("#employee-roles")[0];
   let selectRole = $("#employee-role")[0];
@@ -236,11 +255,11 @@ function getProjects(id) {
 function getEmployeeWorkload(id) {
   let url = `/employees/employeeworkload/${id}`;
 
-  let xhtpp = new XMLHttpRequest();
-  xhtpp.open("get", url, false);
-  xhtpp.send();
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("get", url, false);
+  xhttp.send();
 
-  let data = JSON.parse(xhtpp.responseText);
+  let data = JSON.parse(xhttp.responseText);
 
   if (data.hours_assigned) {
     return data.hours_assigned;
@@ -268,11 +287,11 @@ function getEmployeeWorkload(id) {
 function getProjectWorkload(id) {
   let url = `/employees/projectsworkload/${id}`;
 
-  let xhtpp = new XMLHttpRequest();
-  xhtpp.open("get", url, false);
-  xhtpp.send();
+  let xhttp = new XMLHttpRequest();
+  xhttp.open("get", url, false);
+  xhttp.send();
 
-  let data = JSON.parse(xhtpp.responseText);
+  let data = JSON.parse(xhttp.responseText);
 
   if (data.projects_workload) {
     return data.projects_workload;
