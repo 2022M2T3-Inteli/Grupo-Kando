@@ -83,7 +83,7 @@ router.post('/', urlencodedParser, (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
   sql =
-    "INSERT INTO Employee (name, location, role_name, projects_workload, available_projects_workload, type, tags) VALUES ('" +
+    "INSERT INTO Employee (name, location, role_name, projects_workload, available_projects_workload, type) VALUES ('" +
     req.body.name +
     "', '" +
     req.body.location +
@@ -95,8 +95,6 @@ router.post('/', urlencodedParser, (req, res) => {
     req.body.projects_work +
     "', '" +
     req.body.type +
-    "','" +
-    req.body.tags +
     "')" // código sql que insere um novo funcionário no banco de dados, requisitando nome, localização, função, carga horária já usada para projetos, carga horária disponível para projetos, tipo (CLT ou TERCEIRO) e tags
 
   db.run(sql, [], err => {
@@ -116,8 +114,6 @@ router.post('/edit', urlencodedParser, (req, res) => {
   sql =
     "UPDATE Employee SET name = '" +
     req.body.name +
-    "', tags = '" +
-    req.body.tags +
     "', location = '" +
     req.body.location +
     "', role_name = '" +
@@ -138,6 +134,39 @@ router.post('/edit', urlencodedParser, (req, res) => {
     res.redirect('back')
   })
   // res.location('employees/employees')
+})
+
+router.post('/taglist/:id', urlencodedParser, (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  let tagArray = req.body
+  let id = req.params["id"]
+
+  let sql =
+    "INSERT INTO Employee (tags) VALUES ('" +
+    tagArray + "') WHERE id = ?"
+  db.run(sql, [id], err => {
+    if (err) {
+      throw err
+    }
+  })
+  res.end
+})
+
+router.get('/taglist/:id', (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  let employee_id = req.params['employee_id']
+
+  var sql = `SELECT tags FROM Employee ORDER BY id COLLATE NOCASE` // código sql que retorna a soma de horas de um determinado funcionário em um determinado mês
+  db.get(sql, [employee_id], (err, row) => {
+    if (err) {
+      throw err
+    }
+    // Retorna os dados solicitados
+    res.json(row)
+  })
 })
 
 // bloco que apaga um funcionário do banco de dados
