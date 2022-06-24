@@ -190,15 +190,15 @@ router.get('/projectsworkload/:id', (req, res) => {
 
 router.get('/projectsassigned/:employee_id', (req, res) => {
   res.statusCode = 200
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Acces-Control-Allow-Origin', '*')
   let employee_id = req.params['employee_id']
 
-  var sql = `SELECT name, start_date, end_date FROM Project WHERE id IN (SELECT EmployeeAssignment.project_id FROM EmployeeAssignment WHERE EmployeeAssignment.employee_id = ?)`
+  sql = `SELECT Project.name, Project.start_date, Project.end_date, EmployeeAssignment.hours_assigned FROM Project INNER JOIN EmployeeAssignment ON Project.id = EmployeeAssignment.project_id WHERE EmployeeAssignment.employee_id = ? AND EmployeeAssignment.month = ${month} AND EmployeeAssignment.year = ${year}`
+
   db.all(sql, [employee_id], (err, rows) => {
     if (err) {
       throw err
     }
-    // Retorna os dados solicitados
     res.json(rows)
   })
 })

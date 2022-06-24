@@ -20,10 +20,7 @@ if (localStorage.getItem('message')) {
 }
 
 function submitProject() {
-  let formValid = document.forms["add-project-form"].checkValidity()
-  // localStorage.setItem('project', project);
-
-  projectCreated(project)
+  let formValid = document.forms['add-project-form'].checkValidity()
   if (formValid) {
     localStorage.setItem('message', 'created project')
     // $("#add-project-form")[0].submit()
@@ -57,9 +54,9 @@ function projectCreated(data) {
   let url = `/projects/assignments/${data}`
 
   let xhttp = new XMLHttpRequest()
-  xhttp.open("POST", url, false)
+  xhttp.open('POST', url, false)
   // Definindo o tipo de dado que será passado na requisição
-  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader('Content-type', 'application/json')
   xhttp.send()
 }
 
@@ -86,7 +83,7 @@ function getProjectsList() {
 					class="material-symbols-outlined project-view-button"
 					data-bs-toggle="modal"
 					data-bs-target="#view-project-modal"
-					onclick="viewProject(${row.id})"
+					onclick="viewProjectInfo(${row.id})"
 				>
 					visibility
 				</div>
@@ -115,7 +112,7 @@ function getProjectsList() {
   })
 
   $(projectsTable).bootstrapTable('destroy')
-  setInterval(function () {
+  setTimeout(function () {
     $(projectsTable).bootstrapTable({
       data: projectsData
     })
@@ -168,7 +165,7 @@ function getRoles() {
 // função que faz um get dos funcionários de uma determinada função
 function getEmployees(index) {
   let roleSelected = rolesAdded[index]
-  $("#allocation-modal-label")[0].innerText = `Alocar ${roleSelected}`
+  $('#allocation-modal-label')[0].innerText = `Alocar ${roleSelected}`
   let url = `/employees/filterbyrole/${roleSelected}` // link da rota para acesso dos dados carregados do banco
 
   let xhtpp = new XMLHttpRequest() // realização de uma requisição xmlhttp
@@ -177,7 +174,7 @@ function getEmployees(index) {
 
   let data = JSON.parse(xhtpp.responseText) // transforma os dados em json
 
-  let allocationRoles = $("#employee-employees")[0]
+  let allocationRoles = $('#employee-employees')[0]
   allocationRoles.innerHTML = ''
   console.log(data)
   data.forEach(employee => {
@@ -188,9 +185,9 @@ function getEmployees(index) {
 }
 
 function clearInputs() {
-  let projectInputs = $("#add-project-modal input")
-  let projectTextAreas = $("#add-project-modal textarea")
-  let locationSelect = $("#location")[0]
+  let projectInputs = $('#add-project-modal input')
+  let projectTextAreas = $('#add-project-modal textarea')
+  let locationSelect = $('#location')[0]
   let rolesList = $('#roles-list')[0]
   rolesAdded = []
 
@@ -217,7 +214,7 @@ function clearInputs() {
 
 let rolesAdded = []
 function addRole() {
-  let rolesList = $("#roles-list")[0]
+  let rolesList = $('#roles-list')[0]
   let newRole = document.getElementById('employee-roles').value
   let roleIndex
 
@@ -269,11 +266,11 @@ function addRole() {
 
 let employeesAdded = []
 function addEmployee() {
-  let employeesList = $("#employees-list")[0]
+  let employeesList = $('#employees-list')[0]
   let newEmployee = document.getElementById('employee-employees').value
 
   if (employeesAdded.indexOf(newEmployee) == -1) {
-    console.log("teste")
+    console.log('teste')
     employeesAdded.push(newEmployee)
     let employeeIndex = employeesAdded.indexOf(newEmployee)
     employeesList.innerHTML += `
@@ -297,7 +294,7 @@ function addEmployee() {
 }
 
 function updateDates(index) {
-  let rolesList = $("#roles-list")
+  let rolesList = $('#roles-list')
 
   if (rolesList.length > 0) {
     registerDate(index)
@@ -370,7 +367,6 @@ function registerDate(roleIndex) {
       defineMonthName(month) // cria uma label com o nome do mês
       roleAllocation(roleIndex, startYear, month) // cria um input com id personalizado para as horas atribuíd
     }
-
   }
   // caso o projeto tenha uma duração que não esteja contida no mesmo ano
   else {
@@ -430,8 +426,7 @@ function registerDate(roleIndex) {
         </div>
       `
     })
-  }
-  else {
+  } else {
     roleAllocationArea.each((index, role) => {
       role.innerHTML += `
         <div class="row">
@@ -536,22 +531,20 @@ function defineHoursRole(index, allocationYear, allocationMonth, hours) {
   // console.log(project)
   if (!project) {
     project = []
-    project.push(
-      {
-        roleName: rolesAdded[index],
-        years: [
-          {
-            number: allocationYear,
-            months: [
-              {
-                number: allocationMonth,
-                hours: hours
-              }
-            ]
-          }
-        ]
-      }
-    )
+    project.push({
+      roleName: rolesAdded[index],
+      years: [
+        {
+          number: allocationYear,
+          months: [
+            {
+              number: allocationMonth,
+              hours: hours
+            }
+          ]
+        }
+      ]
+    })
   }
   // console.log(project)
   project.forEach((role, roleIndex) => {
@@ -567,28 +560,24 @@ function defineHoursRole(index, allocationYear, allocationMonth, hours) {
           }
         })
         if (!haveMonth) {
-          year.months.push(
-              {
-                number: allocationMonth,
-                hours: hours
-              }
-          )
+          year.months.push({
+            number: allocationMonth,
+            hours: hours
+          })
         }
       }
     })
     if (!haveYear) {
-      console.log("entrou")
-      role.years.push(
+      console.log('entrou')
+      role.years.push({
+        number: allocationYear,
+        months: [
           {
-            number: allocationYear,
-            months: [
-              {
-                number: allocationMonth,
-                hours: hours
-              }
-            ]
+            number: allocationMonth,
+            hours: hours
           }
-      ) 
+        ]
+      })
     }
     // else {
     //   console.log("entrou")
@@ -686,6 +675,18 @@ function setEditProjectId(id) {
 
 function getProject(id) {
   let url = '/projects/' + id
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+  console.log(data)
+  return data
+}
+
+function getEmployeesAssigned(id) {
+  let url = '/projects/employeesassigned/' + id
 
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
@@ -800,4 +801,38 @@ function viewProject(id) {
 			</tbody>
 		</table>
 	`
+}
+
+let employeesAssignedTable = $('#employees-assigned-table')
+let employeesAssignedData = []
+
+function viewEmployeesAssigned(id) {
+  let url = 'projects/employeesassigned/' + id
+
+  let xhttp = new XMLHttpRequest()
+
+  xhttp.open('get', url, false)
+  xhttp.send()
+
+  let data = JSON.parse(xhttp.responseText)
+
+  console.log(data)
+
+  employeesAssignedData = []
+  data.forEach(row => {
+    employeesAssignedData.push(row)
+  })
+
+  $(employeesAssignedTable).bootstrapTable('destroy')
+  setTimeout(function () {
+    $(employeesAssignedTable).bootstrapTable({
+      data: employeesAssignedData
+    })
+    // $('#employees-assigned-table tr:not(:first)').addClass('table-body-row')
+  }, 0)
+}
+
+function viewProjectInfo(id) {
+  viewProject(id)
+  viewEmployeesAssigned(id)
 }

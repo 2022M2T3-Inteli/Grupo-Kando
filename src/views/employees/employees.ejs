@@ -345,14 +345,19 @@
                       data-show-multi-sort="true"
                       data-sort-priority='[
                         {"sortName": "name","sortOrder":"desc"}, 
+                        {"sortName": "start_date","sortOrder":"desc"}, 
+                        {"sortName": "end_date","sortOrder":"desc"},
+                        {"sortName": "hours_assigned","sortOrder":"desc"}
                       ]'
                     >
                       <thead>
                         <tr class="table-head">
-                          <th scope="col">Projeto</th>
-                          <th scope="col">Horas / Mês</th>
-                          <th scope="col">Início</th>
-                          <th scope="col">Fim</th>
+                          <th scope="col" data-field="name">Projeto</th>
+                          <th scope="col" data-field="start_date">Início</th>
+                          <th scope="col" data-field="end_date">Fim</th>
+                          <th scope="col" data-field="hours_assigned">
+                            Horas Alocadas no Mês Atual
+                          </th>
                         </tr>
                       </thead>
                       <!-- <tbody>

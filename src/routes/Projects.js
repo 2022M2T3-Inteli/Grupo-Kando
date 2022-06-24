@@ -5,8 +5,12 @@ const db = require('../data/db') // faz uma requisição do arquivo js que abre 
 const bodyParser = require('body-parser')
 
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({ extended: true }))
+
+const today = new Date() // função para requisitar a data atual do sistema
+const month = today.getMonth() + 1 // função para requisitar o mês atual do sistema
+const year = today.getFullYear() // função para requisitar o ano atual do sistema
 
 // bloco que seleciona todos os projetos registrados no banco de dados
 router.get('/all', (req, res) => {
@@ -97,7 +101,7 @@ router.post('/edit', urlencodedParser, (req, res) => {
   })
 })
 
-router.post('/assignments/:data',urlencodedParser, (req, res) => {
+router.post('/assignments/:data', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
@@ -171,7 +175,7 @@ router.get('/employeesassigned/:project_id', (req, res) => {
   res.setHeader('Acces-Control-Allow-Origin', '*')
   let project_id = req.params['project_id']
 
-  sql = `SELECT name FROM Employee WHERE id IN (SELECT EmployeeAssignment.employee_id FROM EmployeeAssignment WHERE EmployeeAssignment.project_id = ?)`
+  sql = `SELECT Employee.name, Employee.role_name, EmployeeAssignment.hours_assigned FROM Employee INNER JOIN EmployeeAssignment ON Employee.id = EmployeeAssignment.employee_id WHERE EmployeeAssignment.project_id = ? AND EmployeeAssignment.month = ${month} AND EmployeeAssignment.year = ${year}`
 
   db.all(sql, [project_id], (err, rows) => {
     if (err) {

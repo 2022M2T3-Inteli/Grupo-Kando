@@ -412,36 +412,18 @@
                   data-show-multi-sort="true"
                   data-sort-priority='[
                     {"sortName": "name","sortOrder":"desc"},
-                    {"sortName": "employeeQty","sortOrder":"desc"},
-                    {"sortName": "startDate","sortOrder":"desc"},
-                    {"sortName": "endDate","sortOrder":"desc"},
-                    {"sortName": "totalHours","sortOrder":"desc"}
+                    {"sortName": "role_name","sortOrder":"desc"}
                   ]'
                 >
                   <thead>
                     <tr class="table-head">
-                      <th scope="col">Funcionário</th>
-                      <th scope="col">Função</th>
-                      <th scope="col">Alocação Mensal</th>
+                      <th scope="col" data-field="name">Funcionário</th>
+                      <th scope="col" data-field="role_name">Função</th>
+                      <th scope="col" data-field="hours_assigned">
+                        Horas Alocadas no Mês Atual
+                      </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>Fernando Paiva</td>
-                      <td>Programador</td>
-                      <td>64H / 180H</td>
-                    </tr>
-                    <tr>
-                      <td>Carlos Alberto Rocha</td>
-                      <td>Analista</td>
-                      <td>58H / 180H</td>
-                    </tr>
-                    <tr>
-                      <td>Larissa Alves</td>
-                      <td>Suporte</td>
-                      <td>100H / 180H</td>
-                    </tr>
-                  </tbody>
                 </table>
               </div>
             </div>
@@ -645,8 +627,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
-      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      )
+      const tooltipList = [...tooltipTriggerList].map(
+        tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl)
+      )
     </script>
 
     <!-- Bootstrap Table -->
