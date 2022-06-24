@@ -63,11 +63,10 @@ function getRolesList() {
 			<div class="role-tools">
 
 				<div
-					class="material-symbols-outlined employee-edit-button"
+					class="material-symbols-outlined role-edit-button"
 					data-bs-toggle="modal"
-					data-bs-target="#edit-employee-modal"
-					id="${row.id}"
-					onclick="setEditRoleId(this.id)"
+					data-bs-target="#edit-role-modal"
+					onclick="setEditRoleId(${row.id})"
 				>
 					<span class="material-symbols-outlined">
 						edit
@@ -75,12 +74,9 @@ function getRolesList() {
 				</div>
 
 				<div
-					class="material-symbols-outlined role-view-button"
-					class="material-symbols-outlined employee-view-button"
+					class="material-symbols-outlined role-delete-button"
 					data-bs-toggle="modal"
-					data-bs-target="#remove-employee-modal"
-					id="${row.id}"
-					onclick="modalDelete(this.id)"
+					data-bs-target="#remove-role-modal"
 					onclick="openModalDelete(${row.id})"
 					
 				>
@@ -124,14 +120,14 @@ function modalDelete(id) {
   roleId = id;
 }
 
-function deleteRole() {
+function deleteRole(id) {
   // localStorage.setItem('message', 'deleted role')
   setTimeout(function showToast() {
     const toast = new bootstrap.Toast(document.getElementById("deleteToast"));
     toast.show();
   }, 300);
 
-  let url = "roles/" + roleId;
+  let url = `roles/${id}`;
 
   let xhttp = new XMLHttpRequest();
 

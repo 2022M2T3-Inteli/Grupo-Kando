@@ -3,7 +3,10 @@ const router = express.Router() // define a variável router como o método Rout
 const db = require('../data/db') // faz uma requisição do arquivo js que abre o banco de dados
 
 const bodyParser = require('body-parser')
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+const urlencodedParser = bodyParser.urlencoded({ extended: true })
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 // bloco que seleciona todos os projetos registrados no banco de dados
 router.get('/all', (req, res) => {
@@ -93,6 +96,26 @@ router.post('/edit', urlencodedParser, (req, res) => {
     res.redirect('back')
 
   })
+})
+
+router.post('/assignments/:data',urlencodedParser, (req, res) => {
+  res.statusCode = 200 // código de status de que o comando foi executado sem erros
+  res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
+
+  let data = req.params['data']
+  // data = JSON.stringify(data)
+  // data = JSON.parse(data)
+
+  // data.forEach((role, roleIndex) => {
+  //   role.years.forEach((year, yearIndex) => {
+  //     year.months.forEach((month, monthIndex) => {
+  //       // let sql = `INSERT INTO RoleAssignment (project_id, role_name, hours_assigned, month, year) VALUES ('${}')`
+  //       console.log(month)
+  //     })
+  //   })
+  // })
+  // console.log(data)
+  res.send(console.log(data))
 })
 
 // // bloco que atualiza od dados de um projeto já existente no banco de dados

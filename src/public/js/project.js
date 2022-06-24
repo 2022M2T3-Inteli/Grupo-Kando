@@ -1,3 +1,10 @@
+let project
+
+// if(localStorage.getItem("project")){
+//   project = localStorage.getItem("project")
+//   projectCreated(project)
+//   localStorage.removeItem("project")
+// }
 if (localStorage.getItem('message')) {
   if (localStorage.getItem('message') == 'created project') {
     toastShow('add')
@@ -13,10 +20,12 @@ if (localStorage.getItem('message')) {
 }
 
 function submitProject() {
-  let formValid = document.forms["add-project-form"].checkValidity();
+  let formValid = document.forms["add-project-form"].checkValidity()
+  // localStorage.setItem('project', project);
+
+  projectCreated(project)
   if (formValid) {
     localStorage.setItem('message', 'created project')
-    localStorage.setItem('project', project)
     // $("#add-project-form")[0].submit()
   }
 }
@@ -42,6 +51,16 @@ function toastTriggerAdd() {
 }
 function toastTriggerEdit() {
   localStorage.setItem('message', 'edited project')
+}
+
+function projectCreated(data) {
+  let url = `/projects/assignments/${data}`
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.open("POST", url, false)
+  // Definindo o tipo de dado que será passado na requisição
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send()
 }
 
 let projectsTable = $('#projects-table')
@@ -195,8 +214,6 @@ function clearInputs() {
 //   var modal = document.querySelector('.modal')
 //   modal.style.display = 'none'
 // }
-
-let project
 
 let rolesAdded = []
 function addRole() {
@@ -500,6 +517,7 @@ function roleAllocation(roleIndex, year, month) {
 }
 
 function defineHoursRole(index, allocationYear, allocationMonth, hours) {
+  hours = Number(hours)
   let role = rolesAdded[index]
 
   // project.push(
