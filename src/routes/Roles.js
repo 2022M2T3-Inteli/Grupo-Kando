@@ -73,12 +73,12 @@ router.post('/edit', urlencodedParser, (req, res) => {
 
 // bloco que apaga uma função do banco de dados
 router.delete('/:id', urlencodedParser, (req, res) => {
-  // define /roledelete como o endereço que executará os comandos abaixo
+  let id = req.params['id'] // uso da variável id para armazenar o parâmetro a ser requisitado
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
-  sql = 'DELETE FROM Role WHERE id = ' + req.body.id // código sql que deleta uma função do banco de dados, requisitando id
-  db.run(sql, [], err => {
+  sql = 'DELETE FROM Role WHERE id = ? ' // código sql que deleta um projeto do banco de dados, requisitando id
+  db.run(sql, [id], err => {
     // executa o código sql no banco de dados
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
