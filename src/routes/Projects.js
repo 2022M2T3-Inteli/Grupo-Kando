@@ -117,22 +117,24 @@ router.post('/edit', urlencodedParser, (req, res) => {
   })
 })
 
+// Endpoint que apagará todas as funções alocadas a um projeto
 router.delete('/deleteassignments/:id', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
-  let projectId = req.params['id']
+  let projectId = req.params['id'] // Guarda o id do projeto que foi passado na requisição
 
-  sql = 'DELETE FROM RoleAssignment WHERE project_id = ?' // código sql que deleta um projeto do banco de dados, requisitando id
+  sql = 'DELETE FROM RoleAssignment WHERE project_id = ?' // código sql que deleta um projeto do banco de dados, passando o id como parâmetro
   db.run(sql, [projectId], err => {
     // executa o código sql no banco de dados
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
     } else console.log(sql)
-    res.end()
+    res.end() // Termina a requisição
   })
 })
 
+// Rota responsável por fazer as alocações das horas das funções por mes e ano
 router.post('/assignments', urlencodedParser, (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
@@ -142,55 +144,28 @@ router.post('/assignments', urlencodedParser, (req, res) => {
   let projectId = req.body[1]
   // let projectId = req.body.projectId
 
+  // Para cada função alocada
   data.forEach((role, roleIndex) => {
     console.log(role)
+    // Para cada ano alocado
     role.years.forEach((year, yearIndex) => {
+      // Para cada mês alocado
       year.months.forEach((month, monthIndex) => {
+        // Define o sql que irá inserir na tabela de alocação de funções os dados da função atual, ano e mês atual
         sql = `INSERT INTO RoleAssignment (project_id, role_name, hours_assigned, month, year) VALUES ('${projectId}', '${role.roleName}', '${month.hours}', '${month.number}', '${year.number}')`
+
+        // Roda o script do banco e gera a alocação
         db.run(sql, [], (err) => {
           if (err) {
-            throw err
+            throw err // Verifica se há erros
           }
         })
       })
     })
   })
 
-  res.end()
+  res.end() // Retorna a resposta da requisição
 })
-
-// // bloco que atualiza od dados de um projeto já existente no banco de dados
-// router.patch('/', urlencodedParser, (req, res) => {
-//   res.statusCode = 200 // código de status de que o comando foi executado sem erros
-//   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
-
-//   sql =
-//     "UPDATE Project SET name = '" +
-//     req.body.name +
-//     "', location = '" +
-//     req.body.location +
-//     "',  start_date = '" +
-//     req.body.start_date +
-//     "', end_date = '" +
-//     req.body.end_date +
-//     "', description = '" +
-//     req.body.description +
-//     "', department_id = '" +
-//     req.body.department_id +
-//     "', roles_id = '" +
-//     req.body.roles_id +
-//     "' WHERE id = " +
-//     req.body.id // código sql que faz um update em um projeto já existente no banco de dados, requisitando nome, localização, data de início, de final, descrição, departamento, funções e id
-
-//   db.run(sql, [], err => {
-//     // executa o código sql no banco de dados
-//     if (err) {
-//       throw err // caso ocorra erro, ele será mostrado no terminal
-//     }
-//     res.end()
-//   })
-
-// })
 
 // bloco que apaga um projeto do banco de dados
 router.delete('/:id', urlencodedParser, (req, res) => {
@@ -208,18 +183,21 @@ router.delete('/:id', urlencodedParser, (req, res) => {
   })
 })
 
+// Endpoint que será responsável por retornar todas as alocações de funções de um projeto
 router.get('/employeesassigned/:project_id', (req, res) => {
   res.statusCode = 200
   res.setHeader('Acces-Control-Allow-Origin', '*')
-  let project_id = req.params['project_id']
+  let project_id = req.params['project_id'] // Guarda o id passado pela requisição
 
+  // Cria o sql que irá selecionar o nome, função e horas dos funcionários de um projeto
   sql = `SELECT Employee.name, Employee.role_name, EmployeeAssignment.hours_assigned FROM Employee INNER JOIN EmployeeAssignment ON Employee.id = EmployeeAssignment.employee_id WHERE EmployeeAssignment.project_id = ? AND EmployeeAssignment.month = ${month} AND EmployeeAssignment.year = ${year}`
 
+  // Executa o código sql no banco
   db.all(sql, [project_id], (err, rows) => {
     if (err) {
       throw err
     }
-    res.json(rows)
+    res.json(rows) // Retorna as linhas da tabela
   })
 })
 
