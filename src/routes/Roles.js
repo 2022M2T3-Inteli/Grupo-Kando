@@ -17,7 +17,7 @@ router.get('/all', (req, res) => {
     if (err) {
       throw err // caso ocorra erro, ele será mostrado no terminal
     }
-    res.json(rows) // retorna a lista de funcionários no formato json
+    res.json(rows) // retorna a lista de funções no formato json
   })
 })
 
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
   res.statusCode = 200 // código de status de que o comando foi executado sem erros
   res.setHeader('Access-Control-Allow-Origin', '*') // evita problemas com o CORS
 
-  var sql = 'SELECT * FROM Role WHERE id = ?' // seleciona da tabela employee todos as informações do employee que tiver o id requisitado
+  var sql = 'SELECT * FROM Role WHERE id = ?' // seleciona da tabela role todos as informações do employee que tiver o id requisitado
 
   db.get(sql, [id], (err, row) => {
     // executa o código sql no banco de dados
