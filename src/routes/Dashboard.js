@@ -172,17 +172,19 @@ router.get('/hoursavailable/:type', (req, res) => {
 
 // É passado nos parametros (url) o type de funcionário a ser consultado.
 router.get('/hoursavailablefiltred/:role', (req, res) => {
+  // define a url "dashboard/hoursavailablefiltred/(nome da função)" para retornar os dados requisitados abaixo
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let role = req.params['role']
+  let role = req.params['role'] // define a variável como parâmetro de nome de função
 
   var sql =
-    'SELECT SUM(projects_workload) AS projects_workload FROM Employee WHERE role_name = ?'
+    'SELECT SUM(projects_workload) AS projects_workload FROM Employee WHERE role_name = ?' // seleciona a soma de horas destinadas a projetos dos funcionários de uma determinada função
   db.get(sql, [role], (err, row) => {
+    // executa o código sql acima
     if (err) {
-      throw err
+      throw err // se houver algum erro, ele será mostrado no terminal
     }
-    res.json(row)
+    res.json(row) // retorna os dados requisitados em formato json
   })
 })
 
@@ -227,25 +229,28 @@ router.get('/projectemployees/:project_id/:type', (req, res) => {
   })
 })
 
-// Endpoint para consultar o número de funcionários em determinado projeto
+// Endpoint para consultar o número de funcionários em determinado mês
 router.get('/monthemployees/', (req, res) => {
+  // define a rota "dashboard/monthemployees" como o endereço que retornará os dados requisitados abaixo
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
 
   var sql =
     'SELECT COUNT(DISTINCT employee_id) AS employeeQty, month FROM EmployeeAssignment WHERE EmployeeAssignment.year = ' +
     year +
-    ' GROUP BY month'
+    ' GROUP BY month' // código sql que retorna o número de funcionários alocados no ano atual do sistema, agrupando por mês
   db.all(sql, [], (err, rows) => {
+    // executa o código sql acima
     if (err) {
-      throw err
+      throw err // se houver algum erro, ele será mostrado no console
     }
-    res.json(rows)
+    res.json(rows) // retorna os dados em formato de json
   })
 })
 
 // Endpoint responsável por consultar o número de funcionários em determinado mês
 router.get('/monthemployees/:type/', (req, res) => {
+  // define a url "/dashboard/monthemployees/(tipo)" como o endereço que retorna os dados requisitados abaixo
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
   let type = req.params['type'] // define o tipo (CLT ou TERCEIRO) como parâmetro para a requisição
@@ -257,12 +262,13 @@ router.get('/monthemployees/:type/', (req, res) => {
       ( 
         SELECT Employee.id FROM Employee WHERE Employee.type = ?
       ) GROUP BY month
-    `
+    ` // código sql que seleciona o número de funcionários alocados no ano atual do sistema, agrupados por mês e filtrando pelo tipo (CLT/TERCEIRO)
   db.all(sql, [type], (err, rows) => {
+    // executa o código sql acima
     if (err) {
-      throw err
+      throw err // se houver algum erro na execução, ele será mostrado no console
     }
-    res.json(rows)
+    res.json(rows) // retorna os dados requisitados
   })
 })
 
@@ -289,16 +295,17 @@ router.get('/rolesworkload', (req, res) => {
 router.get('/rolesassignment/:role_name/:project_id', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let role_name = req.params['role_name']
-  let project_id = req.params['project_id']
+  let role_name = req.params['role_name'] // variável reebe o parâmetro de nome de função
+  let project_id = req.params['project_id'] // variávelreceb o parãmetro de id do projeto
 
   var sql = `SELECT COUNT (hours_assigned) AS assignments FROM EmployeeAssignment WHERE employee_id IN (SELECT Employee.id FROM Employee WHERE Employee.role_name = ?) AND project_id = ?` // código sql que retorna a quantidade de alocações, filtrando por função e por projeto
   db.all(sql, [role_name, project_id], (err, rows) => {
+    // executa o código sql acima
     if (err) {
+      // se houver algum erro, ele será printado no console
       throw err
     }
-    // Retorna os dados solicitados
-    res.json(rows)
+    res.json(rows) // Retorna os dados solicitados
   })
 })
 
@@ -306,15 +313,16 @@ router.get('/rolesassignment/:role_name/:project_id', (req, res) => {
 router.get('/rolesworkloadfiltered/:project_id', (req, res) => {
   res.statusCode = 200
   res.setHeader('Access-Control-Allow-Origin', '*')
-  let project_id = req.params['project_id']
+  let project_id = req.params['project_id'] // variável recebe o parâmetro de id do projeto
 
   var sql = `SELECT SUM(hours_assigned) AS hours_assigned, role_name FROM EmployeeAssignment INNER JOIN Employee ON EmployeeAssignment.employee_id = Employee.id WHERE EmployeeAssignment.project_id = ? GROUP BY role_name ORDER BY hours_assigned DESC` // código sql que retorna a soma das horas alocadas, filtrando por função e por projeto
   db.all(sql, [project_id], (err, rows) => {
+    // executa o código sql acima
     if (err) {
+      // se houver algum erro, ele será printado no console
       throw err
     }
-    // Retorna os dados solicitados
-    res.json(rows)
+    res.json(rows) // Retorna os dados solicitados
   })
 })
 

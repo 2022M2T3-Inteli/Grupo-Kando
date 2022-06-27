@@ -456,18 +456,19 @@ getRolesWorkload()
 // Define a função que irá gerar o gráfico de horas por função
 function generateRolesWorkloadChart(roles, monthWorkload) {
   new Chart($('#general-roles-chart'), {
-    type: 'bar',
+    // seleciona o elemento do html com id "general-roles-chart" para receber o gráfico criado
+    type: 'bar', // define o tipo do gráfico como sendo de barras
     data: {
-      labels: roles,
+      labels: roles, // define o parâmetro "roles" - os nomes das funções - como as labels do gráficos
       datasets: [
         {
-          data: monthWorkload,
-          backgroundColor: ['red', 'blue', 'green', 'grey', 'pink']
+          data: monthWorkload, // define o parâmetro "monthWorkload" - a carga horária mensal de cada função - como os dados do gráfico
+          backgroundColor: ['red', 'blue', 'green', 'grey', 'pink'] // define essas cores como as cores das barras do gráfico
         }
       ]
     },
     options: {
-      responsive: true,
+      responsive: true, // gráfico responsivo
       maintainAspectRatio: false,
       plugins: {
         legend: {
@@ -478,7 +479,7 @@ function generateRolesWorkloadChart(roles, monthWorkload) {
         y: {
           min: 0,
           max: function () {
-            return monthWorkload[0] + 20
+            return monthWorkload[0] + 20 // a altura máxima do eixo y do gráfico é o reultado da soma do valor da maior barra mais 20
           }
         }
       }
@@ -488,101 +489,110 @@ function generateRolesWorkloadChart(roles, monthWorkload) {
 
 // ######## GRÁFICO STATUS DOS FUNCIONÁRIOS
 
-let employeeAssignmentQty
+let employeeAssignmentQty // criação da variável que armazena o número de alocações de funcionários
 
+// função que recebe acessa a requisição do número de alocações de funcionários
 function getEmployeesAssignmentQty() {
-  let url = 'dashboard/employeesassignmentqty'
+  let url = 'dashboard/employeesassignmentqty' // acessa a url da rota
 
+  // faz um http request do conteúdo do endereço da rota
   let xhttp = new XMLHttpRequest()
 
   xhttp.open('get', url, false)
   xhttp.send()
 
-  let data = JSON.parse(xhttp.responseText)
+  let data = JSON.parse(xhttp.responseText) // faz um json dos dados recebidos
 
-  employeeAssignmentQty = data
+  employeeAssignmentQty = data // atribui à variável "employeeAssignmentQty" o json recebido
 }
 
 getEmployeesAssignmentQty()
 console.log(employeeAssignmentQty)
 
+// função que retorna o número de horas destinadas à projetos de um certo funcionário
 function getEmployeesProjectsWorkload(id) {
-  let url = 'dashboard/projectsworkload/' + id
+  let url = 'dashboard/projectsworkload/' + id // acessa a url da rota, filtrando por id do funcionário
 
+  // faz um http request do conteúdo do endereço da rota
   let xhttp = new XMLHttpRequest()
 
   xhttp.open('get', url, false)
   xhttp.send()
 
-  let data = JSON.parse(xhttp.responseText)
+  let data = JSON.parse(xhttp.responseText) // faz um json dos dados recebidos
 
-  return data[0].projects_workload
+  return data[0].projects_workload // retorna o número de horas destinadas à projetos de um certo funcionário
 }
 
+// função que retorna a quantidade de horas alocadas de um funcionário
 function getTodayEmployeesWorkload(id) {
-  let url = 'dashboard/employeeworkload/' + id
+  let url = 'dashboard/employeeworkload/' + id // acessa a url da rota
 
+  // faz um http request do conteúdo do endereço da rota
   let xhttp = new XMLHttpRequest()
 
   xhttp.open('get', url, false)
   xhttp.send()
 
-  let data = JSON.parse(xhttp.responseText)
+  let data = JSON.parse(xhttp.responseText) // faz um json dos dados recebidos
 
-  return data[0].hours_assigned
+  return data[0].hours_assigned // retorna a quantidade de horas alocadas de um funcionário
 }
 
+// variáveis auxiliares para a função abaixo
 let employeesGeneralOverloadedQty = 0
 let employeesProjectOverloadedQty = 0
 let employeesNotOverloadedQty = 0
 
+// função que calcula o status (dentro do limite estipulado, sobrecarregados para projetos, sobrecarregados em geral) dos funcionários alocados no mês atual
 function calculateWorkloadStatus() {
   for (employee = 0; employee < employeeAssignmentQty.length; employee++) {
+    // percorre a lista de funcionários alocados no mês atual do sistema
     if (
       getTodayEmployeesWorkload(employeeAssignmentQty[employee].employee_id) >
       176
     ) {
-      employeesGeneralOverloadedQty += 1
+      employeesGeneralOverloadedQty += 1 // aumenta o número de funcionários sobrecarregados em geral, caso o número de horas alocadas for maior que 176 (acima do limite legal)
     } else if (
       getTodayEmployeesWorkload(employeeAssignmentQty[employee].employee_id) >
       getEmployeesProjectsWorkload(employeeAssignmentQty[employee].employee_id)
     ) {
-      employeesProjectOverloadedQty += 1
+      employeesProjectOverloadedQty += 1 // aumenta o número de funcionários sobrecarregados para projetos, caso o número de horas alocadas for maior que o número de horas destinadas a projetos previamente estipulado
     } else {
-      employeesNotOverloadedQty += 1
+      employeesNotOverloadedQty += 1 // aumenta o número de funcionários não sobrecarregados, caso o número de horas alocadas for menor ou igual ao número de horas destinadas a projetos previamente estipulado
     }
   }
 }
 
-calculateWorkloadStatus()
+calculateWorkloadStatus() // executa a função acima, mudando o valor das variáveis
 
-const employeeStatusChart = {
+const employeeStatusChart = { // define os dados para o gráfico
   labels: [
     'Nº de Funcionarios Dentro da Carga Horária',
     'Nº de Funcionarios Sobrecarregados Geral',
     'Nº de Funcionarios Sobrecarregados para Projetos'
-  ],
+  ], // define as labels do gráfico como os possíveis status dos funcionários
   datasets: [
     {
       data: [
-        employeesNotOverloadedQty,
-        employeesGeneralOverloadedQty,
-        employeesProjectOverloadedQty
-      ],
+        employeesNotOverloadedQty, // número de funcionários dentro da carga horária estipulada
+        employeesGeneralOverloadedQty, // número de funcionários sobrecarregados em geral
+        employeesProjectOverloadedQty // número de funcionários sobrecarregados para projetos
+      ], 
       backgroundColor: [
         'rgb(155, 215, 235)',
         'rgb(154, 12, 135)',
         'rgb(255, 199, 12)'
-      ]
+      ] // cores das seções do gráfico
     }
   ]
 }
 
-const employeeStatusChartConfig = {
-  type: 'pie',
-  data: employeeStatusChart,
+const employeeStatusChartConfig = { // define a configuração do gráfico
+  type: 'pie', // define o tipo de gráfico como sendo de pizza / stores
+  data: employeeStatusChart, // define a variável "employeeStausChart" como o objeto que servirá como os dados para construção do gráfico
   options: {
-    responsive: true,
+    responsive: true, // gráfico responsivo
     maintainAspectRatio: false,
     plugins: {
       offset: 30
@@ -590,18 +600,19 @@ const employeeStatusChartConfig = {
   }
 }
 
-const generalCtx5 = document.getElementById('general-employee-chart2')
-const generalDashChart5 = new Chart(generalCtx5, employeeStatusChartConfig)
+const generalCtx5 = document.getElementById('general-employee-chart2') // escolhe o elemento de id "general-employee-chart2" para receber o gráfico criado acima
+const generalDashChart5 = new Chart(generalCtx5, employeeStatusChartConfig) // constrói o gráfico acima
 
 // Função que faz a requisição para gerar os dados do gráfico de projetos (Aba de projetos do Dashboard)
 function getProjectEmployees(id, type) {
-  let url = `dashboard/projectemployees/${id}/${type}`
+  let url = `dashboard/projectemployees/${id}/${type}` // acessa a url da rota, filtrando por tipo (CLT ou TERCEIRO) e id do funcionário
 
+  // faz um http request do conteúdo do endereço da rota
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
   xhttp.send()
 
-  let data = JSON.parse(xhttp.responseText)[0]
+  let data = JSON.parse(xhttp.responseText)[0] // faz um json dos dados recebidos
   // Retorna os dados de quantidade de funcionários
   if (data) {
     return data.employee_qty
@@ -644,7 +655,6 @@ const project1Chart1Config = {
   }
 }
 
-// ############# Início do gráfico estático de projetos
 const project1Chart2 = {
   labels: ['data inicial', 'data final'],
   datasets: [
@@ -745,8 +755,6 @@ function generateRolesWorkloadFilteredChart(roles, monthWorkload) {
   })
 }
 
-// ############ Fim do gráfico estático de projetos
-
 // Chama a função para gerar os primeiros gráficos de horas da tela
 generateHoursChartData('all')
 // Define a função que irá ser responsável por excluir o gráfico de horas antigo e gerar o novo de acordo com o filtro de função escolhido
@@ -759,14 +767,14 @@ function chartChange(value) {
 
 // Função que faz a requisição para obter a média de horas dos funcionários por função
 function getRolesWorkloadFiltered(projectId) {
-  let url = `dashboard/rolesworkloadfiltered/${projectId}`
+  let url = `dashboard/rolesworkloadfiltered/${projectId}` // acessa a url da rota, filtrando por id do projeto
 
+  // faz um http request do conteúdo do endereço da rota
   let xhttp = new XMLHttpRequest()
   xhttp.open('get', url, false)
   xhttp.send()
 
-  let data = JSON.parse(xhttp.responseText)
-  console.log(data)
+  let data = JSON.parse(xhttp.responseText) // faz um json dos dados recebidos
 
   // Percorre as linhas retornadas do banco e define as funções e seus valores de horas por mês
   let roles = []
@@ -775,8 +783,6 @@ function getRolesWorkloadFiltered(projectId) {
     roles.push(row.role_name)
     monthWorkload.push(row.hours_assigned)
   })
-
-  console.log(roles, monthWorkload)
 
   // Retorna a função que cria o gráfico de horas alocação por função
   return generateRolesWorkloadFilteredChart(roles, monthWorkload)
